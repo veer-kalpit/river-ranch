@@ -12,11 +12,24 @@
   font-weight: normal;
   font-style: normal;
 }
-
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/Inter.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Cormorant Garamond";
+  src: url("/fonts/Cormorant.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
 
 :root {
   --font-jaini: "Jaini", sans-serif;
   --font-amatic: "Amatic SC", sans-serif;
+  --font-inter: "Inter", sans-serif;
+  --font-cormorant: "Cormorant Garamond", sans-serif;
 }
 
 .font-jaini {
@@ -24,4 +37,10 @@
 }
 .font-amatic {
   font-family: var(--font-amatic);
+}
+.font-inter {
+  font-family: var(--font-inter);
+}
+.font-cormorant {
+  font-family: var(--font-cormorant);
 }
