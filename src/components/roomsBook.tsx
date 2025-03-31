@@ -34,7 +34,7 @@ const items = [
 
 const RoomsBook = () => {
   return (
-    <div className="flex flex-col items-center h-screen bg-[#F5F8FA]">
+    <div className="flex flex-col items-center h-auto bg-[#F5F8FA]">
       <h3 className="text-[16px] font-light font-inter uppercase text-[#050E14] text-center">
         Stay By The Waters
       </h3>
