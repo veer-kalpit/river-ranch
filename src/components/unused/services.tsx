@@ -2,7 +2,7 @@
 
 import { motion, MotionProps, useScroll, useTransform } from "motion/react";
 import { useEffect, useRef, useState } from "react";
-import { throttle } from "../utils/lib";
+import { throttle } from "../../utils/lib";
 
 const items = [
   {

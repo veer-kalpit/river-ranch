@@ -4,7 +4,6 @@ import Cottage from "../../public/cottage.png";
 import { FaUsers } from "react-icons/fa";
 import { MdOutlinePets } from "react-icons/md";
 
-
 const items = [
   {
     id: 1,
@@ -34,69 +33,66 @@ const items = [
 
 const RoomsBook = () => {
   return (
-    <div className="flex flex-col items-center h-auto bg-[#F5F8FA]">
-      <h3 className="text-[16px] font-light font-inter uppercase text-[#050E14] text-center">
+    <div className="flex flex-col items-center bg-[#F5F8FA] py-10 px-4 md:px-10">
+      <h3 className="text-lg md:text-[16px] font-light font-inter uppercase text-[#050E14] text-center">
         Stay By The Waters
       </h3>
-      <h2 className="text-[48px] font-semibold font-cormorant text-[#205781] mt-[40px] text-center">
+      <h2 className="text-3xl md:text-[48px] font-semibold font-cormorant text-[#205781] mt-4 md:mt-[40px] text-center">
         Riverside Cottages
       </h2>
-      <p className="font-inter text-[16px] font-normal text-center text-[#050E14] mt-[40px] ">
+      <p className="font-inter text-base md:text-[16px] text-center text-[#050E14] mt-4 md:mt-[40px] max-w-xl">
         Experience the perfect blend of rustic charm and modern comfort in our
-        riverside cottages.
-        <br /> Each accommodation offers unique water views and easy access to
-        our natural surroundings.
+        riverside cottages. Each accommodation offers unique water views and
+        easy access to our natural surroundings.
       </p>
-      <h3 className="font-inter text-[16px] font-normal text-center text-[#205781] mt-[40px] uppercase border-b-2 border-[#205781] pb-[13px]">
+      <h3 className="font-inter text-base md:text-[16px] uppercase border-b-2 border-[#205781] pb-3 mt-6 md:mt-[40px] text-[#205781] text-center">
         Check Availability
       </h3>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-10">
+      {/* Grid Layout for Cards */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-10 w-full max-w-[1300px]">
         {items.map((item) => (
           <div
             key={item.id}
-            className="flex flex-col items-center bg-[#FFFFFF] rounded-[16px] w-[528px] shadow-md"
+            className="flex flex-col items-center bg-white rounded-xl shadow-md w-full max-w-[528px] "
           >
             <Image
               src={item.src}
               alt={item.name}
-              className="rounded-[16px]"
+              className="rounded-xl"
               width={528}
               height={348}
+              layout="responsive"
             />
-            <div className="flex flex-row justify-between w-full px-[24px] pt-[24px]">
-              <h4 className="text-[32px] font-semibold font-cormorant text-black">
+            <div className="flex flex-row justify-between w-full px-6 pt-6">
+              <h4 className="text-2xl md:text-[32px] font-semibold font-cormorant text-black">
                 {item.name}
               </h4>
-              <p className="text-[16px] font-inter py-2 px-4 text-white text-center  bg-black rounded-[56px]">
+              <p className="text-base md:text-[16px] font-inter py-2 px-4 text-white bg-black rounded-full">
                 ${item.price}/Night
               </p>
             </div>
 
-            <p className="text-[14px] font-normal px-[24px] font-inter text-[#050E14] mt-[16px]">
+            <p className="text-sm md:text-[14px] font-inter text-[#050E14] mt-4 px-6">
               {item.desc}
             </p>
-            <div className="flex flex-row justify-between w-full mt-[16px] px-6 items-center">
-              <p className="text-[18px] font-inter font-normal flex text-black">
-                <span className="pr-[5px]">
-                  <FaUsers />
-                </span>
+            <div className="flex flex-row justify-between w-full mt-4 px-6 items-center">
+              <p className="text-lg font-inter flex items-center text-black">
+                <FaUsers className="mr-2" />
                 {item.guest} Guests
               </p>
-              <p className="text-[18px] font-inter font-normal flex text-black">
-                <span className="pr-[5px]">
-                  <MdOutlinePets />
-                </span>
+              <p className="text-lg font-inter flex items-center text-black">
+                <MdOutlinePets className="mr-2" />
                 Pet Friendly
               </p>
             </div>
-            <div className="gap-4 flex flex-col mt-6">
-              <p className="font-inter font-normal text-[16px] text-center h-[50px] py-[16px] border-2  border-[#0000004D] w-[480px] px-6 rounded-[24.82px] items-center">
+            <div className="flex flex-col gap-4 mt-6 w-full p-6 ">
+              <button type="button" className="font-inter font-normal text-base md:text-[16px] text-center h-12 border-2 border-[#0000004D] rounded-full">
                 View Details
-              </p>
-              <p className="font-inter font-normal text-white bg-[#205781] text-[16px] text-center h-[50px] py-[16px] border-2 w-[480px] px-6 rounded-[24.82px] items-center ">
+              </button>
+              <button type="button" className="font-inter font-normal text-white bg-[#205781] text-base md:text-[16px] text-center h-12 rounded-full">
                 Book Now
-              </p>
+              </button>
             </div>
           </div>
         ))}

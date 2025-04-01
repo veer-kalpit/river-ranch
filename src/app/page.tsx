@@ -1,14 +1,15 @@
 import React from "react";
-// import Services from "@/components/services";
-// import Rooms from "@/components/rooms";
 import RoomsBook from "@/components/roomsBook";
+import AboutUs from "@/components/aboutUs";
+import Banner from "@/components/banner";
+import Spa from "@/components/Spa";
 
 const page = () => {
   return (
     <div>
-      {/* <Rooms />
-      <Services /> */}
-
+      <AboutUs />
+      <Banner />
+      <Spa />
       <RoomsBook />
     </div>
   );

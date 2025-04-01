@@ -44,3 +44,22 @@
 .font-cormorant {
   font-family: var(--font-cormorant);
 }
+.about-us {
+  background-image: url('/MaskBg.png');
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+.banner {
+  background-image: url('/bannerBg.png');
+  background-size: cover;
+  position: relative;
+  background-position: center;    
+}
+.Spa {
+  background-image: url('/SpaBg.png');
+  background-size: cover;
+  position: relative;
+  background-position: center;    
+}
