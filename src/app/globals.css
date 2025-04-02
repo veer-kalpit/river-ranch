@@ -44,3 +44,10 @@
 .font-cormorant {
   font-family: var(--font-cormorant);
 }
+
+/* removes unnecessary horizontal scrollbars */
+html,
+body {
+  overflow-x: hidden;
+}
+

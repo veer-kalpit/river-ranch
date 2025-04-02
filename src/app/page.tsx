@@ -3,6 +3,7 @@ import React from "react";
 // import Rooms from "@/components/rooms";
 // import RoomsBook from "@/components/roomsBook";
 import Explore from "@/components/explore";
+import Discover from "@/components/discover";
 
 const page = () => {
   return (
@@ -11,6 +12,7 @@ const page = () => {
       <Services /> */}
 
       <Explore />
+      <Discover />
     </div>
   );
 };
