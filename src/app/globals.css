@@ -63,3 +63,10 @@
   position: relative;
   background-position: center;    
 }
+
+/* removes unnecessary horizontal scrollbars */
+html,
+body {
+  overflow-x: hidden;
+}
+

@@ -5,6 +5,8 @@ import Banner from "@/components/banner";
 import Spa from "@/components/Spa";
 import Booking from "@/components/booking";
 import Gallery from "@/components/Gallery";
+import Explore from "@/components/explore";
+import Discover from "@/components/discover";
 
 const page = () => {
   return (
@@ -12,6 +14,8 @@ const page = () => {
       <AboutUs />
       <Banner />
       <Spa />
+      <Explore />
+      <Discover />
       <RoomsBook />
       <Booking />
       <Gallery />
