@@ -118,7 +118,7 @@ function Modal({ selected, setSelected }: ModalProps) {
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
     };
-  }, [selected]);
+  }, [selected, setSelected]);
 
   return (
     <AnimatePresence>

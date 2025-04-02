@@ -62,7 +62,7 @@ const Discover = () => {
             <p className="font-inter w-[220px] text-[#333333] text-xs leading-[18px]">
               A Dining Experience Where Every Bite Is A Work Of Art. We Offer
               Several Spaces In Which You Can Enjoy The Best Of The Sea, Good
-              Company, Savoir Vivre And The Joy Of Feeling Loved. Isn't That The
+              Company, Savoir Vivre And The Joy Of Feeling Loved. Isn&apos;t That The
               True Mediterranean Way?
             </p>
 
