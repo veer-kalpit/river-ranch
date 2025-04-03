@@ -17,7 +17,7 @@ export default function RootLayout({
     <html lang="en">
       <body
       >
-        <Cursor text="River Ranch" color="#205781" font="inter" textSize={18} />
+        <Cursor />
         {children}
       </body>
     </html>
