@@ -70,3 +70,9 @@ body {
   overflow-x: hidden;
 }
 
+/* globals.css */
+@media (max-width: 768px) {
+  .cursor {
+    display: none;
+  }
+}

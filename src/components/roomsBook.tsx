@@ -1,8 +1,11 @@
-import React from "react";
-import Image from "next/image";
+"use client";
+
+import React, { useState } from "react";
+import Image, { StaticImageData } from "next/image";
 import Cottage from "../../public/cottage.png";
 import { FaUsers } from "react-icons/fa";
 import { MdOutlinePets } from "react-icons/md";
+import RoomDetailModal from "@/components/RoomDetailModal";
 
 const items = [
   {
@@ -12,6 +15,15 @@ const items = [
     price: "7500",
     desc: "A peaceful cottage with panoramic river views, nestled beside our organic garden for maximum privacy.",
     guest: "4",
+    minStay: "2 Nights",
+    amenities: [
+      "Queen bed",
+      "Private Deck",
+      "Breakfast Included",
+      "Luxury Bathroom",
+      "Fireplace",
+      "Fishing Access",
+    ],
   },
   {
     id: 2,
@@ -20,6 +32,15 @@ const items = [
     price: "8500",
     desc: "Experience breathtaking mountain views with cozy interiors and modern amenities for a serene getaway.",
     guest: "5",
+    minStay: "2 Nights",
+    amenities: [
+      "Queen bed",
+      "Private Deck",
+      "Breakfast Included",
+      "Luxury Bathroom",
+      "Fireplace",
+      "Fishing Access",
+    ],
   },
   {
     id: 3,
@@ -28,10 +49,36 @@ const items = [
     price: "7000",
     desc: "Surrounded by lush greenery, this cabin offers a tranquil escape with all modern comforts.",
     guest: "3",
+    minStay: "2 Nights",
+    amenities: [
+      "Queen bed",
+      "Private Deck",
+      "Breakfast Included",
+      "Luxury Bathroom",
+      "Fireplace",
+      "Fishing Access",
+    ],
   },
 ];
 
 const RoomsBook = () => {
+  const [selectedRoom, setSelectedRoom] = useState<{
+    id: number;
+    name: string;
+    src: StaticImageData;
+    price: string;
+    desc: string;
+    guest: string;
+    amenities: string[];
+    minStay: string;
+  } | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = (room: { id: number; name: string; src: StaticImageData; price: string; desc: string; guest: string; amenities: string[]; minStay: string }) => {
+    setSelectedRoom(room);
+    setIsModalOpen(true);
+  };
+
   return (
     <div className="flex flex-col items-center bg-[#F5F8FA] py-10 px-4 md:px-10">
       <h3 className="text-lg md:text-[16px] font-light font-inter uppercase text-[#050E14] text-center">
@@ -54,7 +101,7 @@ const RoomsBook = () => {
         {items.map((item) => (
           <div
             key={item.id}
-            className="flex flex-col items-center bg-white rounded-xl shadow-md w-full max-w-[528px] "
+            className="flex flex-col items-center bg-white rounded-xl shadow-md w-full max-w-[528px]"
           >
             <Image
               src={item.src}
@@ -86,17 +133,33 @@ const RoomsBook = () => {
                 Pet Friendly
               </p>
             </div>
-            <div className="flex flex-col gap-4 mt-6 w-full p-6 ">
-              <button type="button" className="font-inter font-normal text-base md:text-[16px] text-center h-12 border-2 border-[#0000004D] rounded-full">
+            <div className="flex flex-col gap-4 mt-6 w-full p-6">
+              <button
+                type="button"
+                onClick={() => openModal(item)}
+                className="font-inter font-normal text-base md:text-[16px] text-center h-12 border-2 border-[#0000004D] rounded-full"
+              >
                 View Details
               </button>
-              <button type="button" className="font-inter font-normal text-white bg-[#205781] text-base md:text-[16px] text-center h-12 rounded-full">
-                Book Now
-              </button>
+              {/* <a href={`/rooms/${item.id}?book=true`}> */}
+                <button
+                  type="button"
+                  className="font-inter font-normal text-white bg-[#205781] text-base md:text-[16px] text-center h-12 rounded-full w-full"
+                >
+                  Book Now
+                </button>
+              {/* </a> */}
             </div>
           </div>
         ))}
       </div>
+
+      {/* Room Detail Modal */}
+      <RoomDetailModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        room={selectedRoom}
+      />
     </div>
   );
 };

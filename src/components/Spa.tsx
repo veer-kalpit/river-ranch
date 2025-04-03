@@ -31,7 +31,7 @@ const Spa = () => {
   }, []);
 
   return (
-    <section className="bg-[#205781] flex flex-col gap-[60px] md:gap-[140px] pb-[100px] md:py-[215px]">
+    <section className="bg-[#205781] lg:flex flex-col gap-[60px] md:gap-[140px] pb-[100px] md:py-[215px] hidden">
       {/* First Section */}
       <div className="flex flex-col md:flex-row items-center md:justify-center gap-[50px] md:gap-[216px]">
         {/* Left Content */}
