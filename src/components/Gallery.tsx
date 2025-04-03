@@ -47,7 +47,7 @@ function UnsplashGrid() {
         <h1 className="text-[48px] leading-[65px] font-semibold font-cormorant mt-10 text-[#205781] text-center">
           Gallery
         </h1>
-        <div className="columns-2 2xl:columns-3 gap-10 mt-[100px]">
+        <div className="columns-3 gap-10 mt-[100px] px-10">
           {items.map((item, index) => (
             <ImageItem
               key={item.id}

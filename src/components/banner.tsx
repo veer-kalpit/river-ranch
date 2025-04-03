@@ -1,14 +1,30 @@
-import React from "react";
+"use client";
+
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
+import { motion } from "framer-motion";
 import BannerImg from "../../public/yuliya.png";
 import WaterSplash from "../../public/watersplash.png";
 import FacilityCard from "./facilityCard";
 
 const Banner = () => {
+  const [scrollY, setScrollY] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrollY(window.scrollY);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // Calculate clip-path value for top-to-bottom reveal
+  const clipHeight = Math.min(100, scrollY / 5); // Adjust speed of reveal
+
   return (
     <section>
-      <div className="flex flex-col lg:flex-row  justify-center gap-12 lg:gap-[115px] pt-10 lg:pt-[160px] h-auto lg:h-screen">
-        <div className="flex flex-col text-center lg:text-left max-w-lg">
+      <div className="flex flex-col lg:flex-row  justify-center p-10 gap-12 lg:gap-[115px] pt-10 lg:pt-[160px] h-auto lg:h-screen">
+        <div className="flex flex-col text-left max-w-lg">
           <h1 className="font-cormorant font-semibold text-3xl md:text-4xl lg:text-5xl leading-tight text-[#205781] capitalize">
             A Haven of Tranquility
           </h1>
@@ -26,21 +42,28 @@ const Banner = () => {
             See Rooms
           </button>
         </div>
-        <div className="flex justify-center relative">
+        <div className="flex lg:relative">
           <Image
             src={BannerImg}
             alt="Swimming Pool"
             width={549}
             height={688}
-            className="w-[549px] h-[688px]  mt-6 lg:mt-[42px]"
+            className="lg:w-[549px] lg:h-[688px] w-[331px] h-[468px] mt-6 lg:mt-[42px]"
           />
-          <Image
-            src={WaterSplash}
-            alt="Water splash"
-            width={721}
-            height={919}
+          <motion.div
             className="absolute -z-10 -top-[190px] -right-[300px] hidden lg:block"
-          />
+            style={{
+              clipPath: `polygon(0% 0%, 100% 0%, 100% ${clipHeight}%, 0% ${clipHeight}%)`,
+              transition: "clip-path 0.3s ease-out",
+            }}
+          >
+            <Image
+              src={WaterSplash}
+              alt="Water splash"
+              width={721}
+              height={919}
+            />
+          </motion.div>
         </div>
       </div>
       <FacilityCard />

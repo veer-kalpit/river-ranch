@@ -3,7 +3,7 @@ import WhyBook from "./WhyBook";
 
 const booking = () => {
   return (
-    <div className="flex flex-col lg:flex-row items-center justify-center gap-[264px] bg-[#F5F8FA] px-[120px] py-[160px] ">
+    <div className="flex flex-col lg:flex-row items-center justify-center gap-10 p-10 lg:gap-[264px] bg-[#F5F8FA] lg:px-[120px] lg:py-[160px] ">
       <BookingInfo />
       <WhyBook />
     </div>
