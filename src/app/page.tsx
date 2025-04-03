@@ -12,11 +12,15 @@ import Footer from "@/components/footer";
 const page = () => {
   return (
     <div>
-      {/* <Rooms />
-      <Services /> */}
-
+      <AboutUs />
+      <Banner />
+      <Spa />
       <Explore />
       <Discover />
+      <RoomsBook />
+      <Booking />
+      <Gallery />
+      <Footer/>
     </div>
   );
 };
