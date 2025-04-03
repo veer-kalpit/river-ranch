@@ -70,6 +70,11 @@ body {
   overflow-x: hidden;
 }
 
+input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(1); /* Makes it white */
+  cursor: pointer;
+}
+
 /* globals.css */
 @media (max-width: 768px) {
   .cursor {

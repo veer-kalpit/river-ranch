@@ -7,18 +7,16 @@ import Booking from "@/components/booking";
 import Gallery from "@/components/Gallery";
 import Explore from "@/components/explore";
 import Discover from "@/components/discover";
+import Footer from "@/components/footer";
 
 const page = () => {
   return (
     <div>
-      <AboutUs />
-      <Banner />
-      <Spa />
+      {/* <Rooms />
+      <Services /> */}
+
       <Explore />
       <Discover />
-      <RoomsBook />
-      <Booking />
-      <Gallery />
     </div>
   );
 };
