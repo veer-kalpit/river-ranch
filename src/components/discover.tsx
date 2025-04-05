@@ -20,12 +20,11 @@ const Discover = () => {
         <div className="w-fit h-fit space-y-5 mr-[12%] sm:mr-[40%] md:mr-0 ">
           <div className="w-fit h-fit">
             <h6 className="font-inter font-extralight text-[#333333] text-[10px] mb-6 tracking-[3.5px]">
-              DINNING
+              YOGA AND HEALING EXPERIENCES
             </h6>
 
             <h1 className="font-cormorant max-w-[300px] text-[#205781] text-3xl sm:text-4xl leading-9">
-              A Unique, Theatrical Experience Where Each Table Is Its Own Foodie
-              Experience.
+              Enjoy Yoga Sessions That Restore Balance And Bring Peace.
             </h1>
           </div>
 
@@ -45,7 +44,7 @@ const Discover = () => {
         </div>
 
         <div className="w-fit h-fit space-y-8">
-          <div className="w-[200px] h-[220px] md:w-[230px] md:h-[250px] relative">
+          <div className="w-[200px] h-[250px] md:w-[230px] md:h-[320px] relative">
             <Image
               className="w-full h-full object-cover shadow-lg relative z-10"
               src={Warehouse_2}
@@ -54,11 +53,12 @@ const Discover = () => {
           </div>
 
           <div className="w-fit h-fit space-y-8 ">
-            <p className="font-inter w-[220px] text-[#333333] text-xs leading-[18px]">
-              A Dining Experience Where Every Bite Is A Work Of Art. We Offer
-              Several Spaces In Which You Can Enjoy The Best Of The Sea, Good
-              Company, Savoir Vivre And The Joy Of Feeling Loved. Isn&apos;t
-              That The True Mediterranean Way?
+            <p className="font-inter w-[250px] text-[#333333] text-xs leading-[18px]">
+              Yoga Is A Holistic Practice That Harmonizes The Body, Mind, And
+              Soul, Promoting Inner Peace And Physical Vitality. Through
+              Mindfulness, Meditation, And Movement, It Offers A Transformative
+              Healing Experience, Easing Stress, Improving Well-Being, And
+              Fostering Self-Awareness.
             </p>
 
             <button className="cursor-pointer w-[60px] font-inter text-[#205781] text-[12px] text-left">
@@ -74,13 +74,12 @@ const Discover = () => {
             src={Warehouse_1}
             alt="ware house"
           />
+          <Image
+            className="w-full h-fit scale-[2.5] md:scale-[3] absolute top-[20%] md:top-[5%] left-[20%] z-0"
+            src={Splash}
+            alt="Splash"
+          />
         </div>
-
-        <Image
-          className=" w-[600px] h-fit absolute top-[0%] right-[0%] z-0"
-          src={Splash}
-          alt="Splash"
-        />
       </div>
 
       <div className="w-full h-screen min-h-fit flex flex-wrap justify-center items-center gap-20 py-10 relative md:gap-30">
@@ -94,10 +93,11 @@ const Discover = () => {
           {/* Text area 2  */}
           <div className="w-fit h-fit space-y-8 ml-12">
             {/* paragraph 1  */}
-            <p className="font-inter w-[220px] text-[#333333] text-xs leading-[18px]">
-              We Offer Three Different Culinary Spaces That Are An Honest And
-              Original Ode To Our Sea. A Diner’s Life Begins When He Enters A
-              Restaurant And Ends With A Satisfied Sigh.
+            <p className="font-inter w-[250px] text-[#333333] text-xs leading-[18px]">
+              A Nature Sanctuary Is A Paradise Where Greenery Abounds, And The
+              Air Hums With Life, Offering Peace And Purity At Every Step. It's
+              A Living Canvas Of Earth's Beauty, Where One Feels Deeply
+              Connected To The Essence Of The Natural World.
             </p>
 
             {/* button 1 */}
@@ -111,12 +111,12 @@ const Discover = () => {
         <div className="w-fit h-fit space-y-16 relative ml-auto mr-[5%] z-10 lg:ml-0 lg:mr-0">
           <div className="w-fit h-fit">
             <h6 className="font-inter font-extralight text-[#333333] text-[10px] mb-6 tracking-[3.5px]">
-              OUR RESTAURENT
+              NATURE SANCTURY
             </h6>
 
             <h1 className="font-cormorant max-w-[300px] text-[#205781] text-3xl sm:text-4xl leading-9">
-              Where The Chefs And Gardeners Work Together To Create A Unique
-              Dining Experience
+              A Nature Sanctuary Is A Peaceful Heven Full Of Greenery And
+              Natural Beauty.
             </h1>
           </div>
 
@@ -128,7 +128,7 @@ const Discover = () => {
         </div>
 
         <Image
-          className="w-[220px] h-fit absolute top-[50%] right-0 z-0"
+          className="w-[220px] h-fit absolute top-[69%] lg:top-[50%] right-0 z-0"
           src={Splash_3}
           alt="Splash_3"
         />
