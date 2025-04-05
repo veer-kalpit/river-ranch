@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import Cursor from "@/components/cursor"
-import Navbar from "@/components/Navbar";
 
 
 export const metadata: Metadata = {
@@ -20,7 +19,6 @@ export default function RootLayout({
       >
 
         <Cursor />
-        <Navbar/>
         {children}
       </body>
     </html>

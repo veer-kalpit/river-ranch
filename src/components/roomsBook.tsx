@@ -107,10 +107,9 @@ const RoomsBook = () => {
               <Image
                 src={item.src}
                 alt={item.name}
-                className="rounded-xl"
+                className="rounded-xl w-full h-auto" 
                 width={528}
                 height={348}
-                layout="responsive"
               />
               <div className="flex flex-row justify-between w-full px-6 pt-6">
                 <h4 className="text-2xl md:text-[32px] font-semibold font-cormorant text-black">
