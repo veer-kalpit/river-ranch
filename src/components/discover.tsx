@@ -8,6 +8,7 @@ import Warehouse_1 from "../../public/ware_house_1.jpeg";
 import Warehouse_2 from "../../public/ware_house_2.png";
 import Warehouse_3 from "../../public/ware_house_3.jpeg";
 import Splash_1 from "../../public/splash_1.png";
+import Splash from "../../public/splash.png";
 import Splash_2 from "../../public/splash_2.png";
 import Splash_3 from "../../public/splash_3.png";
 import Sunset from "../../public/sunset.jpeg";
@@ -15,7 +16,7 @@ import Sunset from "../../public/sunset.jpeg";
 const Discover = () => {
   return (
     <div className="w-screen h-fit min-h-screen bg-white overflow-hidden">
-      <div className="w-full h-screen min-h-fit flex flex-col md:flex-row flex-wrap justify-center items-center gap-20 py-10 md:gap-30 md:py-30 md:px-10">
+      <div className="relative w-full h-screen min-h-fit flex flex-col md:flex-row flex-wrap justify-center items-center gap-20 py-10 md:gap-30 md:py-30 md:px-10">
         <div className="w-fit h-fit space-y-5 mr-[12%] sm:mr-[40%] md:mr-0 ">
           <div className="w-fit h-fit">
             <h6 className="font-inter font-extralight text-[#333333] text-[10px] mb-6 tracking-[3.5px]">
@@ -36,7 +37,7 @@ const Discover = () => {
             />
 
             <Image
-              className="w-full h-fit scale-[1.4] absolute top-[40%] left-[-18%] z-0"
+              className="w-full h-fit scale-[1.6] rotate-y-180 absolute top-[88%] left-[-20%] z-0"
               src={Splash_1}
               alt="splash_1"
             />
@@ -44,17 +45,11 @@ const Discover = () => {
         </div>
 
         <div className="w-fit h-fit space-y-8">
-          <div className="w-[200px] h-[220px] md:w-[230px] md:h-[250px] relative mt-12 md:mt-0">
+          <div className="w-[200px] h-[220px] md:w-[230px] md:h-[250px] relative">
             <Image
               className="w-full h-full object-cover shadow-lg relative z-10"
               src={Warehouse_2}
               alt="beach"
-            />
-
-            <Image
-              className="w-full h-fit absolute top-[-50%] left-[30%] z-0"
-              src={Splash_2}
-              alt="splash_2"
             />
           </div>
 
@@ -62,8 +57,8 @@ const Discover = () => {
             <p className="font-inter w-[220px] text-[#333333] text-xs leading-[18px]">
               A Dining Experience Where Every Bite Is A Work Of Art. We Offer
               Several Spaces In Which You Can Enjoy The Best Of The Sea, Good
-              Company, Savoir Vivre And The Joy Of Feeling Loved. Isn&apos;t That The
-              True Mediterranean Way?
+              Company, Savoir Vivre And The Joy Of Feeling Loved. Isn&apos;t
+              That The True Mediterranean Way?
             </p>
 
             <button className="cursor-pointer w-[60px] font-inter text-[#205781] text-[12px] text-left">
@@ -79,13 +74,13 @@ const Discover = () => {
             src={Warehouse_1}
             alt="ware house"
           />
-
-          <Image
-            className="w-full h-fit scale-[1.4] absolute top-[40%] left-[15%] z-0"
-            src={Splash_1}
-            alt="splash_1"
-          />
         </div>
+
+        <Image
+          className=" w-[600px] h-fit absolute top-[0%] right-[0%] z-0"
+          src={Splash}
+          alt="Splash"
+        />
       </div>
 
       <div className="w-full h-screen min-h-fit flex flex-wrap justify-center items-center gap-20 py-10 relative md:gap-30">
@@ -133,7 +128,7 @@ const Discover = () => {
         </div>
 
         <Image
-          className="w-[150px] md:w-[200px] h-fit absolute top-[69%] lg:top-[42%] right-0 z-0"
+          className="w-[220px] h-fit absolute top-[50%] right-0 z-0"
           src={Splash_3}
           alt="Splash_3"
         />
