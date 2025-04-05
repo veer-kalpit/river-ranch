@@ -39,7 +39,8 @@ function UnsplashGrid() {
   const [selected, setSelected] = useState<ItemType | null>(null);
 
   return (
-    <>
+    <section
+      id="gallery">
       <div className="container mx-auto sm:p-4 px-0 ">
         <h1 className="text-[#333333] font-inter font-light text-[16px] leading-[30%] uppercase text-center ">
           Explore River Ranch
@@ -59,7 +60,7 @@ function UnsplashGrid() {
         </div>
       </div>
       <Modal selected={selected} setSelected={setSelected} />
-    </>
+    </section>
   );
 }
 

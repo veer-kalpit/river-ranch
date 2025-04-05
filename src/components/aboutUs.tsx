@@ -3,7 +3,7 @@ import React from "react";
 const AboutUs = () => {
   return (
     <section
-      data-aos="zoom-in-down"
+      id="aboutUs"
       className="about-us flex flex-col items-center justify-center w-full h-auto max-w-[1920px] bg-[#205781] px-4 py-16 text-center"
     >
       <h1 className="font-inter font-light text-base md:text-lg uppercase text-white">

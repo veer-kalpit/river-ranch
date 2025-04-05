@@ -5,6 +5,8 @@ import Logo from "../../public/logo.png";
 
 const Footer = () => {
   return (
+    <section id="contact">
+
     <div className="w-screen h-fit min-h-screen bg-[#205781] overflow-hidden relative">
       {/* headings  */}
       <div className="w-fit h-fit text-center space-y-3 mx-auto mt-10">
@@ -264,6 +266,7 @@ const Footer = () => {
         </div>
       </div>
     </div>
+    </section>
   );
 };
 
