@@ -1,30 +1,55 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useRef, useEffect } from "react";
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, useInView, useAnimation } from "framer-motion";
 import BannerImg from "../../public/yuliya.png";
-import WaterSplash from "../../public/watersplash.png";
+import WaterSplash from "../../public/WaterSpllash.png";
 import FacilityCard from "./facilityCard";
+import "aos/dist/aos.css";
+import AOS from "aos";
 
 const Banner = () => {
-  const [scrollY, setScrollY] = useState(0);
+  const splashRef = useRef(null);
+  const isInView = useInView(splashRef, { margin: "-10px" });
+  const controls = useAnimation();
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrollY(window.scrollY);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+    AOS.init({
+      duration: 1200,
+      easing: "ease-in-out",
+    });
 
-  // Calculate clip-path value for top-to-bottom reveal
-  const clipHeight = Math.min(100, scrollY / 5); // Adjust speed of reveal
+    if (isInView) {
+      controls.start({
+        y: 0,
+        opacity: 1,
+        scale: [0.8, 1.1, 1],
+        rotate: [0, 2, -2, 0],
+        filter: "blur(0px)",
+        transition: {
+          duration: 1,
+          ease: "easeOut",
+        },
+      });
+    } else {
+      controls.start({
+        y: -200,
+        opacity: 0,
+        scale: 0.8,
+        filter: "blur(8px)",
+        transition: {
+          duration: 0.6,
+          ease: "easeIn",
+        },
+      });
+    }
+  }, [isInView, controls]);
 
   return (
     <section>
-      <div className="flex flex-col lg:flex-row  justify-center p-10 gap-12 lg:gap-[115px] pt-10 lg:pt-[160px] h-auto lg:h-screen">
-        <div className="flex flex-col text-left max-w-lg">
+      <div className="flex flex-col lg:flex-row justify-center p-10 gap-12 lg:gap-[115px] pt-10 lg:pt-[160px] h-auto lg:h-screen">
+        <div data-aos="fade-right" className="flex flex-col text-left max-w-lg">
           <h1 className="font-cormorant font-semibold text-3xl md:text-4xl lg:text-5xl leading-tight text-[#205781] capitalize">
             A Haven of Tranquility
           </h1>
@@ -42,6 +67,7 @@ const Banner = () => {
             See Rooms
           </button>
         </div>
+
         <div className="flex lg:relative">
           <Image
             src={BannerImg}
@@ -50,22 +76,28 @@ const Banner = () => {
             height={688}
             className="lg:w-[549px] lg:h-[688px] w-[331px] h-[468px] mt-6 lg:mt-[42px]"
           />
+
           <motion.div
-            className="absolute -z-10 -top-[190px] -right-[300px] hidden lg:block"
-            style={{
-              clipPath: `polygon(0% 0%, 100% 0%, 100% ${clipHeight}%, 0% ${clipHeight}%)`,
-              transition: "clip-path 0.3s ease-out",
+            ref={splashRef}
+            className="absolute -z-10 -top-[380px] -right-[450px] hidden lg:block w-[1333px] h-[1666px] rounded-full overflow-hidden"
+            initial={{
+              y: -200,
+              opacity: 0,
+              scale: 0.8,
+              filter: "blur(8px)",
             }}
+            animate={controls}
           >
             <Image
               src={WaterSplash}
               alt="Water splash"
-              width={721}
-              height={919}
+              fill
+              className="object-cover"
             />
           </motion.div>
         </div>
       </div>
+
       <FacilityCard />
     </section>
   );
