@@ -79,7 +79,7 @@ const Banner = () => {
 
           <motion.div
             ref={splashRef}
-            className="absolute -z-10 -top-[380px] -right-[450px] hidden lg:block w-[1333px] h-[1666px] rounded-full overflow-hidden"
+            className="absolute -z-10 -top-[450px] -right-[300px] hidden lg:block w-[1000px] h-[1666px] rounded-full overflow-hidden"
             initial={{
               y: -200,
               opacity: 0,
