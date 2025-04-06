@@ -101,7 +101,7 @@ const Home = ({ isRendered, onRenderComplete }) => {
   return (
     <div
       ref={pageRef}
-      className="home fixed top-0 left-0 w-screen h-screen z-0"
+      className="home relative top-0 left-0 w-screen h-screen z-0"
     >
       {/* Background Video Container */}
       <div className="w-full h-full relative">
