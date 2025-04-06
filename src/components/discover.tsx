@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import Image from "next/image";
 
 // image sources
@@ -13,7 +13,17 @@ import Splash_2 from "../../public/splash_2.png";
 import Splash_3 from "../../public/splash_3.png";
 import Sunset from "../../public/sunset.jpeg";
 
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+
 const Discover = () => {
+  const splashRef = useRef(null);
+  useEffect(() => {
+    gsap.to(splashRef.current, {
+      height: "600px",
+      duration: 1,
+    });
+  }, []);
   return (
     <div className="w-screen h-fit min-h-screen bg-white overflow-hidden">
       <div className="relative w-full h-screen min-h-fit flex flex-col md:flex-row flex-wrap justify-center items-center gap-20 py-10 md:gap-30 md:py-30 md:px-10">
@@ -68,17 +78,19 @@ const Discover = () => {
           </div>
         </div>
 
-        <div className="w-[150px] h-[250px] md:min-w-[180px] md:h-[280px] relative -mt-3 ml-auto mr-[5%] md:mt-0 min-[768px]:ml-0 min-[768px]:mr-0 ">
+        <div className="w-[150px] h-fit md:min-w-[180px] md:h-[280px] relative -mt-3 ml-auto mr-[5%] md:mt-0 min-[768px]:ml-0 min-[768px]:mr-0">
           <Image
             className="w-full h-full rounded-full object-cover shadow-lg relative z-10"
             src={Warehouse_1}
             alt="ware house"
           />
-          <Image
-            className="w-full h-fit scale-[2.5] md:scale-[3] absolute top-[20%] md:top-[5%] left-[20%] z-0"
-            src={Splash}
-            alt="Splash"
-          />
+
+          <div
+            ref={splashRef}
+            className="splashItem w-[550px] h-[0px] absolute top-[-75%] left-[-65%] overflow-hidden z-0"
+          >
+            <Image className="w-full h-[600px]" src={Splash} alt="Splash" />
+          </div>
         </div>
       </div>
 

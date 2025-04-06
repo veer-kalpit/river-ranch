@@ -15,7 +15,7 @@ const page = () => {
       {/* <AboutUs />
       <Banner />
       <Spa /> */}
-      <Explore />
+      {/* <Explore /> */}
       <Discover />
       {/* <RoomsBook />
       <Booking />
