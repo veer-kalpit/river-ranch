@@ -2,7 +2,7 @@
 
 // @ts-nocheck
 
-import { useEffect } from 'react';
+import { useEffect } from "react";
 
 const useCanvasCursor = () => {
   function n(e) {
@@ -99,11 +99,11 @@ const useCanvasCursor = () => {
       1 == e.touches.length &&
         ((pos.x = e.touches[0].pageX), (pos.y = e.touches[0].pageY));
     }
-    document.removeEventListener('mousemove', onMousemove),
-      document.removeEventListener('touchstart', onMousemove),
-      document.addEventListener('mousemove', c),
-      document.addEventListener('touchmove', c),
-      document.addEventListener('touchstart', l),
+    document.removeEventListener("mousemove", onMousemove),
+      document.removeEventListener("touchstart", onMousemove),
+      document.addEventListener("mousemove", c),
+      document.addEventListener("touchmove", c),
+      document.addEventListener("touchstart", l),
       c(e),
       o(),
       render();
@@ -111,10 +111,17 @@ const useCanvasCursor = () => {
 
   function render() {
     if (ctx.running) {
-      ctx.globalCompositeOperation = 'source-over';
+      ctx.globalCompositeOperation = "source-over";
       ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-      ctx.globalCompositeOperation = 'lighter';
-      ctx.strokeStyle = 'hsl(' + Math.round(f.update()) + ',50%,50%,0.2)';
+      ctx.globalCompositeOperation = "lighter";
+      // When you initialize f:
+      f.hue =
+        Math.random() < 0.5
+          ? Math.floor(Math.random() * (160 - 85) + 85) // Green
+          : Math.floor(Math.random() * (260 - 180) + 180); // Blue
+
+      ctx.strokeStyle = `hsl(${f.hue}, 50%, 50%, 0.2)`;
+
       ctx.lineWidth = 1;
       for (var e, t = 0; t < E.trails; t++) {
         (e = lines[t]).update();
@@ -131,7 +138,7 @@ const useCanvasCursor = () => {
   }
 
   var ctx,
-      f,
+    f,
     e = 0,
     pos = {},
     lines = [],
@@ -153,7 +160,7 @@ const useCanvasCursor = () => {
   }
 
   const renderCanvas = function () {
-    ctx = document.getElementById('canvas').getContext('2d');
+    ctx = document.getElementById("canvas").getContext("2d");
     ctx.running = true;
     ctx.frame = 1;
     f = new n({
@@ -162,17 +169,17 @@ const useCanvasCursor = () => {
       frequency: 0.0015,
       offset: 285,
     });
-    document.addEventListener('mousemove', onMousemove);
-    document.addEventListener('touchstart', onMousemove);
-    document.body.addEventListener('orientationchange', resizeCanvas);
-    window.addEventListener('resize', resizeCanvas);
-    window.addEventListener('focus', () => {
+    document.addEventListener("mousemove", onMousemove);
+    document.addEventListener("touchstart", onMousemove);
+    document.body.addEventListener("orientationchange", resizeCanvas);
+    window.addEventListener("resize", resizeCanvas);
+    window.addEventListener("focus", () => {
       if (!ctx.running) {
         ctx.running = true;
         render();
       }
     });
-    window.addEventListener('blur', () => {
+    window.addEventListener("blur", () => {
       ctx.running = true;
     });
     resizeCanvas();
@@ -183,17 +190,17 @@ const useCanvasCursor = () => {
 
     return () => {
       ctx.running = false;
-      document.removeEventListener('mousemove', onMousemove);
-      document.removeEventListener('touchstart', onMousemove);
-      document.body.removeEventListener('orientationchange', resizeCanvas);
-      window.removeEventListener('resize', resizeCanvas);
-      window.removeEventListener('focus', () => {
+      document.removeEventListener("mousemove", onMousemove);
+      document.removeEventListener("touchstart", onMousemove);
+      document.body.removeEventListener("orientationchange", resizeCanvas);
+      window.removeEventListener("resize", resizeCanvas);
+      window.removeEventListener("focus", () => {
         if (!ctx.running) {
           ctx.running = true;
           render();
         }
       });
-      window.removeEventListener('blur', () => {
+      window.removeEventListener("blur", () => {
         ctx.running = true;
       });
     };

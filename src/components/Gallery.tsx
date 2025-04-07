@@ -39,8 +39,7 @@ function UnsplashGrid() {
   const [selected, setSelected] = useState<ItemType | null>(null);
 
   return (
-    <section
-      id="gallery">
+    <section id="gallery">
       <div className="container mx-auto sm:p-4 px-0 ">
         <h1 className="text-[#333333] font-inter font-light text-[16px] leading-[30%] uppercase text-center ">
           Explore River Ranch
@@ -48,7 +47,8 @@ function UnsplashGrid() {
         <h1 className="text-[48px] leading-[65px] font-semibold font-cormorant mt-10 text-[#205781] text-center">
           Gallery
         </h1>
-        <div className="columns-3 gap-10 mt-[100px] px-10">
+        <div className=" columns-3 mt-[100px] px-10">
+        
           {items.map((item, index) => (
             <ImageItem
               key={item.id}
@@ -82,7 +82,7 @@ function ImageItem({ item, setSelected }: ImageItemProps) {
       className="inline-block group w-full rounded-md relative bg-white cursor-pointer"
       onClick={() => setSelected(item)}
     >
-      <motion.div whileHover={{ scale: 1.05 }}>
+      <motion.div >
         <Image
           src={item.url}
           alt={item.title}
@@ -129,11 +129,11 @@ function Modal({ selected, setSelected }: ModalProps) {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           onClick={() => setSelected(null)}
-          className="fixed inset-0 backdrop-blur-sm z-50 flex justify-center items-center"
+          className="fixed inset-0 backdrop-blur-sm z-50 flex justify-center items-center "
         >
           <motion.div
             onClick={(e) => e.stopPropagation()}
-            className="relative bg-white dark:bg-gray-900 p-6 rounded-lg max-w-lg"
+            className="relative bg-white p-6 rounded-lg max-w-lg"
           >
             {/* Close Button */}
             <button
@@ -149,7 +149,7 @@ function Modal({ selected, setSelected }: ModalProps) {
               alt={selected.title}
               width={600}
               height={600}
-              className="w-full h-auto object-contain rounded-md"
+              className="w-full h-auto object-contain rounded-md "
             />
 
           </motion.div>

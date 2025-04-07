@@ -10,10 +10,10 @@ const AboutUs = () => {
         About Us
       </h1>
       <p className="mt-6 md:mt-10 font-cormorant font-semibold text-2xl md:text-4xl lg:text-5xl leading-normal text-white max-w-[90%] md:max-w-[1185px] capitalize">
-        Set by a serene lake near the Mysore Bird Sanctuary, River Ranch is a
-        boutique resort offering elegant stays surrounded by nature. With its
-        peaceful setting and refined charm, it&apos;s perfect for weekend
-        getaways, destination weddings, and private celebrations.
+        Nestled on 4 acres of lush countryside near Mysore, River Ranch is a
+        boutique farmstay offering an authentic connection with nature. Our
+        family-owned property features organic gardens, mango groves, and banana
+        plantations in a peaceful rural setting.
       </p>
       <button
         type="button"

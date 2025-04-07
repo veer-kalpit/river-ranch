@@ -54,11 +54,7 @@ const Banner = () => {
             A Haven of Tranquility
           </h1>
           <p className="mt-4 font-inter font-normal text-base md:text-lg leading-relaxed text-gray-700">
-            River Ranch, once a family farm, is now a sanctuary for reconnecting
-            with nature and escaping city life. Committed to sustainability, we
-            practice rainwater harvesting and organic farming to minimize our
-            environmental impact. Pets are always welcome, because vacations are
-            better with the whole family—including four-legged members!
+          River Ranch, once a family farm, is now a sanctuary for reconnecting with nature and escaping city life. Committed to sustainability, we practice rainwater harvesting and organic farming to minimize our environmental impact. Pets are always welcome, because vacations are better with the whole family—including four-legged members!
           </p>
           <button
             type="button"
