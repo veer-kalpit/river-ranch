@@ -1,13 +1,13 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
+import React, { useRef } from "react";
 import Image from "next/image";
 import gsap from "gsap";
-import { useInView } from "react-intersection-observer";
-import { useAnimation } from "framer-motion";
-
+import ScrollTrigger from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
 // image imports
 import Yoga1 from "../../public/yoga.png";
+import Splash_1 from "../../public/splash_1.png";
 import Yoga2 from "../../public/Yoga2.png";
 import Warehouse_2 from "../../public/ware_house_2.png";
 import Warehouse_3 from "../../public/ware_house_3.jpeg";
@@ -15,81 +15,61 @@ import Splash from "../../public/splash.png";
 import Splash_3 from "../../public/splash_3.png";
 import Sunset from "../../public/sunset.jpeg";
 
+gsap.registerPlugin(ScrollTrigger);
+
 const Discover = () => {
-  const videoRef = useRef<HTMLVideoElement>(null);
+  // Refs for animated elements
   const splashRef = useRef(null);
+  const splash_1_Ref = useRef(null);
+  const splash_2_Ref = useRef(null);
 
-  const controls = useAnimation();
-  const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.5 });
-  console.log(ref);
-
-  // Video Intersection Observer
-  useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            video.play();
-          } else {
-            video.pause();
-          }
-        });
+  // GSAP Animations
+  useGSAP(() => {
+    // Splash + Splash_1 animation on scroll
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: splashRef.current,
+        start: "top 50%", // animation triggers when splashRef hits 50% of viewport
       },
-      { threshold: 0.5 }
+    });
+
+    tl.to(
+      splashRef.current,
+      {
+        scale: 1,
+        height: "600px",
+        duration: 0.5,
+      },
+      0
+    ).to(
+      splash_1_Ref.current,
+      {
+        scale: 1.2,
+        duration: 0.5,
+      },
+      0
     );
 
-    observer.observe(video);
-    return () => observer.disconnect();
-  }, []);
-
-  // Animate splash image height on scroll
-  useEffect(() => {
-    const splashElement = splashRef.current;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            gsap.to(splashElement, {
-              height: "600px",
-              duration: 1.2,
-              ease: "power2.out",
-            });
-          } else {
-            gsap.to(splashElement, {
-              height: "0px",
-              duration: 1.2,
-              ease: "power2.inOut",
-            });
-          }
-        });
-      },
-      { threshold: 0.3 }
-    );
-
-    if (splashElement) observer.observe(splashElement);
-    return () => {
-      if (splashElement) observer.unobserve(splashElement);
-    };
-  }, []);
-
-  useEffect(() => {
-    if (inView) {
-      controls.start({
-        y: 0,
-        opacity: 1,
-        transition: { duration: 1.2, ease: "easeOut" },
+    // Splash_2 animation (right slide-in)
+    gsap
+      .timeline({
+        scrollTrigger: {
+          trigger: splash_2_Ref.current,
+          start: "top 100%",
+        },
+      })
+      .to(splash_2_Ref.current, {
+        scale: 1,
+        right: 0,
+        duration: 0.5,
       });
-    }
-  }, [inView, controls]);
+  }, []);
 
   return (
     <div className="w-screen h-fit min-h-screen bg-white overflow-hidden">
-      {/* First Section */}
+      {/* Section 1: Yoga and Healing */}
       <div className="relative w-full h-screen min-h-fit flex flex-col md:flex-row flex-wrap justify-center items-center gap-20 py-10 md:gap-30 md:py-30 md:px-10">
+        {/* Left: Text + Splash_1 overlay */}
         <div className="w-fit h-fit space-y-5 mr-[12%] sm:mr-[40%] md:mr-0">
           <div className="w-fit h-fit">
             <h6 className="font-inter font-extralight text-[#333333] text-[10px] mb-6 tracking-[3.5px]">
@@ -100,28 +80,29 @@ const Discover = () => {
             </h1>
           </div>
 
-          <div className=" relative">
+          {/* Main Image */}
+          <div className="w-[150px] h-[250px] md:min-w-[180px] md:h-[280px] relative">
             <Image
               className="w-[150px] h-[250px] md:min-w-[180px] md:h-[280px] rounded-full object-cover shadow-lg relative z-10"
               src={Yoga1}
               alt="ware house"
             />
-            <video
-              ref={videoRef}
-              width={300}
-              height={350}
-              className="w-[637px] h-[188px] rounded-[500px] z-0 absolute -bottom-[90px] right-[50px]"
-              loop
-              muted
-              playsInline
-              preload="auto"
+
+            {/* Splash_1 overlay animation */}
+            <div
+              ref={splash_1_Ref}
+              className="w-fit h-fit scale-0 absolute top-[86%] left-[-28%] z-0"
             >
-              <source src="/WaterSplashYoga.mp4" type="video/mp4" />
-              Your browser does not support the video tag.
-            </video>
+              <Image
+                className="w-full h-fit scale-x-[-1] -ml-1"
+                src={Splash_1}
+                alt="splash_1"
+              />
+            </div>
           </div>
         </div>
 
+        {/* Center: Secondary Image + Text */}
         <div className="w-fit h-fit space-y-8">
           <div className="w-[200px] h-[250px] md:w-[230px] md:h-[320px] relative">
             <Image
@@ -133,10 +114,7 @@ const Discover = () => {
           <div className="w-fit h-fit space-y-8">
             <p className="font-inter w-[250px] text-[#333333] text-xs leading-[18px]">
               Yoga Is A Holistic Practice That Harmonizes The Body, Mind, And
-              Soul, Promoting Inner Peace And Physical Vitality. Through
-              Mindfulness, Meditation, And Movement, It Offers A Transformative
-              Healing Experience, Easing Stress, Improving Well-Being, And
-              Fostering Self-Awareness.
+              Soul, Promoting Inner Peace And Physical Vitality...
             </p>
             <button className="cursor-pointer w-[60px] font-inter text-[#205781] text-[12px] text-left">
               DISCOVER
@@ -145,6 +123,7 @@ const Discover = () => {
           </div>
         </div>
 
+        {/* Right: Splash image with animation */}
         <div className="w-[150px] h-fit md:min-w-[180px] md:h-[280px] relative -mt-3 ml-auto mr-[5%] md:mt-0 min-[768px]:ml-0 min-[768px]:mr-0">
           <Image
             className="w-full h-full rounded-full object-cover shadow-lg relative z-10"
@@ -153,27 +132,26 @@ const Discover = () => {
           />
           <div
             ref={splashRef}
-            className="splashItem w-[550px] h-[0px] absolute top-[-75%] left-[-65%] overflow-hidden z-0"
+            className="splashItem w-[550px] h-[0px] scale-0 absolute top-[-75%] left-[-65%] overflow-hidden z-0"
           >
             <Image className="w-full h-[600px]" src={Splash} alt="Splash" />
           </div>
         </div>
       </div>
 
-      {/* Second Section */}
+      {/* Section 2: Nature Sanctuary */}
       <div className="w-full h-screen min-h-fit flex flex-wrap justify-center items-center gap-20 py-10 relative md:gap-30">
+        {/* Left: Large image + text */}
         <div className="w-fit h-fit space-y-8 px-5 sm:mr-auto md:ml-[5%] lg:px-0 lg:ml-0 lg:mr-0">
           <Image
             className="w-[600px] h-[250px] sm:h-[350px] object-cover shadow-lg relative z-10"
             src={Warehouse_3}
             alt="Warehouse_3"
           />
+
           <div className="w-fit h-fit space-y-8 ml-12">
             <p className="font-inter w-[250px] text-[#333333] text-xs leading-[18px]">
-              A Nature Sanctuary Is A Paradise Where Greenery Abounds, And The
-              Air Hums With Life, Offering Peace And Purity At Every Step.
-              It&apos;s A Living Canvas Of Earth&apos;s Beauty, Where One Feels
-              Deeply Connected To The Essence Of The Natural World.
+              A Nature Sanctuary Is A Paradise Where Greenery Abounds...
             </p>
             <button className="cursor-pointer w-[60px] font-inter text-[#205781] text-[12px] text-left">
               DISCOVER
@@ -182,10 +160,11 @@ const Discover = () => {
           </div>
         </div>
 
+        {/* Right: Text + image */}
         <div className="w-fit h-fit space-y-16 relative ml-auto mr-[5%] z-10 lg:ml-0 lg:mr-0">
           <div className="w-fit h-fit">
             <h6 className="font-inter font-extralight text-[#333333] text-[10px] mb-6 tracking-[3.5px]">
-              NATURE SANCTURY
+              NATURE SANCTUARY
             </h6>
             <h1 className="font-cormorant max-w-[300px] text-[#205781] text-3xl sm:text-4xl leading-9">
               A Nature Sanctuary Is A Peaceful Heaven Full Of Greenery And
@@ -199,8 +178,10 @@ const Discover = () => {
           />
         </div>
 
+        {/* Splash_2: Animated on scroll */}
         <Image
-          className="w-[220px] h-fit absolute top-[69%] lg:top-[50%] right-0 z-0"
+          ref={splash_2_Ref}
+          className="w-[220px] h-fit scale-0 absolute top-[69%] lg:top-[50%] right-[-10%] z-0"
           src={Splash_3}
           alt="Splash_3"
         />
