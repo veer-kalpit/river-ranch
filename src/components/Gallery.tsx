@@ -25,13 +25,13 @@ interface ItemType {
 // Image List with Dynamic Width & Height
 const items: ItemType[] = [
   { id: 1, url: Img1, title: "Image 1" },
-  { id: 2, url: Img2, title: "Image 2" },
-  { id: 3, url: Img3, title: "Image 3" },
-  { id: 4, url: Img4, title: "Image 4" },
+  { id: 2, url: Img4, title: "Image 2" },
+  { id: 3, url: Img7, title: "Image 3" },
+  { id: 4, url: Img2, title: "Image 4" },
   { id: 5, url: Img5, title: "Image 5" },
-  { id: 6, url: Img6, title: "Image 6" },
-  { id: 7, url: Img7, title: "Image 7" },
-  { id: 8, url: Img8, title: "Image 8" },
+  { id: 6, url: Img8, title: "Image 6" },
+  { id: 7, url: Img3, title: "Image 7" },
+  { id: 8, url: Img6, title: "Image 8" },
   { id: 9, url: Img9, title: "Image 9" },
 ];
 
@@ -47,8 +47,7 @@ function UnsplashGrid() {
         <h1 className="text-[48px] leading-[65px] font-semibold font-cormorant mt-10 text-[#205781] text-center">
           Gallery
         </h1>
-        <div className=" columns-3 mt-[100px] px-10">
-        
+        <div className=" columns-3 gap-4 mt-[100px] px-10 w-fit mx-auto">
           {items.map((item, index) => (
             <ImageItem
               key={item.id}
@@ -82,7 +81,7 @@ function ImageItem({ item, setSelected }: ImageItemProps) {
       className="inline-block group w-full rounded-md relative bg-white cursor-pointer"
       onClick={() => setSelected(item)}
     >
-      <motion.div >
+      <motion.div>
         <Image
           src={item.url}
           alt={item.title}
@@ -91,7 +90,6 @@ function ImageItem({ item, setSelected }: ImageItemProps) {
           className="w-full h-auto object-cover rounded-md"
         />
       </motion.div>
-      
     </motion.figure>
   );
 }
@@ -151,7 +149,6 @@ function Modal({ selected, setSelected }: ModalProps) {
               height={600}
               className="w-full h-auto object-contain rounded-md "
             />
-
           </motion.div>
         </motion.div>
       )}
