@@ -3,58 +3,94 @@
 import React, { useEffect, useRef } from "react";
 import Image from "next/image";
 import gsap from "gsap";
+import { useInView } from "react-intersection-observer";
+import { useAnimation } from "framer-motion";
 
 // image imports
-import Warehouse_1 from "../../public/ware_house_1.jpeg";
+import Yoga1 from "../../public/yoga.png";
+import Yoga2 from "../../public/Yoga2.png";
 import Warehouse_2 from "../../public/ware_house_2.png";
 import Warehouse_3 from "../../public/ware_house_3.jpeg";
-import Splash_1 from "../../public/splash_1.png";
 import Splash from "../../public/splash.png";
 import Splash_3 from "../../public/splash_3.png";
 import Sunset from "../../public/sunset.jpeg";
 
 const Discover = () => {
+  const videoRef = useRef<HTMLVideoElement>(null);
   const splashRef = useRef(null);
 
-useEffect(() => {
-  const splashElement = splashRef.current;
+  const controls = useAnimation();
+  const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.5 });
+  console.log(ref);
 
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          gsap.to(splashElement, {
-            height: "600px",
-            duration: 1.2,
-            ease: "power2.out",
-          });
-        } else {
-          gsap.to(splashElement, {
-            height: "0px",
-            duration: 1.2,
-            ease: "power2.inOut",
-          });
-        }
+  // Video Intersection Observer
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            video.play();
+          } else {
+            video.pause();
+          }
+        });
+      },
+      { threshold: 0.5 }
+    );
+
+    observer.observe(video);
+    return () => observer.disconnect();
+  }, []);
+
+  // Animate splash image height on scroll
+  useEffect(() => {
+    const splashElement = splashRef.current;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            gsap.to(splashElement, {
+              height: "600px",
+              duration: 1.2,
+              ease: "power2.out",
+            });
+          } else {
+            gsap.to(splashElement, {
+              height: "0px",
+              duration: 1.2,
+              ease: "power2.inOut",
+            });
+          }
+        });
+      },
+      { threshold: 0.3 }
+    );
+
+    if (splashElement) observer.observe(splashElement);
+    return () => {
+      if (splashElement) observer.unobserve(splashElement);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (inView) {
+      controls.start({
+        y: 0,
+        opacity: 1,
+        transition: { duration: 1.2, ease: "easeOut" },
       });
-    },
-    { threshold: 0.3 }
-  );
-
-  if (splashElement) {
-    observer.observe(splashElement);
-  }
-
-  return () => {
-    if (splashElement) observer.unobserve(splashElement);
-  };
-}, []);
-
+    }
+  }, [inView, controls]);
 
   return (
     <div className="w-screen h-fit min-h-screen bg-white overflow-hidden">
       {/* First Section */}
       <div className="relative w-full h-screen min-h-fit flex flex-col md:flex-row flex-wrap justify-center items-center gap-20 py-10 md:gap-30 md:py-30 md:px-10">
-        <div className="w-fit h-fit space-y-5 mr-[12%] sm:mr-[40%] md:mr-0 ">
+        <div className="w-fit h-fit space-y-5 mr-[12%] sm:mr-[40%] md:mr-0">
           <div className="w-fit h-fit">
             <h6 className="font-inter font-extralight text-[#333333] text-[10px] mb-6 tracking-[3.5px]">
               YOGA AND HEALING EXPERIENCES
@@ -63,17 +99,26 @@ useEffect(() => {
               Enjoy Yoga Sessions That Restore Balance And Bring Peace.
             </h1>
           </div>
-          <div className="w-[150px] h-[250px] md:min-w-[180px] md:h-[280px] relative">
+
+          <div className=" relative">
             <Image
-              className="w-full h-full rounded-full object-cover shadow-lg relative z-10"
-              src={Warehouse_1}
+              className="w-[150px] h-[250px] md:min-w-[180px] md:h-[280px] rounded-full object-cover shadow-lg relative z-10"
+              src={Yoga1}
               alt="ware house"
             />
-            <Image
-              className="w-full h-fit scale-[1.6] rotate-y-180 absolute top-[88%] left-[-20%] z-0"
-              src={Splash_1}
-              alt="splash_1"
-            />
+            <video
+              ref={videoRef}
+              width={300}
+              height={350}
+              className="w-[637px] h-[188px] rounded-[500px] z-0 absolute -bottom-[90px] right-[50px]"
+              loop
+              muted
+              playsInline
+              preload="auto"
+            >
+              <source src="/WaterSplashYoga.mp4" type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
           </div>
         </div>
 
@@ -103,7 +148,7 @@ useEffect(() => {
         <div className="w-[150px] h-fit md:min-w-[180px] md:h-[280px] relative -mt-3 ml-auto mr-[5%] md:mt-0 min-[768px]:ml-0 min-[768px]:mr-0">
           <Image
             className="w-full h-full rounded-full object-cover shadow-lg relative z-10"
-            src={Warehouse_1}
+            src={Yoga2}
             alt="ware house"
           />
           <div
@@ -143,7 +188,7 @@ useEffect(() => {
               NATURE SANCTURY
             </h6>
             <h1 className="font-cormorant max-w-[300px] text-[#205781] text-3xl sm:text-4xl leading-9">
-              A Nature Sanctuary Is A Peaceful Heven Full Of Greenery And
+              A Nature Sanctuary Is A Peaceful Heaven Full Of Greenery And
               Natural Beauty.
             </h1>
           </div>

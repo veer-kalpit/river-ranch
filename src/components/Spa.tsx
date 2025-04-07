@@ -85,6 +85,7 @@ const Spa = () => {
             loop
             muted
             autoPlay
+            preload="auto"
             data-aos="zoom-in-right"
           >
             <source src="/video.mp4" type="video/mp4" />
@@ -96,7 +97,7 @@ const Spa = () => {
             ref={ref}
             initial={{ y: -400, opacity: 0 }}
             animate={controls}
-            className="absolute -top-[245px] -right-[360px] w-[2244px] h-[1350px] md:w-[1024px] md:h-[1024px] z-10"
+            className="absolute -top-[245px] -right-[360px] w-[2244px] h-[1350px] md:w-[1024px] md:h-[1024px] z-10 overflow-"
           >
             <Image
               src={WaterSplash2}

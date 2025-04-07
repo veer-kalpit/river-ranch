@@ -113,6 +113,7 @@ const Home = ({ isRendered, onRenderComplete }) => {
           muted
           playsInline
           autoPlay
+          preload="auto"
           onEnded={handleVideo1End}
         />
 
@@ -123,6 +124,7 @@ const Home = ({ isRendered, onRenderComplete }) => {
           src={"/video1.mp4"}
           muted
           playsInline
+          preload="auto"
           onEnded={handleVideo2End}
         />
       </div>

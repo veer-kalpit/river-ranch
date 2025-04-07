@@ -87,6 +87,7 @@ const Overlay = ({ setIsRendered }) => {
           src={"/bg.mp4"}
           muted
           playsInline
+          preload="auto"
           onLoadedMetadata={() => {
             // Start a little after the beginning for cinematic effect
             if (videoRef.current) {
