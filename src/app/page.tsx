@@ -12,13 +12,13 @@ import Footer from "@/components/footer";
 const page = () => {
   return (
     <div>
-      {/* <AboutUs />
-      <Banner />
-      <Spa /> */}
-      {/* <Explore /> */}
+        {/* <AboutUs />
+        <Banner />
+        <Spa />  */}
+        <Explore />
       <Discover />
-      {/* <RoomsBook />
-      <Booking />
+       <RoomsBook />
+      {/* <Booking />
       <Gallery />
       <Footer/> */}
     </div>
