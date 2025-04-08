@@ -84,3 +84,132 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
 
 
+/* subodh raturi code */
+
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&display=swap');
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100; /* Ensure it appears above other content */
+  }
+  
+  .frame-image {
+    max-width: 80%; /* Adjust as needed */
+    max-height: 80%; /* Adjust as needed */
+  }
+  
+  .dive-in-button {
+    position: absolute;
+    bottom: 20%; /* Adjust as needed */
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 10px 20px;
+    font-size: 18px;
+    background-color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  .nav-item{
+  font-family: "Inter", sans-serif;
+  font-weight: 400;
+  }
+
+.custom-frame {
+  max-width: 80%;
+  max-height: 80%;
+  transition: all 3s ease-in-out !important;
+}
+
+.animated-frame {
+  animation: frame-zoom-out 3s forwards;
+}
+
+@keyframes frame-zoom-out {
+  0% {
+    transform: scale(1) translateX(0);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(2.5) translateX(50%);
+    opacity: 0.7;
+  }
+}
+
+@import "tailwindcss";
+
+/* Prevent white flash during transitions and improve rendering */
+html, body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+  background-color:#1F7580;
+  transform-style: preserve-3d;
+  perspective: 1000px;
+}
+
+
+
+.hero-heading{
+  font-family: "Cormorant Garamond", serif;
+  font-weight: 600;
+}
+
+/* Add zoom transition effect with hardware acceleration */
+.zoom-fade-transition {
+  animation: zoomFade 1.2s ease-in-out;
+  transform: translateZ(0);
+  will-change: auto;
+  backface-visibility: hidden;
+}
+
+@keyframes zoomFade {
+  0% {
+    opacity: 0;
+    transform: scale(0.85) translateZ(0);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateZ(0);
+  }
+}
+
+/* Improve video rendering */
+video {
+  -webkit-transform: translateZ(0);
+  -webkit-backface-visibility: hidden;
+  -webkit-perspective: 1000;
+}
+
+/* Improve image rendering */
+img {
+  image-rendering: -webkit-optimize-contrast;
+  transform: translateZ(0);
+}
+
+/* Ensure frame animations are visible */
+img[style*="fixed"] {
+  z-index: 9999 !important;
+  pointer-events: none;
+  transform-origin: center center !important;
+  image-rendering: high-quality !important;
+  filter: none !important;
+  transition: none !important;
+}
+
+
+
+
+ 

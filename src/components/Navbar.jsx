@@ -2,10 +2,9 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { gsap } from "gsap";
-import Logo from "../../public/logo.png";
-
+import logo from "../../public/logo.png";
+import Image from "next/image";
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const logoRef = useRef(null);
@@ -82,7 +81,7 @@ const Navbar = () => {
   }, []);
 
   return (
-    <nav className="fixed top-0 left-0 w-full z-50 py-6 px-4 sm:px-6 md:px-8 lg:px-12">
+    <nav className="w-full z-[50] py-6 px-4 sm:px-6 md:px-8 lg:px-12">
       <div className="max-w-7xl mx-auto flex justify-between items-center">
         {/* Logo */}
         <div
@@ -90,7 +89,7 @@ const Navbar = () => {
           className="text-white text-xl md:text-2xl lg:text-3xl font-bold uppercase"
         >
           <Image
-            src={Logo}
+            src={logo}
             alt="River Ranch Logo"
             className="h-16 sm:h-15 md:h-18 lg:h-25"
             style={{ maxWidth: "none" }}
@@ -147,7 +146,7 @@ const Navbar = () => {
         {/* Desktop menu */}
         <div className="hidden md:flex space-x-8">
           {[
-            { label: "Home", path: "#" },
+            { label: "Home", path: "/" },
             { label: "About", path: "#aboutUs" },
             { label: "Accommodation", path: "#roomsBook" },
             { label: "Gallery", path: "#gallery" },
@@ -179,11 +178,11 @@ const Navbar = () => {
           <div className="md:hidden  nav-item absolute top-full right-4 mt-2 w-48 bg-white/95 rounded-lg shadow-lg overflow-hidden z-50">
             <div className="flex flex-col p-4 space-y-2">
               {[
-                { label: "Home", path: "#" },
-                { label: "About", path: "#about" },
-                { label: "Accommodation", path: "#roomsBook" },
-                { label: "Gallery", path: "#gallery" },
-                { label: "Contact", path: "#contact" },
+                // { label: "Home", path: "#" },
+                // { label: "About", path: "#" },
+                // { label: "Accommodation", path: "#" },
+                // { label: "Gallery", path: "#" },
+                // { label: "Contact", path: "#" },
               ].map((item, index) => (
                 <Link
                   key={index}
