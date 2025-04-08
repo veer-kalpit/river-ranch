@@ -1,6 +1,5 @@
 @import "tailwindcss";
 
-
 @font-face {
   font-family: "Amatic SC";
   src: url("/fonts/Amatic.ttf") format("truetype");
@@ -26,7 +25,6 @@
   --font-cormorant: "Cormorant Garamond", sans-serif;
 }
 
-
 .font-amatic {
   font-family: var(--font-amatic);
 }
@@ -37,23 +35,30 @@
   font-family: var(--font-cormorant);
 }
 .about-us {
-  background-image: url('/MaskBg.png');
+  background-image: url("/MaskBg.png");
   background-size: cover;
+  background-position: center;
+  position: relative;
+}
+.home {
+  background-image: url("/HomeOverlay.png");
+  background-size: cover;
+  background-color: #000000;
   background-position: center;
   position: relative;
 }
 
 .banner {
-  background-image: url('/bannerBg.png');
+  background-image: url("/bannerBg.png");
   background-size: cover;
   position: relative;
-  background-position: center;    
+  background-position: center;
 }
 .Spa {
-  background-image: url('/SpaBg.png');
+  background-image: url("/SpaBg.png");
   background-size: cover;
   position: relative;
-  background-position: center;    
+  background-position: center;
 }
 
 /* removes unnecessary horizontal scrollbars */
@@ -75,39 +80,39 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 }
 
 .overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent background */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 100; /* Ensure it appears above other content */
-  }
-  
-  .frame-image {
-    max-width: 80%; /* Adjust as needed */
-    max-height: 80%; /* Adjust as needed */
-  }
-  
-  .dive-in-button {
-    position: absolute;
-    bottom: 20%; /* Adjust as needed */
-    left: 50%;
-    transform: translateX(-50%);
-    padding: 10px 20px;
-    font-size: 18px;
-    background-color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  .nav-item{
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100; /* Ensure it appears above other content */
+}
+
+.frame-image {
+  max-width: 80%; /* Adjust as needed */
+  max-height: 80%; /* Adjust as needed */
+}
+
+.dive-in-button {
+  position: absolute;
+  bottom: 20%; /* Adjust as needed */
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 10px 20px;
+  font-size: 18px;
+  background-color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.nav-item {
   font-family: "Inter", sans-serif;
   font-weight: 400;
-  }
+}
 
 .custom-frame {
   max-width: 80%;
@@ -133,20 +138,19 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 @import "tailwindcss";
 
 /* Prevent white flash during transitions and improve rendering */
-html, body {
+html,
+body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 #root {
-  background-color:#1F7580;
+  background-color: #1f7580;
   transform-style: preserve-3d;
   perspective: 1000px;
 }
 
-
-
-.hero-heading{
+.hero-heading {
   font-family: "Cormorant Garamond", serif;
   font-weight: 600;
 }
@@ -192,8 +196,3 @@ img[style*="fixed"] {
   filter: none !important;
   transition: none !important;
 }
-
-
-
-
- 

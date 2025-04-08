@@ -14,7 +14,6 @@ import Discover from "@/components/discover";
 import Footer from "@/components/footer";
 
 export default function LandingPage() {
-  const [isRendered, setIsRendered] = useState(false);
   const [isRenderedHome, setIsRenderedHome] = useState(false);
   const [hideOverlay, setHideOverlay] = useState(false);
 
@@ -36,6 +35,7 @@ export default function LandingPage() {
           <Home onRenderComplete={handleRenderComplete} />
           <AboutUs />
           <Banner />
+          <Spa />
           <Explore />
           <Discover />
           <Gallery />

@@ -68,7 +68,7 @@ const Discover = () => {
   return (
     <div className="w-screen h-fit min-h-screen bg-white overflow-hidden">
       {/* Section 1: Yoga and Healing */}
-      <div className="relative w-full h-screen min-h-fit flex flex-col md:flex-row flex-wrap justify-center items-center gap-20 py-10 md:gap-30 md:py-30 md:px-10">
+      <div className="relative w-full h-screen min-h-fit flex flex-col md:flex-row flex-wrap justify-center items-center gap-20 py-10 md:gap-30 md:pt-30 md:py-0 md:px-10">
         {/* Left: Text + Splash_1 overlay */}
         <div className="w-fit h-fit space-y-5 mr-[12%] sm:mr-[40%] md:mr-0">
           <div className="w-fit h-fit">
@@ -140,7 +140,7 @@ const Discover = () => {
       </div>
 
       {/* Section 2: Nature Sanctuary */}
-      <div className="w-full h-screen min-h-fit flex flex-wrap justify-center items-center gap-20 py-10 relative md:gap-30">
+      <div className="w-full flex flex-wrap justify-center items-center gap-20 py-10 relative md:gap-30">
         {/* Left: Large image + text */}
         <div className="w-fit h-fit space-y-8 px-5 sm:mr-auto md:ml-[5%] lg:px-0 lg:ml-0 lg:mr-0">
           <Image

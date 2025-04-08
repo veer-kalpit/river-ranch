@@ -3,7 +3,7 @@
 import React, { useEffect, useRef } from "react";
 import Image from "next/image";
 import { motion, useAnimation } from "framer-motion";
-// import { useInView } from "react-intersection-observer";
+import { useInView } from "react-intersection-observer";
 import "aos/dist/aos.css";
 import AOS from "aos";
 import SpaRoom from "../../public/SpaRoom.png";
@@ -13,47 +13,47 @@ const Spa = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
 
   const controls = useAnimation();
-  // const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.5 });
+  const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.5 });
 
-  // useEffect(() => {
-  //    AOS.init({
-  //         duration: 1200,
-  //         easing: "ease-in-out",
-  //       });
-  //   const video = videoRef.current;
-  //   if (!video) return;
+  useEffect(() => {
+     AOS.init({
+          duration: 1200,
+          easing: "ease-in-out",
+        });
+    const video = videoRef.current;
+    if (!video) return;
 
-  //   const observer = new IntersectionObserver(
-  //     (entries) => {
-  //       entries.forEach((entry) => {
-  //         if (entry.isIntersecting) {
-  //           video.play();
-  //         } else {
-  //           video.pause();
-  //         }
-  //       });
-  //     },
-  //     { threshold: 0.5 }
-  //   );
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            video.play();
+          } else {
+            video.pause();
+          }
+        });
+      },
+      { threshold: 0.5 }
+    );
 
-  //   observer.observe(video);
-  //   return () => observer.disconnect();
-  // }, []);
+    observer.observe(video);
+    return () => observer.disconnect();
+  }, []);
 
-  // useEffect(() => {
-  //   if (inView) {
-  //     controls.start({
-  //       y: 0,
-  //       opacity: 1,
-  //       transition: { duration: 1.2, ease: "easeOut" },
-  //     });
-  //   }
-  // }, [inView, controls]);
+  useEffect(() => {
+    if (inView) {
+      controls.start({
+        y: 0,
+        opacity: 1,
+        transition: { duration: 1.2, ease: "easeOut" },
+      });
+    }
+  }, [inView, controls]);
 
   return (
-    <section className="bg-[#205781] lg:flex flex-col gap-[60px] md:gap-[140px] pb-[100px] md:py-[215px] hidden">
+    <section className="bg-[#205781] lg:flex flex-col gap-[60px] md:gap-[140px] pb-[120px] md:py-[230px] hidden">
       {/* First Section */}
-      <div className="flex flex-col md:flex-row items-center md:justify-center gap-[50px] md:gap-[216px]">
+      <div className="flex flex-col md:flex-row items-center md:justify-center gap-[50px] ">
         {/* Left Content */}
         <div
           data-aos="fade-right"
@@ -97,7 +97,7 @@ const Spa = () => {
             ref={ref}
             initial={{ y: -400, opacity: 0 }}
             animate={controls}
-            className="absolute -top-[245px] -right-[360px] w-[2244px] h-[1350px] md:w-[1024px] md:h-[1024px] z-10 overflow-"
+            className="absolute -top-[260px] -right-[200px] w-[500px] h-[700px] z-10"
           >
             <Image
               src={WaterSplash2}
@@ -129,10 +129,10 @@ const Spa = () => {
           data-aos="fade-left"
           className="w-[250px] md:w-[312px] flex flex-col gap-6 md:gap-10 mt-[100px] md:mt-[300px] justify-center text-center lg:text-left"
         >
-          <h3 className="font-inter font-light text-sm md:text-lg tracking-wider text-white uppercase">
+          <h3 className="font-inter font-light text-sm md:text-[16px] tracking-wider text-white uppercase">
             river side dining
           </h3>
-          <p className="font-inter font-normal text-sm md:text-lg leading-relaxed md:leading-[25px] text-white">
+          <p className="font-inter font-normal text-sm md:text-[16px] leading-relaxed md:leading-[25px] capitalize text-white">
             Riverside dining combines delicious food with the calming charm of
             flowing water, creating a serene and delightful experience.
           </p>
