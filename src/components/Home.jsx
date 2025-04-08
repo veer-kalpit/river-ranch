@@ -103,6 +103,13 @@ const Home = ({ onRenderComplete }) => {
         />
       </div>
 
+      <Image
+        ref={pegionRef}
+        className="w-[200px] h-fit absolute top-0 left-0 z-40"
+        src={prgion}
+        alt="pegion"
+      />
+
       {/* Navbar */}
       <div className="absolute top-0 left-0 w-full z-40">
         <Navbar />
