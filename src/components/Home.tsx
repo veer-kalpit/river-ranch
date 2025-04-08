@@ -96,10 +96,7 @@ const Home = ({ onRenderComplete }) => {
   };
 
   return (
-    <div
-      ref={pageRef}
-      className="home fixed top-0 left-0 w-screen  h-screen  z-0"
-    >
+    <div ref={pageRef} className="home w-screen  h-screen  z-0">
       {/* top gradient */}
       {/* <div className="h-20 z-10 absolute w-full bg-gradient-to-b from-[#1F7580] to-transparent top-0 left-0"></div> */}
 

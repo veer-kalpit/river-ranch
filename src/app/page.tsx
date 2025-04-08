@@ -31,7 +31,17 @@ export default function LandingPage() {
       </div>
 
       {/* Home always rendered */}
-      {isRenderedHome && <Home onRenderComplete={handleRenderComplete} />}
+      {isRenderedHome && (
+        <>
+          <Home onRenderComplete={handleRenderComplete} />
+          <AboutUs />
+          <Banner />
+          <Explore />
+          <Discover />
+          <Gallery />
+          <Footer />
+        </>
+      )}
     </div>
   );
 }
