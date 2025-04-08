@@ -9,7 +9,7 @@ const AboutUs = () => {
       <h1 className="font-inter font-light text-base tracking-[30%] uppercase text-white">
         About Us
       </h1>
-      <p className="mt-6 md:mt-10 font-cormorant font-semibold text-2xl md:text-4xl lg:text-5xl leading-normal text-white max-w-[90%] md:max-w-[1185px] capitalize">
+      <p className="mt-6 md:mt-10 font-cormorant font-semibold text-[24px] lg:text-[36px] leading-normal text-white max-w-[90%] md:max-w-[1185px] capitalize">
         Nestled on 4 acres of lush countryside near Mysore, River Ranch is a
         boutique farmstay offering an authentic connection with nature. Our
         family-owned property features organic gardens, mango groves, and banana
