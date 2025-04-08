@@ -4,7 +4,7 @@ import React, { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { gsap } from "gsap";
 import Logo from "../../public/logo.png";
-import Hamlogo from "../../public/hamLogo.png"
+import Hamlogo from "../../public/hamLogo.png";
 import Image from "next/image";
 import { div } from "motion/react-client";
 const Navbar = () => {

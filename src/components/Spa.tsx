@@ -3,7 +3,7 @@
 import React, { useEffect, useRef } from "react";
 import Image from "next/image";
 import { motion, useAnimation } from "framer-motion";
-import { useInView } from "react-intersection-observer";
+// import { useInView } from "react-intersection-observer";
 import "aos/dist/aos.css";
 import AOS from "aos";
 import SpaRoom from "../../public/SpaRoom.png";
@@ -13,42 +13,42 @@ const Spa = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
 
   const controls = useAnimation();
-  const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.5 });
+  // const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.5 });
 
-  useEffect(() => {
-     AOS.init({
-          duration: 1200,
-          easing: "ease-in-out",
-        });
-    const video = videoRef.current;
-    if (!video) return;
+  // useEffect(() => {
+  //    AOS.init({
+  //         duration: 1200,
+  //         easing: "ease-in-out",
+  //       });
+  //   const video = videoRef.current;
+  //   if (!video) return;
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            video.play();
-          } else {
-            video.pause();
-          }
-        });
-      },
-      { threshold: 0.5 }
-    );
+  //   const observer = new IntersectionObserver(
+  //     (entries) => {
+  //       entries.forEach((entry) => {
+  //         if (entry.isIntersecting) {
+  //           video.play();
+  //         } else {
+  //           video.pause();
+  //         }
+  //       });
+  //     },
+  //     { threshold: 0.5 }
+  //   );
 
-    observer.observe(video);
-    return () => observer.disconnect();
-  }, []);
+  //   observer.observe(video);
+  //   return () => observer.disconnect();
+  // }, []);
 
-  useEffect(() => {
-    if (inView) {
-      controls.start({
-        y: 0,
-        opacity: 1,
-        transition: { duration: 1.2, ease: "easeOut" },
-      });
-    }
-  }, [inView, controls]);
+  // useEffect(() => {
+  //   if (inView) {
+  //     controls.start({
+  //       y: 0,
+  //       opacity: 1,
+  //       transition: { duration: 1.2, ease: "easeOut" },
+  //     });
+  //   }
+  // }, [inView, controls]);
 
   return (
     <section className="bg-[#205781] lg:flex flex-col gap-[60px] md:gap-[140px] pb-[100px] md:py-[215px] hidden">

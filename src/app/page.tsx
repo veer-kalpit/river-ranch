@@ -15,6 +15,7 @@ import Footer from "@/components/footer";
 
 export default function LandingPage() {
   const [isRendered, setIsRendered] = useState(false);
+  const [isRenderedHome, setIsRenderedHome] = useState(false);
   const [hideOverlay, setHideOverlay] = useState(false);
 
   const handleRenderComplete = () => {
@@ -24,37 +25,13 @@ export default function LandingPage() {
   };
 
   return (
-    <div >
+    <div>
       <div className="w-screen h-screen absolute top-0 left-0 z-50">
-        {!hideOverlay && (
-          <Overlay
-            setIsRendered={setIsRendered}
-            onRenderComplete={handleRenderComplete}
-          />
-        )}
+        {!hideOverlay && <Overlay setIsRenderedHome={setIsRenderedHome} />}
       </div>
 
       {/* Home always rendered */}
-      <Home
-        isRendered={isRendered}
-        onRenderComplete={handleRenderComplete}
-        showNavbar={hideOverlay}
-      />
-
-      {/* Rest of the content after overlay */}
-      {hideOverlay && (
-        <>
-          <AboutUs />
-          <Banner />
-          <Spa />
-          <Explore />
-          <Discover />
-          {/* <RoomsBook /> */}
-          {/* <Booking /> */}
-          <Gallery />
-          <Footer />
-        </>
-      )}
+      {isRenderedHome && <Home onRenderComplete={handleRenderComplete} />}
     </div>
   );
 }
