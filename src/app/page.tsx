@@ -3,11 +3,11 @@
 import Home from "@/components/Home";
 import Overlay from "@/components/Overlay";
 import { useState } from "react";
-import RoomsBook from "@/components/roomsBook";
+// import RoomsBook from "@/components/roomsBook";
 import AboutUs from "@/components/aboutUs";
 import Banner from "@/components/banner";
 import Spa from "@/components/Spa";
-import Booking from "@/components/booking";
+// import Booking from "@/components/booking";
 import Gallery from "@/components/Gallery";
 import Explore from "@/components/explore";
 import Discover from "@/components/discover";
@@ -49,8 +49,8 @@ export default function LandingPage() {
           <Spa />
           <Explore />
           <Discover />
-          <RoomsBook />
-          <Booking />
+          {/* <RoomsBook /> */}
+          {/* <Booking /> */}
           <Gallery />
           <Footer />
         </>

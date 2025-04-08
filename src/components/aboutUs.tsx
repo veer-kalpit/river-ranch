@@ -6,7 +6,7 @@ const AboutUs = () => {
       id="aboutUs"
       className="about-us flex flex-col items-center justify-center w-full h-auto max-w-[1920px] bg-[#205781] px-4 py-16 text-center"
     >
-      <h1 className="font-inter font-light text-base md:text-lg uppercase text-white">
+      <h1 className="font-inter font-light text-base tracking-[30%] uppercase text-white">
         About Us
       </h1>
       <p className="mt-6 md:mt-10 font-cormorant font-semibold text-2xl md:text-4xl lg:text-5xl leading-normal text-white max-w-[90%] md:max-w-[1185px] capitalize">

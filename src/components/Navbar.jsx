@@ -3,8 +3,10 @@
 import React, { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { gsap } from "gsap";
-import logo from "../../public/logo.png";
+import Logo from "../../public/logo.png";
+import Hamlogo from "../../public/hamLogo.png"
 import Image from "next/image";
+import { div } from "motion/react-client";
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const logoRef = useRef(null);
@@ -81,55 +83,53 @@ const Navbar = () => {
   }, []);
 
   return (
-    <nav className="w-full z-[50] py-6 px-4 sm:px-6 md:px-8 lg:px-12">
+    <nav className="w-full z-[50] py-10 px-4 sm:px-6 md:px-8 lg:px-12">
       <div className="max-w-7xl mx-auto flex justify-between items-center">
         {/* Logo */}
         <div
           ref={logoRef}
-          className="text-white text-xl md:text-2xl lg:text-3xl font-bold uppercase"
+          className="text-white text-xl md:text-2xl lg:text-3xl font-bold uppercase "
         >
           <Image
-            src={logo}
+            src={Logo}
             alt="River Ranch Logo"
-            className="h-16 sm:h-15 md:h-18 lg:h-25"
-            style={{ maxWidth: "none" }}
+            className="h-[50px] w-[42.03821563720703px] lg:w-[81px] lg:h-[96px]"
           />
         </div>
 
         {/* Standalone Hamburger Menu with global CSS class */}
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="hamburger-menu-button p-2 rounded-md bg-white focus:outline-none"
+          className="hamburger-menu-button  p-2 rounded-md  focus:outline-none"
           style={{
-            boxShadow: "0 0 10px rgba(255,255,255,0.5)",
-            position: "relative",
+            color: "#000000",
             zIndex: 9999,
-            display: "block", // Default visible, CSS will override as needed
+            display: "block",
           }}
           aria-label="Toggle menu"
         >
           {isOpen ? (
-            // Close icon - blue
-            <svg
-              className="w-8 h-8"
-              fill="none"
-              stroke="#1F7580"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2.5}
-                d="M6 18L18 6M6 6l12 12"
-              />
-            </svg>
+            <div className="flex flex-row items-center justify-between w-full ">
+              <svg
+                className="w-8 h-8"
+                fill="none"
+                stroke="black"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2.5}
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </div>
           ) : (
-            // Hamburger icon - blue
             <svg
               className="w-8 h-8"
               fill="none"
-              stroke="#1F7580"
+              stroke="white"
               viewBox="0 0 24 24"
               xmlns="http://www.w3.org/2000/svg"
             >
@@ -144,19 +144,21 @@ const Navbar = () => {
         </button>
 
         {/* Desktop menu */}
-        <div className="hidden md:flex space-x-8">
+        <div className="hidden md:flex space-x-[60px]">
           {[
             { label: "Home", path: "/" },
-            { label: "About", path: "#aboutUs" },
-            { label: "Accommodation", path: "#roomsBook" },
-            { label: "Gallery", path: "#gallery" },
-            { label: "Contact", path: "#contact" },
+            { label: "About", path: "#" },
+            { label: "rooms", path: "#" },
+            { label: "events", path: "#" },
+            { label: "Yoga", path: "#" },
+            { label: "Gallery", path: "#" },
+            { label: "Contact", path: "#" },
           ].map((item, index) => (
             <Link
               key={index}
               href={item.path}
               ref={(el) => (menuItemsRef.current[index] = el)}
-              className="nav-item text-xl text-white hover:text-gray-300 transition-colors"
+              className="nav-item text-[16px] font-light capitalize text-white text-inter  hover:text-gray-300 transition-colors"
             >
               {item.label}
             </Link>
@@ -167,7 +169,7 @@ const Navbar = () => {
         <div className="hidden md:block">
           <button
             ref={buttonRef}
-            className="text-sm lg:text-base xl:text-xl bg-transparent nav-item text-white border border-white hover:bg-white hover:text-black transition-colors uppercase rounded-2xl px-4 py-1 lg:px-6 lg:py-2"
+            className="text-[16px] font-inter bg-transparent nav-item text-white border border-white hover:bg-white hover:text-black transition-colors uppercase rounded-2xl px-4 py-1 lg:px-6 lg:py-2"
           >
             Book Now
           </button>
@@ -175,27 +177,32 @@ const Navbar = () => {
 
         {/* Mobile menu dropdown - also themed with white/blue */}
         {isOpen && (
-          <div className="md:hidden  nav-item absolute top-full right-4 mt-2 w-48 bg-white/95 rounded-lg shadow-lg overflow-hidden z-50">
-            <div className="flex flex-col p-4 space-y-2">
+          <div className="md:hidden items-center nav-item absolute top-0 right-0 h-full w-full bg-white/95 rounded-lg shadow-lg overflow-hidden z-50">
+            <Image
+              src={Hamlogo}
+              alt="Logo"
+              width={62}
+              height={73.742}
+              className="absolute top-8 left-8"
+            />
+            <div className="flex flex-col pt-50 p-10 space-y-10">
               {[
-                // { label: "Home", path: "#" },
-                // { label: "About", path: "#" },
-                // { label: "Accommodation", path: "#" },
-                // { label: "Gallery", path: "#" },
-                // { label: "Contact", path: "#" },
+                { label: "About", path: "#" },
+                { label: "rooms", path: "#" },
+                { label: "events", path: "#" },
+                { label: "Yoga", path: "#" },
+                { label: "Gallery", path: "#" },
+                { label: "Contact", path: "#" },
               ].map((item, index) => (
                 <Link
                   key={index}
                   href={item.path}
-                  className="text-[#1F7580] nav-item text-lg font-semibold tracking-wider hover:bg-[#1F7580] hover:text-white px-1 py-2 rounded-md transition-colors"
+                  className="text-black nav-item text-lg font-semibold tracking-wider px-1 py-2 rounded-md transition-colors capitalize"
                   onClick={() => setIsOpen(false)}
                 >
                   {item.label}
                 </Link>
               ))}
-              <button className="mt-4 text-base bg-[#1F7580] text-white font-bold border-2 border-[#1F7580] hover:bg-white hover:text-[#1F7580] transition-colors rounded-full px-6 py-2">
-                Book Now
-              </button>
             </div>
           </div>
         )}

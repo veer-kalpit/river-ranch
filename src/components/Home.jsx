@@ -155,33 +155,28 @@ const Home = ({ isRendered, onRenderComplete, showNavbar }) => {
       {/* Text Headings */}
       <div
         ref={headingsContainerRef}
-        className="absolute inset-0 flex flex-col uppercase justify-center z-10 px-4"
+        className="absolute inset-10  lg:top-40 flex flex-col uppercase -gap-[22px] justify-center z-10 px-4 lg:pl-[254px]"
       >
-        <div
-          className="absolute hidden sm:block left-0 right-0 sm:right-auto max-w-[100%] sm:max-w-[80%] md:max-w-[70%] h-[260px] sm:h-[320px] md:h-[400px] lg:h-[500px] 
-                       bg-gradient-to-r from-black/50 to-transparent sm:rounded-r-3xl rounded-none z-[-1]"
-        ></div>
 
         <h3
           ref={headingRef1}
-          className="text-center sm:text-left sm:pl-[15%] md:pl-[20%] lg:pl-[25%] tracking-wide text-sm sm:text-base md:text-lg lg:text-xl text-white font-medium"
+          className="text-center lg:text-left text-white font-medium font-inter"
         >
           Welcome to River Ranch
         </h3>
         <h1
           ref={headingRef2}
-          className="text-center sm:text-left sm:pl-[15%] md:pl-[20%] lg:pl-[25%] text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl text-white font-bold"
+          className="text-center lg:text-left text-[40px] lg:text-[150px] text-white font-semibold font-cormorant"
         >
-          Treasure
+          Escape
         </h1>
         <h1
           ref={headingRef3}
-          className="text-center sm:text-left sm:pl-[25%] md:pl-[30%] lg:pl-[40%] text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl text-white font-bold"
+          className="text-center text-[40px] lg:text-[150px] text-white font-semibold font-cormorant "
         >
-          your holiday
+          Into Nature
         </h1>
 
-        {/* Mobile Book Now Button */}
         <div className="mt-8 flex justify-center md:hidden">
           <button
             ref={bookButtonRef}

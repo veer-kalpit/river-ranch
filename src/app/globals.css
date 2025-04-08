@@ -1,11 +1,6 @@
 @import "tailwindcss";
 
-@font-face {
-  font-family: "Jaini";
-  src: url("/fonts/jaini.ttf") format("truetype");
-  font-weight: normal;
-  font-style: normal;
-}
+
 @font-face {
   font-family: "Amatic SC";
   src: url("/fonts/Amatic.ttf") format("truetype");
@@ -26,15 +21,12 @@
 }
 
 :root {
-  --font-jaini: "Jaini", sans-serif;
   --font-amatic: "Amatic SC", sans-serif;
   --font-inter: "Inter", sans-serif;
   --font-cormorant: "Cormorant Garamond", sans-serif;
 }
 
-.font-jaini {
-  font-family: var(--font-jaini);
-}
+
 .font-amatic {
   font-family: var(--font-amatic);
 }
