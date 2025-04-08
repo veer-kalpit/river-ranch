@@ -66,7 +66,7 @@ const Discover = () => {
   }, []);
 
   return (
-    <div className="w-screen h-fit min-h-screen bg-white overflow-hidden">
+    <div className="w-screen h-fit min-h-screen bg-white overflow-hidden z-[50] relative">
       {/* Section 1: Yoga and Healing */}
       <div className="relative w-full h-screen min-h-fit flex flex-col md:flex-row flex-wrap justify-center items-center gap-20 py-10 md:gap-30 md:pt-30 md:py-0 md:px-10">
         {/* Left: Text + Splash_1 overlay */}

@@ -34,7 +34,7 @@ const WhyBook = () => {
   return (
     <div className="flex flex-col items-center px-4">
       {/* Heading */}
-      <h1 className="font-cormorant font-semibold text-3xl md:text-[48px] text-center capitalize mb-10">
+      <h1 className="font-cormorant font-semibold text-3xl md:text-[48px] text-center capitalize mb-10 z-[50] relative">
         Why Book Direct?
       </h1>
 

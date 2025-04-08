@@ -4,7 +4,7 @@ import { MdOutlinePets, MdOutlineHotel } from "react-icons/md";
 
 const BookingInfo = () => {
   return (
-    <div className="flex flex-col gap-20">
+    <div className="flex flex-col gap-20 z-[50] relative">
       {/* Heading & Description */}
       <div>
         <h3 className="text-[48px] font-semibold font-cormorant text-left">

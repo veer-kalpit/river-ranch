@@ -80,7 +80,7 @@ const RoomsBook = () => {
   };
 
   return (
-    <section id="roomsBook">
+    <section id="roomsBook" className="z-[50] relative">
       <div className="flex flex-col items-center bg-[#F5F8FA] py-10 px-4 md:px-10">
         <h3 className="text-lg md:text-[16px] font-light font-inter uppercase text-[#050E14] text-center">
           Stay By The Waters

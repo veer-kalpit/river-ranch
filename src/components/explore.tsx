@@ -9,14 +9,14 @@ import Beach from "../../public/beach.png";
 
 const Explore = () => {
   return (
-    <div className="w-screen h-screen relative overflow-hidden">
+    <div className="w-screen h-screen relative overflow-hidden z-[50]">
       <Image
         className="w-full h-full object-cover"
         src={Bg}
         alt="explore_background"
       />
 
-      <div className="absolute top-[80%] left-[8%] sm:left-[15%] md:left-[20%]">
+      <div className="absolute top-[80%] left-[8%] sm:left-[15%] md:left-[20%] ">
         <h6 className="font-inter font-extralight text-[#F5F8FA]/75 text-[10px] mb-3 tracking-[3.5px]">
           HIGHLIGHTS
         </h6>

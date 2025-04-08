@@ -69,7 +69,7 @@ const Home = ({ onRenderComplete }) => {
   return (
     <div
       ref={pageRef}
-      className="w-screen h-screen relative z-0 overflow-hidden"
+      className="w-screen h-screen z-0 fixed top-0 left-0 overflow-hidden"
     >
       {/* Top Gradient */}
       {/* <div className="h-20 absolute w-full bg-gradient-to-b from-[#1F7580] to-transparent top-0 left-0 z-10" /> */}

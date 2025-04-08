@@ -5,9 +5,9 @@ import Logo from "../../public/logo.png";
 
 const Footer = () => {
   return (
-    <section id="contact">
+    <section id="contact" className="z-[50] relative">
 
-    <div className="w-screen h-fit min-h-screen bg-[#205781] overflow-hidden relative">
+    <div className="w-screen h-fit min-h-screen bg-[#205781] overflow-hidden relative ">
       {/* headings  */}
       <div className="w-fit h-fit text-center space-y-3 mx-auto mt-10">
         <h6 className="font-inter font-extralight text-[#FFFFFF] text-[12px] tracking-[3.5px]">
