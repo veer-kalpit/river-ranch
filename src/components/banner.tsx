@@ -70,12 +70,12 @@ const Banner = () => {
             alt="Swimming Pool"
             width={549}
             height={688}
-            className="lg:w-[549px] lg:h-[688px] w-[331px] h-[468px] mt-6 lg:mt-[42px]"
+            className="lg:w-[549px] lg:h-[688px] w-[331px] h-[468px] mt-6 lg:mt-[42px] z-10"
           />
 
           <motion.div
             ref={splashRef}
-            className="absolute -z-10 -top-[450px] -right-[300px] hidden lg:block w-[1000px] h-[1666px] rounded-full overflow-hidden"
+            className="absolute -top-[188px] -right-[300px] hidden lg:block w-[1000px] h-[1000px] rounded-full overflow-hidden"
             initial={{
               y: -200,
               opacity: 0,
