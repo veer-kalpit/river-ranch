@@ -24,11 +24,24 @@ export default function LandingPage() {
   };
 
   return (
-    <div className="App  relative overflow-hidden">
+    <div className="App bg-white relative overflow-hidden">
       <div className="w-screen h-screen absolute top-0 left-0 z-50">
-         {!hideOverlay && <Overlay setIsRendered={setIsRendered} />}
+        {!hideOverlay && (
+          <Overlay
+            setIsRendered={setIsRendered}
+            onRenderComplete={handleRenderComplete}
+          />
+        )}
       </div>
-      <Home isRendered={isRendered} onRenderComplete={handleRenderComplete} />
+
+      {/* Home always rendered */}
+      <Home
+        isRendered={isRendered}
+        onRenderComplete={handleRenderComplete}
+        showNavbar={hideOverlay}
+      />
+
+      {/* Rest of the content after overlay */}
       {hideOverlay && (
         <>
           <AboutUs />
