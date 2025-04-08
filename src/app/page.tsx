@@ -24,7 +24,7 @@ export default function LandingPage() {
   };
 
   return (
-    <div className="App bg-white relative overflow-hidden">
+    <div >
       <div className="w-screen h-screen absolute top-0 left-0 z-50">
         {!hideOverlay && (
           <Overlay

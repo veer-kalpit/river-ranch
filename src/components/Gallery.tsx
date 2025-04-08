@@ -39,7 +39,7 @@ function UnsplashGrid() {
   const [selected, setSelected] = useState<ItemType | null>(null);
 
   return (
-    <section id="gallery">
+    <section id="gallery" className="bg-white">
       <div className="container mx-auto sm:p-4 px-0 ">
         <h1 className="text-[#333333] font-inter font-light text-[16px] leading-[30%] uppercase text-center ">
           Explore River Ranch

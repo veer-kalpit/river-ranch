@@ -47,7 +47,7 @@ const Banner = () => {
   }, [isInView, controls]);
 
   return (
-    <section>
+    <section className="bg-white">
       <div className="flex flex-col lg:flex-row justify-center p-10 gap-12 lg:gap-[115px] pt-10 lg:pt-[160px] h-auto lg:h-screen">
         <div data-aos="fade-right" className="flex flex-col text-left max-w-lg">
           <h1 className="font-cormorant font-semibold text-3xl md:text-4xl lg:text-5xl leading-tight text-[#205781] capitalize">
