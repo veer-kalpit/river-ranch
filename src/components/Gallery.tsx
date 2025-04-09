@@ -56,19 +56,20 @@ const breakpointColumnsObj = {
 function UnsplashGrid() {
   const [heights, setHeights] = useState<number[]>([]);
 
-  // Randomize heights every 5 seconds
-  useEffect(() => {
-    const randomHeights = () =>
-      items.map(() => 300 + Math.floor(Math.random() * 150)); // between 300-450px
+useEffect(() => {
 
-    setHeights(randomHeights());
+  const interval = setInterval(() => {
+    setHeights((prevHeights) => {
+      const newHeights = [...prevHeights];
+      const randomIndex = Math.floor(Math.random() * items.length);
+      newHeights[randomIndex] = 300 + Math.floor(Math.random() * 100);
+      return newHeights;
+    });
+  }, 2000); // every 2s one image height updates
 
-    const interval = setInterval(() => {
-      setHeights(randomHeights());
-    }, 5000);
+  return () => clearInterval(interval);
+}, []);
 
-    return () => clearInterval(interval);
-  }, []);
 
   return (
     <section id="gallery" className="bg-white z-[50] relative">
@@ -83,7 +84,7 @@ function UnsplashGrid() {
         <div className="mt-[100px]">
           <Masonry
             breakpointCols={breakpointColumnsObj}
-            className="flex w-auto gap-4"
+            className="flex w-auto px-4 gap-1 lg:gap-4"
             columnClassName="my-masonry-grid_column"
           >
             {items.map((item, index) => (
@@ -91,7 +92,7 @@ function UnsplashGrid() {
                 key={item.id}
                 item={item}
                 index={index}
-                height={heights[index] || 150}
+                height={heights[index] || 200}
               />
             ))}
           </Masonry>
@@ -124,7 +125,7 @@ function ImageItem({ item, index, height }: ImageItemProps) {
       <Image
         src={item.url}
         alt={item.title}
-        width={300}
+        width={200}
         height={height}
         className="w-full h-full object-cover rounded-md"
       />
