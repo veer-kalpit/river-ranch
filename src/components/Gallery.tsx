@@ -63,7 +63,7 @@ function UnsplashGrid() {
           Gallery
         </h1>
 
-        <div className="mt-20 p-40">
+        <div className=" p-40">
           <Masonry
             breakpointCols={breakpointColumnsObj}
             className="my-masonry-grid"
@@ -100,9 +100,9 @@ function ImageItem({ item, index, hoveredId, setHoveredId }: ImageItemProps) {
   const isOtherHovered = hoveredId !== null && hoveredId !== item.id;
 
   const sizeClass = isHovered
-    ? "w-full scale-[1.05]"
+    ? "w-full scale-[1.20]"
     : isOtherHovered
-    ? "w-full scale-[0.95] opacity-70"
+    ? "w-full scale-[0.8] opacity-10"
     : "w-full";
 
   return (
@@ -112,7 +112,7 @@ function ImageItem({ item, index, hoveredId, setHoveredId }: ImageItemProps) {
       initial="hidden"
       animate={isInView ? "visible" : "hidden"}
       transition={{ delay: index * 0.1 }}
-      className={`relative mb-4 transition-all duration-500 ease-in-out cursor-pointer`}
+      className={`relative transition-all duration-500 ease-in-out cursor-pointer`}
       onMouseEnter={() => setHoveredId(item.id)}
       onMouseLeave={() => setHoveredId(null)}
     >
