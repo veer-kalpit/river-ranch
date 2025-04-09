@@ -87,7 +87,7 @@ const Home = ({ isRendered, onRenderComplete }) => {
       }`}
     >
       {/* Top Gradient */}
-      {/* <div className="h-20 absolute w-full bg-gradient-to-b from-[#1F7580] to-transparent top-0 left-0 z-10" /> */}
+      <div className="absolute top-0 left-0 w-full h-full bg-black/50 z-20" />
 
       {/* Background Videos */}
       <div className="w-full h-full relative">
@@ -108,14 +108,6 @@ const Home = ({ isRendered, onRenderComplete }) => {
           playsInline
           onEnded={() => fadeToNextVideo(videoRef_2, videoRef_1)}
         />
-
-        {/* Overlay */}
-        {/* <Image
-          src={homeOverlay}
-          alt="Overlay"
-          fill
-          className="absolute w-full h-full object-cover z-20 pointer-events-none"
-        /> */}
       </div>
 
       <Image
@@ -132,64 +124,18 @@ const Home = ({ isRendered, onRenderComplete }) => {
 
       {/* Heading Content */}
       <div className="w-fit h-fit absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30 text-white ">
-        <h6 className="font-inter text-[10px] tracking-[3px] text-center xl:text-start whitespace-nowrap">
+        <h6 className="font-inter text-[12px] tracking-[3px] text-center xl:text-start whitespace-nowrap">
           WELCOME TO RIVER RENCH
         </h6>
 
         <div className="w-fit h-fit leading-10 sm:leading-20 xl:leading-28">
-          <h1 className="font-cormorant text-[40px] sm:text-[80px] xl:text-[120px] text-center xl:text-start whitespace-nowrap">
+          <h1 className="font-cormorant-sem font-[600] text-[40px] sm:text-[80px] xl:text-[120px] text-center xl:text-start whitespace-nowrap">
             ESCAPE
           </h1>
-          <h1 className="font-cormorant text-[40px] sm:text-[80px] xl:text-[120px] text-center xl:text-end xl:ml-72 whitespace-nowrap">
+          <h1 className="font-cormorant-sem text-[40px] sm:text-[80px] xl:text-[120px] text-center xl:text-end xl:ml-72 whitespace-nowrap">
             INTO NATURE
           </h1>
         </div>
-      </div>
-
-      <div className="w-full absolute top-[60%] sm:top-[63%] md:top-[80%] left-1/2 -translate-x-1/2  flex flex-wrap justify-center items-center gap-8 z-30">
-        <div className="hidden md:block w-fit h-fit">
-          <div className="w-fit h-fit flex justify-center items-center gap-2 text-white">
-            <Calendar size={16} color="white" />
-            <h1 className="font-inter text-[13px]">CHECK IN</h1>
-          </div>
-          <div className="w-fit h-fit text-white mt-1.5">
-            <h1 className="font-inter text-[13px]">Mon, 20 Jun 2022</h1>
-            <hr className="border-white w-[150px]" />
-          </div>
-        </div>
-        <div className="hidden md:block w-fit h-fit">
-          <div className="w-fit h-fit flex justify-center items-center gap-2 text-white">
-            <Calendar size={16} color="white" />
-            <h1 className="font-inter text-[13px]">CHECK OUT</h1>
-          </div>
-          <div className="w-fit h-fit text-white mt-1.5">
-            <h1 className="font-inter text-[13px]">Sat, 06 Jun 2022</h1>
-            <hr className="border-white w-[150px]" />
-          </div>
-        </div>
-        <div className="hidden md:block w-fit h-fit">
-          <div className="w-fit h-fit flex justify-center items-center gap-2 text-white">
-            <User size={16} color="white" />
-            <h1 className="font-inter text-[13px]">Guests</h1>
-          </div>
-          <div className="w-fit h-fit text-white mt-1.5">
-            <h1 className="font-inter text-[13px]">1 Adult</h1>
-            <hr className="border-white w-[150px]" />
-          </div>
-        </div>
-        <div className="hidden md:block w-fit h-fit">
-          <div className="w-fit h-fit flex justify-center items-center gap-2 text-white">
-            <LockOpen size={16} color="white" />
-            <h1 className="font-inter text-[13px]">ACCOMMODATION</h1>
-          </div>
-          <div className="w-fit h-fit text-white mt-1.5">
-            <h1 className="font-inter text-[13px]">Sea view room</h1>
-            <hr className="border-white w-[150px]" />
-          </div>
-        </div>
-        <button className="w-fit border border-white rounded-full px-13 py-2 whitespace-nowrap text-white text-[14px]">
-          BOOK NOW
-        </button>
       </div>
     </div>
   );

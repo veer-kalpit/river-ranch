@@ -2,12 +2,14 @@
 
 import AboutUs from "@/components/aboutUs";
 import Banner from "@/components/banner";
+import Booking from "@/components/booking";
 import Discover from "@/components/discover";
 import Explore from "@/components/explore";
 import Footer from "@/components/footer";
 import Home from "@/components/Home";
-
 import Overlay from "@/components/Overlay";
+import RoomsBook from "@/components/roomsBook";
+
 import { useState } from "react";
 
 export default function LandingPage() {
@@ -43,6 +45,8 @@ export default function LandingPage() {
           <Banner />
           <Explore />
           <Discover />
+          <Booking />
+          <RoomsBook />
           <Footer />
         </>
       )}
