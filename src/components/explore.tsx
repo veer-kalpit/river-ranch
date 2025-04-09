@@ -25,7 +25,6 @@ const Explore = () => {
         scrollTrigger: {
           trigger: pageRef.current,
           start: "top 25%",
-          markers: true,
         },
       })
       .fromTo(
