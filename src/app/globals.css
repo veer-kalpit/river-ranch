@@ -204,3 +204,10 @@ img[style*="fixed"] {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
+/* styles/globals.css */
+.my-masonry-grid_column {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
