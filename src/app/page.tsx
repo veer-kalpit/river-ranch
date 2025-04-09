@@ -5,6 +5,8 @@ import Banner from "@/components/banner";
 import Booking from "@/components/booking";
 import Discover from "@/components/discover";
 import Explore from "@/components/explore";
+import Gallery from "@/components/Gallery";
+import Spa from "@/components/Spa";
 import Footer from "@/components/footer";
 import Home from "@/components/Home";
 import Overlay from "@/components/Overlay";
@@ -43,10 +45,10 @@ export default function LandingPage() {
         <>
           <AboutUs />
           <Banner />
+          <Spa />
           <Explore />
           <Discover />
-          <Booking />
-          <RoomsBook />
+          <Gallery />
           <Footer />
         </>
       )}

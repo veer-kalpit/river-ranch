@@ -1,11 +1,11 @@
 "use client";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState, useRef } from "react";
+import Masonry from "react-masonry-css";
 import { motion, Variants } from "framer-motion";
 import { useInView } from "framer-motion";
-import Masonry from "react-masonry-css";
 import Image, { StaticImageData } from "next/image";
 
-// Import Images
+// Import your images
 import Img1 from "../../public/gallery/img1.png";
 import Img2 from "../../public/gallery/img2.png";
 import Img3 from "../../public/gallery/img3.png";
@@ -16,7 +16,7 @@ import Img7 from "../../public/gallery/img7.png";
 import Img8 from "../../public/gallery/img8.png";
 import Img9 from "../../public/gallery/img9.png";
 
-// Image Type
+// Image type
 interface ItemType {
   id: number;
   url: StaticImageData;
@@ -35,7 +35,6 @@ const items: ItemType[] = [
   { id: 9, url: Img9, title: "Image 9" },
 ];
 
-// Animation Variants
 const imageVariants: Variants = {
   hidden: { opacity: 0, y: 40 },
   visible: {
@@ -45,45 +44,29 @@ const imageVariants: Variants = {
   },
 };
 
-// Masonry Breakpoints
 const breakpointColumnsObj = {
   default: 3,
-  1024: 3,
-  768: 2,
-
+  1100: 2,
+  700: 1,
 };
 
 function UnsplashGrid() {
-  const [heights, setHeights] = useState<number[]>([]);
-
-  // Randomize heights every 5 seconds
-  useEffect(() => {
-    const randomHeights = () =>
-      items.map(() => 300 + Math.floor(Math.random() * 150)); // between 300-450px
-
-    setHeights(randomHeights());
-
-    const interval = setInterval(() => {
-      setHeights(randomHeights());
-    }, 5000);
-
-    return () => clearInterval(interval);
-  }, []);
+  const [hoveredId, setHoveredId] = useState<number | null>(null);
 
   return (
     <section id="gallery" className="bg-white z-[50] relative">
       <div className="container mx-auto px-4 py-20 lg:py-40">
-        <h1 className="text-[#333333] font-inter font-light text-[16px] leading-[30%] uppercase text-center">
+        <h1 className="text-[#333333] font-inter font-light text-[16px] uppercase text-center">
           Explore River Ranch
         </h1>
         <h1 className="text-[48px] leading-[65px] font-semibold font-cormorant mt-10 text-[#205781] text-center">
           Gallery
         </h1>
 
-        <div className="mt-[100px]">
+        <div className="mt-20 p-40">
           <Masonry
             breakpointCols={breakpointColumnsObj}
-            className="flex w-auto gap-4"
+            className="my-masonry-grid"
             columnClassName="my-masonry-grid_column"
           >
             {items.map((item, index) => (
@@ -91,7 +74,8 @@ function UnsplashGrid() {
                 key={item.id}
                 item={item}
                 index={index}
-                height={heights[index] || 150}
+                hoveredId={hoveredId}
+                setHoveredId={setHoveredId}
               />
             ))}
           </Masonry>
@@ -104,12 +88,22 @@ function UnsplashGrid() {
 interface ImageItemProps {
   item: ItemType;
   index: number;
-  height: number;
+  hoveredId: number | null;
+  setHoveredId: (id: number | null) => void;
 }
 
-function ImageItem({ item, index, height }: ImageItemProps) {
+function ImageItem({ item, index, hoveredId, setHoveredId }: ImageItemProps) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
+
+  const isHovered = hoveredId === item.id;
+  const isOtherHovered = hoveredId !== null && hoveredId !== item.id;
+
+  const sizeClass = isHovered
+    ? "w-full scale-[1.05]"
+    : isOtherHovered
+    ? "w-full scale-[0.95] opacity-70"
+    : "w-full";
 
   return (
     <motion.div
@@ -118,16 +112,21 @@ function ImageItem({ item, index, height }: ImageItemProps) {
       initial="hidden"
       animate={isInView ? "visible" : "hidden"}
       transition={{ delay: index * 0.1 }}
-      className="overflow-hidden rounded-md bg-white shadow-sm transition-all duration-700 ease-in-out"
-      style={{ height }}
+      className={`relative mb-4 transition-all duration-500 ease-in-out cursor-pointer`}
+      onMouseEnter={() => setHoveredId(item.id)}
+      onMouseLeave={() => setHoveredId(null)}
     >
-      <Image
-        src={item.url}
-        alt={item.title}
-        width={300}
-        height={height}
-        className="w-full h-full object-cover rounded-md"
-      />
+      <div
+        className={`overflow-hidden rounded-md ${sizeClass} transition-all duration-500 ease-in-out`}
+      >
+        <Image
+          src={item.url}
+          alt={item.title}
+          width={500}
+          height={500}
+          className="w-full h-auto object-cover rounded-md"
+        />
+      </div>
     </motion.div>
   );
 }
