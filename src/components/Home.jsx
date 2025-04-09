@@ -129,10 +129,10 @@ const Home = ({ isRendered, onRenderComplete }) => {
         </h6>
 
         <div className="w-fit h-fit leading-10 sm:leading-20 xl:leading-28">
-          <h1 className="font-cormorant-sem font-[600] text-[40px] sm:text-[80px] xl:text-[120px] text-center xl:text-start whitespace-nowrap">
+          <h1 className="font-cormorant font-semibold mb-4 text-[40px] sm:text-[80px] xl:text-[150px] text-center xl:text-start whitespace-nowrap">
             ESCAPE
           </h1>
-          <h1 className="font-cormorant-sem text-[40px] sm:text-[80px] xl:text-[120px] text-center xl:text-end xl:ml-72 whitespace-nowrap">
+          <h1 className="font-cormorant font-semibold text-[40px] sm:text-[80px] xl:text-[150px] text-center xl:text-end xl:ml-72 whitespace-nowrap">
             INTO NATURE
           </h1>
         </div>
