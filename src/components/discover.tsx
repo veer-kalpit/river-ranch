@@ -14,7 +14,7 @@ import Warehouse_3 from "../../public/ware_house_3.jpeg";
 import Splash from "../../public/splash.png";
 import Splash_3 from "../../public/splash_3.png";
 import Sunset from "../../public/sunset.jpeg";
-import YogaGallery from "../components/unused/YogaGallery";
+import YogaGallery from "./YogaGallery";
 
 gsap.registerPlugin(ScrollTrigger);
 

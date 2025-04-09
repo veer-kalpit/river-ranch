@@ -1,6 +1,6 @@
 "use client";
-import React, { useEffect, useRef, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import React, { useRef } from "react";
+import {  motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import Image, { StaticImageData } from "next/image";
 
@@ -36,11 +36,10 @@ const items: ItemType[] = [
 ];
 
 function UnsplashGrid() {
-  const [selected, setSelected] = useState<ItemType | null>(null);
 
   return (
     <section id="gallery" className="bg-white z-[50] relative">
-      <div className="container mx-auto sm:p-4 px-0  lg:pb-40">
+      <div className="container mx-auto  px-0 py-20 lg:py-40">
         <h1 className="text-[#333333] font-inter font-light text-[16px] leading-[30%] uppercase text-center ">
           Explore River Ranch
         </h1>
@@ -53,12 +52,10 @@ function UnsplashGrid() {
               key={item.id}
               item={item}
               index={index}
-              setSelected={setSelected}
             />
           ))}
         </div>
       </div>
-      <Modal selected={selected} setSelected={setSelected} />
     </section>
   );
 }
@@ -66,10 +63,9 @@ function UnsplashGrid() {
 interface ImageItemProps {
   item: ItemType;
   index: number;
-  setSelected: (item: ItemType | null) => void;
 }
 
-function ImageItem({ item, setSelected }: ImageItemProps) {
+function ImageItem({ item }: ImageItemProps) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
 
@@ -79,7 +75,6 @@ function ImageItem({ item, setSelected }: ImageItemProps) {
       animate={isInView && "visible"}
       ref={ref}
       className="inline-block group w-full rounded-md relative bg-white cursor-pointer"
-      onClick={() => setSelected(item)}
     >
       <motion.div>
         <Image
@@ -94,66 +89,6 @@ function ImageItem({ item, setSelected }: ImageItemProps) {
   );
 }
 
-interface ModalProps {
-  selected: ItemType | null;
-  setSelected: (item: ItemType | null) => void;
-}
 
-function Modal({ selected, setSelected }: ModalProps) {
-  useEffect(() => {
-    if (selected) {
-      document.body.classList.add("overflow-hidden");
-    } else {
-      document.body.classList.remove("overflow-hidden");
-    }
-
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
-        setSelected(null);
-      }
-    };
-
-    document.addEventListener("keydown", handleKeyDown);
-    return () => {
-      document.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [selected, setSelected]);
-
-  return (
-    <AnimatePresence>
-      {selected && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          onClick={() => setSelected(null)}
-          className="fixed inset-0 backdrop-blur-sm z-50 flex justify-center items-center "
-        >
-          <motion.div
-            onClick={(e) => e.stopPropagation()}
-            className="relative bg-white p-6 rounded-lg max-w-lg"
-          >
-            {/* Close Button */}
-            <button
-              className="absolute top-2 right-2 text-lg font-bold p-2 bg-gray-200 rounded-full"
-              onClick={() => setSelected(null)}
-            >
-              ×
-            </button>
-
-            {/* Image Display */}
-            <Image
-              src={selected.url}
-              alt={selected.title}
-              width={600}
-              height={600}
-              className="w-full h-auto object-contain rounded-md "
-            />
-          </motion.div>
-        </motion.div>
-      )}
-    </AnimatePresence>
-  );
-}
 
 export default UnsplashGrid;
