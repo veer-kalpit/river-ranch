@@ -18,11 +18,18 @@
   font-weight: normal;
   font-style: normal;
 }
+@font-face {
+  font-family: "Cormorant Garamond Sem";
+  src: url("/fonts/CormorantSemiBold.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
 
 :root {
   --font-amatic: "Amatic SC", sans-serif;
   --font-inter: "Inter", sans-serif;
   --font-cormorant: "Cormorant Garamond", sans-serif;
+  --font-cormorant-sem: "Cormorant Garamond Sem", sans-serif;
 }
 
 .font-amatic {
@@ -33,6 +40,9 @@
 }
 .font-cormorant {
   font-family: var(--font-cormorant);
+}
+.font-cormorant-sem {
+  font-family: var(--font-cormorant-sem);
 }
 .about-us {
   background-image: url("/MaskBg.png");

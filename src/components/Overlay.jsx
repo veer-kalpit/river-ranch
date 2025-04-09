@@ -82,7 +82,7 @@ const Overlay = ({ setHomeRendering }) => {
   return (
     <div
       ref={pageRef}
-      className="fixed top-0 left-0 w-screen h-screen flex justify-center items-center flex-col z-[50]"
+      className="fixed top-0 left-0 w-screen h-screen flex justify-center items-center flex-col -space-y-10 z-[50]"
     >
       {/* background video  */}
       <video
@@ -92,14 +92,14 @@ const Overlay = ({ setHomeRendering }) => {
         playsInline
         onLoadedMetadata={() => {
           if (videoRef.current) {
-            videoRef.current.currentTime = 0.3;
+            videoRef.current.currentTime = 0.1;
           }
         }}
         src="/bg.mp4"
       />
 
       {/* Heading */}
-      <h1 className="w-full text-center text-white text-5xl sm:text-8xl tracking-wider font-semibold font-cormorant z-[50]">
+      <h1 className="w-full text-center text-white text-5xl sm:text-8xl font-cormorant-sem z-[50]">
         River Ranch
       </h1>
 
