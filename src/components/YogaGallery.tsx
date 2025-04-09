@@ -68,7 +68,7 @@ function Gallery({ items, setIndex, index }: GalleryProps) {
                   preload="auto"
                   className="w-[120px] h-[212px] rounded-[20px] object-cover"
                 >
-                  <source src="/yoga/YogaVid.mp4" type="video/mp4" />
+                  <source src="/yoga/yogaVid.mp4" type="video/mp4" />
                   Your browser does not support the video tag.
                 </motion.video>
               ) : (
