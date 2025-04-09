@@ -188,8 +188,14 @@ img[style*="fixed"] {
 }
 
 /* styles/globals.css */
-.my-masonry-grid_column {
+/* globals.css or component-level */
+.my-masonry-grid {
   display: flex;
-  flex-direction: column;
-  gap: 4px;
+  margin-left: -1rem; /* gutter size offset */
+  width: auto;
 }
+.my-masonry-grid_column {
+  padding-left: 1rem; /* gutter size */
+  background-clip: padding-box;
+}
+
