@@ -1,50 +1,102 @@
 "use client";
 
-import React, { useRef, useEffect } from "react";
+import React, { useRef } from "react";
 import Image from "next/image";
-import { motion, useInView, useAnimation } from "framer-motion";
+import gsap from "gsap";
 import WaterSplash from "../../public/WaterSpllash.png";
 import FacilityCard from "./facilityCard";
-import "aos/dist/aos.css";
-import AOS from "aos";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
+
+// Register plugin
+gsap.registerPlugin(ScrollTrigger);
 
 const Banner = () => {
   const splashRef = useRef(null);
-  const videoRef = useRef(null); // ✅ Added missing ref
-  const controls = useAnimation();
+  const videoRef = useRef(null);
+  const textRef = useRef(null);
 
-  const isInView = useInView(splashRef, {
-    margin: "-10px",
-    once: true,
-  });
+  useGSAP(() => {
+    if (!splashRef.current || !videoRef.current || !textRef.current) return;
 
-  useEffect(() => {
-    AOS.init({
-      duration: 1200,
-      easing: "ease-in-out",
-    });
-
-    if (isInView) {
-      controls.start({
-        y: 0,
-        opacity: 1,
-        scale: [0.8, 1.1, 1],
-        rotate: [0, 2, -2, 0],
-        filter: "blur(0px)",
-        transition: {
-          duration: 1,
-          ease: "easeOut",
+    // Text animation
+    gsap
+      .timeline({
+        scrollTrigger: {
+          trigger: textRef.current,
+          start: "top 80%",
         },
-      });
-    }
-  }, [isInView, controls]);
+      })
+      .fromTo(
+        textRef.current,
+        {
+          x: -100,
+          opacity: 0,
+        },
+        {
+          x: 0,
+          opacity: 1,
+          duration: 1,
+          ease: "power3.out",
+        }
+      );
 
+    // Video animation
+    gsap
+      .timeline({
+        scrollTrigger: {
+          trigger: videoRef.current,
+          start: "top 70%",
+        },
+      })
+      .fromTo(
+        videoRef.current,
+        {
+          opacity: 0,
+          scale: 0.9,
+        },
+        {
+          opacity: 1,
+          scale: 1,
+          duration: 1.2,
+          ease: "power3.out",
+        }
+      );
+
+    // Splash animation
+    gsap
+      .timeline({
+        scrollTrigger: {
+          trigger: splashRef.current,
+          start: "top 60%",
+        },
+      })
+      .fromTo(
+        splashRef.current,
+        {
+          y: -200,
+          opacity: 0,
+          scale: 0.8,
+          rotate: -5,
+          filter: "blur(10px)",
+        },
+        {
+          y: 0,
+          opacity: 1,
+          scale: 1,
+          rotate: 0,
+          filter: "blur(0px)",
+          duration: 1.5,
+          ease: "power3.out",
+        }
+      );
+  }, []);
 
   return (
     <section className="bg-white z-[50] relative overflow-hidden">
       <div className="flex flex-col lg:flex-row justify-center p-10 gap-12 lg:gap-[115px] pt-10 lg:pb-[800px] lg:pt-[160px] h-auto lg:h-screen">
-        {/* Text Column */}
-        <div data-aos="fade-right" className="flex flex-col text-left max-w-lg">
+        {/* TEXT COLUMN */}
+        <div ref={textRef} className="flex flex-col text-left max-w-lg">
           <h1 className="font-cormorant font-semibold text-3xl md:text-4xl lg:text-5xl leading-tight text-[#205781] capitalize">
             A Haven of Tranquility
           </h1>
@@ -63,7 +115,7 @@ const Banner = () => {
           </button>
         </div>
 
-        {/* Video + Splash */}
+        {/* VIDEO + SPLASH IMAGE */}
         <div className="flex lg:relative">
           <video
             ref={videoRef}
@@ -71,7 +123,6 @@ const Banner = () => {
             muted
             autoPlay
             preload="auto"
-            data-aos="zoom-in-right"
             width={549}
             height={688}
             className="lg:w-[549px] lg:h-[688px] w-[331px] h-[468px] mt-6 lg:mt-[42px] z-10"
@@ -79,17 +130,9 @@ const Banner = () => {
             <source src="/Bannervid.mp4" type="video/mp4" />
           </video>
 
-          {/* Splash Image (motion) */}
-          <motion.div
+          <div
             ref={splashRef}
             className="absolute -top-[188px] -right-[300px] hidden lg:block w-[1000px] h-[1000px] rounded-full overflow-hidden"
-            initial={{
-              y: -200,
-              opacity: 0,
-              scale: 0.8,
-              filter: "blur(8px)",
-            }}
-            animate={controls}
           >
             <Image
               src={WaterSplash}
@@ -97,11 +140,11 @@ const Banner = () => {
               fill
               className="object-cover"
             />
-          </motion.div>
+          </div>
         </div>
       </div>
 
-      {/* Facility section below */}
+      {/* FACILITY SECTION */}
       <FacilityCard />
     </section>
   );

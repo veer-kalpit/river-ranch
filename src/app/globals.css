@@ -79,24 +79,6 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   }
 }
 
-.overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent background */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 100; /* Ensure it appears above other content */
-}
-
-.frame-image {
-  max-width: 80%; /* Adjust as needed */
-  max-height: 80%; /* Adjust as needed */
-}
-
 .dive-in-button {
   position: absolute;
   bottom: 20%; /* Adjust as needed */

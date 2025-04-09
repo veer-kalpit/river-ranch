@@ -26,48 +26,53 @@ const Discover = () => {
 
   // GSAP Animations
   useGSAP(() => {
-    // Splash + Splash_1 animation on scroll
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: splashRef.current,
-        start: "top 50%", // animation triggers when splashRef hits 50% of viewport
-      },
-    });
-
-    tl.to(
-      splashRef.current,
-      {
+    // Splash animation (zoom + height increase)
+    gsap
+      .timeline({
+        scrollTrigger: {
+          trigger: splashRef.current,
+          start: "top 70%", // triggers when splash enters 70% of viewport
+        },
+      })
+      .to(splashRef.current, {
         scale: 1,
         height: "600px",
-        duration: 0.5,
-      },
-      0
-    ).to(
-      splash_1_Ref.current,
-      {
-        scale: 1.2,
-        duration: 0.5,
-      },
-      0
-    );
+        duration: 0.6,
+        ease: "power3.out",
+      });
 
-    // Splash_2 animation (right slide-in)
+    // Splash_1 animation (scale up separately)
+    gsap
+      .timeline({
+        scrollTrigger: {
+          trigger: splash_1_Ref.current,
+          start: "top 80%",
+        },
+      })
+      .to(splash_1_Ref.current, {
+        scale: 1.2,
+        duration: 0.6,
+        ease: "power3.out",
+      });
+
+    // Splash_2 animation (slide in from right)
     gsap
       .timeline({
         scrollTrigger: {
           trigger: splash_2_Ref.current,
-          start: "top 100%",
+          start: "top 85%",
         },
       })
       .to(splash_2_Ref.current, {
         scale: 1,
         right: 0,
-        duration: 0.5,
+        duration: 0.6,
+        ease: "power3.out",
       });
   }, []);
 
   return (
-    <div className="w-screen bg-white overflow-hidden z-50 relative">
+    <div className="hidden md:block w-screen bg-white overflow-hidden z-50 relative">
       {/* Section 1: Yoga and Healing */}
       <div className="relative w-full h-auto flex flex-col md:flex-row flex-wrap justify-center items-center gap-20 py-10 md:gap-30 md:pt-30 md:py-0 md:px-10">
         {/* Left: Text + Splash_1 overlay */}
@@ -188,9 +193,8 @@ const Discover = () => {
         />
       </div>
       <div className="block lg:hidden">
-         <YogaGallery />
+        <YogaGallery />
       </div>
-     
     </div>
   );
 };
