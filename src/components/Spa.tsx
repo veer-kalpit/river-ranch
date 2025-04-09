@@ -14,12 +14,14 @@ const Spa = () => {
 
   const controls = useAnimation();
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.5 });
+  const hasAnimated = useRef(false); // 👈 Animation lock
 
   useEffect(() => {
-     AOS.init({
-          duration: 1200,
-          easing: "ease-in-out",
-        });
+   AOS.init({
+     duration: 1200,
+     easing: "ease-in-out",
+     once: true, 
+   });
     const video = videoRef.current;
     if (!video) return;
 
@@ -41,12 +43,13 @@ const Spa = () => {
   }, []);
 
   useEffect(() => {
-    if (inView) {
+    if (inView && !hasAnimated.current) {
       controls.start({
         y: 0,
         opacity: 1,
         transition: { duration: 1.2, ease: "easeOut" },
       });
+      hasAnimated.current = true;
     }
   }, [inView, controls]);
 

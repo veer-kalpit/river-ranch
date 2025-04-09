@@ -11,8 +11,12 @@ import AOS from "aos";
 const Banner = () => {
   const splashRef = useRef(null);
   const videoRef = useRef(null); // ✅ Added missing ref
-  const isInView = useInView(splashRef, { margin: "-10px" });
   const controls = useAnimation();
+
+  const isInView = useInView(splashRef, {
+    margin: "-10px",
+    once: true,
+  });
 
   useEffect(() => {
     AOS.init({
@@ -32,19 +36,9 @@ const Banner = () => {
           ease: "easeOut",
         },
       });
-    } else {
-      controls.start({
-        y: -200,
-        opacity: 0,
-        scale: 0.8,
-        filter: "blur(8px)",
-        transition: {
-          duration: 0.6,
-          ease: "easeIn",
-        },
-      });
     }
   }, [isInView, controls]);
+
 
   return (
     <section className="bg-white z-[50] relative overflow-hidden">
