@@ -44,8 +44,8 @@ interface GalleryProps {
 
 function Gallery({ items, setIndex, index }: GalleryProps) {
   return (
-    <div className="w-full overflow-x-auto px-4 md:px-10">
-      <div className="flex gap-2 md:gap-4 w-max pb-10">
+    <div className="w-full px-5  max-w-screen overflow-hidden">
+      <div className="flex gap-1 pb-10 overflow-x-auto no-scrollbar">
         {items.map((item: item, i: number) => {
           const isVideo = item.url.endsWith(".mp4");
 
@@ -54,12 +54,8 @@ function Gallery({ items, setIndex, index }: GalleryProps) {
               key={item.id}
               whileTap={{ scale: 0.95 }}
               className={`relative flex-shrink-0 cursor-pointer overflow-hidden rounded-xl transition-all duration-500 ease-in-out origin-center
-              ${
-                index === i
-                  ? "w-[80vw] sm:w-[300px] md:w-[400px]"
-                  : "w-[60px] sm:w-[70px] md:w-[80px]"
-              }
-              h-[300px] sm:h-[350px] md:h-[400px]`}
+            ${index === i ? "w-[120px]" : "w-[50px]"}
+          `}
               onClick={() => setIndex(i)}
               onMouseEnter={() => setIndex(i)}
             >
@@ -69,7 +65,8 @@ function Gallery({ items, setIndex, index }: GalleryProps) {
                   muted
                   loop
                   playsInline
-                  className="w-full h-full object-cover"
+                  preload="auto"
+                  className="w-[120px] h-[212px] rounded-[20px] object-cover"
                 >
                   <source src={item.url} type="video/mp4" />
                   Your browser does not support the video tag.
@@ -78,7 +75,7 @@ function Gallery({ items, setIndex, index }: GalleryProps) {
                 <motion.img
                   src={item.url}
                   alt={item.title}
-                  className="w-full h-full object-cover"
+                  className="w-[120px] h-[212px] object-cover"
                 />
               )}
             </motion.div>
