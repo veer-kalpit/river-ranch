@@ -127,8 +127,16 @@ const Overlay = ({ setHomeRendering }) => {
             </button>
 
             <div className=" absolute bottom-0.5 left-0 w-full h-fit flex justify-between items-end z-10">
-              <Image src={leaf1} alt="Decorative leaf" className="w-7 ml-0.5 h-fit" />
-              <Image src={leaf2} alt="Decorative leaf" className="w-7 mr-0.5 h-fit" />
+              <Image
+                src={leaf1}
+                alt="Decorative leaf"
+                className="w-7 ml-0.5 h-fit"
+              />
+              <Image
+                src={leaf2}
+                alt="Decorative leaf"
+                className="w-7 mr-0.5 h-fit"
+              />
             </div>
           </div>
         </div>

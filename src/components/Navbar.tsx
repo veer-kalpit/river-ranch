@@ -38,7 +38,7 @@ const Navbar = () => {
       gsap.to(mobileMenuRef.current, {
         opacity: 0,
         duration: 0.5,
-        ease: "power3.in",
+        ease: "power3.out",
         onComplete: () => {
           // Fully hide element after animation completes
           if (mobileMenuRef.current) {
@@ -130,11 +130,9 @@ const Navbar = () => {
         </div>
 
         {/* Book Now Button (visible on Desktop only) */}
-        <div className="hidden md:block">
-          <button className="text-white border border-white px-6 py-2 rounded-full hover:bg-white hover:text-black transition uppercase text-sm">
-            Book Now
-          </button>
-        </div>
+        <button className="hidden md:block w-fit border border-white rounded-full px-10 py-2 whitespace-nowrap text-white text-[14px]">
+          BOOK NOW
+        </button>
       </div>
 
       {/* Mobile Slide-In Menu */}
