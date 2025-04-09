@@ -47,7 +47,7 @@ const imageVariants: Variants = {
 const breakpointColumnsObj = {
   default: 3,
   1100: 2,
-  700: 1,
+  700: 3,
 };
 
 function UnsplashGrid() {
@@ -63,7 +63,7 @@ function UnsplashGrid() {
           Gallery
         </h1>
 
-        <div className=" p-40">
+        <div className="p-4 lg:p-40">
           <Masonry
             breakpointCols={breakpointColumnsObj}
             className="my-masonry-grid"
