@@ -25,11 +25,10 @@ export default function LandingPage() {
 
   return (
     <div>
-      <div className="w-screen h-screen absolute top-0 left-0 z-50">
+      <div className="w-screen h-screen absolute top-0 left-0">
         {!hideOverlay && <Overlay setIsRenderedHome={setIsRenderedHome} />}
       </div>
 
-      {/* Home always rendered */}
       {isRenderedHome && (
         <>
           <Home onRenderComplete={handleRenderComplete} />

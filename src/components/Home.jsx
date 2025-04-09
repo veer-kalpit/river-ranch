@@ -95,12 +95,12 @@ const Home = ({ onRenderComplete }) => {
         />
 
         {/* Overlay */}
-        <Image
+        {/* <Image
           src={homeOverlay}
           alt="Overlay"
           fill
           className="absolute w-full h-full object-cover z-20 pointer-events-none"
-        />
+        /> */}
       </div>
 
       <Image

@@ -14,6 +14,7 @@ import Warehouse_3 from "../../public/ware_house_3.jpeg";
 import Splash from "../../public/splash.png";
 import Splash_3 from "../../public/splash_3.png";
 import Sunset from "../../public/sunset.jpeg";
+import YogaGallery from "../components/unused/YogaGallery";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -66,11 +67,11 @@ const Discover = () => {
   }, []);
 
   return (
-    <div className="w-screen h-fit min-h-screen bg-white overflow-hidden z-[50] relative">
+    <div className="w-screen bg-white overflow-hidden z-50 relative">
       {/* Section 1: Yoga and Healing */}
-      <div className="relative w-full h-screen min-h-fit flex flex-col md:flex-row flex-wrap justify-center items-center gap-20 py-10 md:gap-30 md:pt-30 md:py-0 md:px-10">
+      <div className="relative w-full h-auto flex flex-col md:flex-row flex-wrap justify-center items-center gap-20 py-10 md:gap-30 md:pt-30 md:py-0 md:px-10">
         {/* Left: Text + Splash_1 overlay */}
-        <div className="w-fit h-fit space-y-5 mr-[12%] sm:mr-[40%] md:mr-0">
+        <div className="w-fit h-fit space-y-0 lg:space-y-5 mr-[12%] sm:mr-[40%] md:mr-0">
           <div className="w-fit h-fit">
             <h6 className="font-inter font-extralight text-[#333333] text-[10px] mb-6 tracking-[3.5px]">
               YOGA AND HEALING EXPERIENCES
@@ -81,7 +82,7 @@ const Discover = () => {
           </div>
 
           {/* Main Image */}
-          <div className="w-[150px] h-[250px] md:min-w-[180px] md:h-[280px] relative">
+          <div className="hidden md:block w-[150px] h-[250px] md:min-w-[180px] md:h-[280px] relative">
             <Image
               className="w-[150px] h-[250px] md:min-w-[180px] md:h-[280px] rounded-full object-cover shadow-lg relative z-10"
               src={Yoga1}
@@ -91,7 +92,7 @@ const Discover = () => {
             {/* Splash_1 overlay animation */}
             <div
               ref={splash_1_Ref}
-              className="w-fit h-fit scale-0 absolute top-[86%] left-[-28%] z-0"
+              className="w-fit h-fit scale-0 absolute top-[86%] left-[-28%] z-0 "
             >
               <Image
                 className="w-full h-fit scale-x-[-1] -ml-1"
@@ -103,7 +104,7 @@ const Discover = () => {
         </div>
 
         {/* Center: Secondary Image + Text */}
-        <div className="w-fit h-fit space-y-8">
+        <div className="w-fit h-fit space-y-8 hidden lg:block">
           <div className="w-[200px] h-[250px] md:w-[230px] md:h-[320px] relative">
             <Image
               className="w-full h-full object-cover shadow-lg relative z-10"
@@ -124,7 +125,7 @@ const Discover = () => {
         </div>
 
         {/* Right: Splash image with animation */}
-        <div className="w-[150px] h-fit md:min-w-[180px] md:h-[280px] relative -mt-3 ml-auto mr-[5%] md:mt-0 min-[768px]:ml-0 min-[768px]:mr-0">
+        <div className="w-[150px] h-fit md:min-w-[180px] md:h-[280px] relative -mt-3 ml-auto mr-[5%] md:mt-0 min-[768px]:ml-0 min-[768px]:mr-0 lg:block  hidden">
           <Image
             className="w-full h-full rounded-full object-cover shadow-lg relative z-10"
             src={Yoga2}
@@ -140,7 +141,7 @@ const Discover = () => {
       </div>
 
       {/* Section 2: Nature Sanctuary */}
-      <div className="w-full flex flex-wrap justify-center items-center gap-20 py-10 relative md:gap-30">
+      <div className="w-full hidden  lg:flex flex-wrap justify-center items-center gap-20 py-10 relative md:gap-30 ">
         {/* Left: Large image + text */}
         <div className="w-fit h-fit space-y-8 px-5 sm:mr-auto md:ml-[5%] lg:px-0 lg:ml-0 lg:mr-0">
           <Image
@@ -186,6 +187,10 @@ const Discover = () => {
           alt="Splash_3"
         />
       </div>
+      <div className="block lg:hidden">
+         <YogaGallery />
+      </div>
+     
     </div>
   );
 };
