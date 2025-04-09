@@ -1,22 +1,16 @@
-"use client"; // if this is in the app directory
+"use client";
 
 import React, { useEffect, useRef, useState } from "react";
-
-// Animations gsap
 import { useGSAP } from "@gsap/react";
 import { gsap } from "gsap";
-
 import Image from "next/image";
 import frame from "../../public/frame.png";
 
-const Overlay = ({ setIsRenderedHome }) => {
-  // references
+const Overlay = ({ setHomeRendering }) => {
   const frameRef = useRef(null);
   const videoRef = useRef(null);
   const buttonRef = useRef(null);
   const pageRef = useRef(null);
-
-  // states
   const [isAnimating, setIsAnimating] = useState(false);
 
   const handleClick = () => {
@@ -25,6 +19,7 @@ const Overlay = ({ setIsRenderedHome }) => {
 
     if (videoRef.current) {
       videoRef.current.playbackRate = 3;
+      videoRef.current.currentTime = 0.5; // skip early black frames
       videoRef.current.play();
     }
   };
@@ -34,22 +29,48 @@ const Overlay = ({ setIsRenderedHome }) => {
 
     const tl = gsap.timeline();
 
-    tl.to(buttonRef.current, { opacity: 0, duration: 1.5 }, 0)
-      .to(frameRef.current, { scale: 6, opacity: 0, duration: 2.5 }, 0)
-      .to(pageRef.current, {
-        scale: 2,
+    tl.to(
+      buttonRef.current,
+      {
         opacity: 0,
-        zIndex: -1,
-        duration: 0.35,
-        onStart: () => {
-          setIsRenderedHome(true);
+        duration: 1,
+        ease: "power2.out",
+      },
+      0
+    )
+
+      .to(
+        frameRef.current,
+        {
+          scale: 2.5,
+          opacity: 0,
+          duration: 2,
+          ease: "power3.inOut",
         },
-      });
+        0
+      )
+
+      .to(
+        pageRef.current,
+        {
+          delay: 1,
+          scale: 2,
+          opacity: 0,
+          zIndex: 0,
+          duration: 0.8,
+          ease: "power3.inOut",
+          onStart: () => {
+            setHomeRendering();
+          },
+        },
+        1
+      ); // overlap transition for smooth flow
   }, [isAnimating]);
 
   useEffect(() => {
     if (videoRef.current) {
       videoRef.current.pause();
+      videoRef.current.currentTime = 0.5; // forward to skip black
     }
   }, []);
 
@@ -58,22 +79,23 @@ const Overlay = ({ setIsRenderedHome }) => {
       ref={pageRef}
       className="overlay relative flex flex-col items-center justify-center w-screen h-screen overflow-hidden z-10"
     >
-      {/* background video  */}
+      {/* background video */}
       <video
         ref={videoRef}
         className="absolute top-0 left-0 w-full h-full object-cover"
         src="/bg.mp4"
         muted
         playsInline
+        preload="auto"
         onLoadedMetadata={() => {
           if (videoRef.current) {
-            videoRef.current.currentTime = 0.3;
+            videoRef.current.currentTime = 0.5;
           }
         }}
       />
 
       <div className="w-full h-full relative flex items-center justify-center px-4">
-        {/* frame  */}
+        {/* frame */}
         <Image
           className="sm:w-[70%] md:w-[60%] lg:w-[50%] xl:w-[40%]"
           ref={frameRef}
@@ -81,7 +103,7 @@ const Overlay = ({ setIsRenderedHome }) => {
           alt="Frame"
         />
 
-        {/* explore button  */}
+        {/* explore button */}
         <button
           ref={buttonRef}
           onClick={handleClick}

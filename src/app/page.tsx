@@ -1,47 +1,50 @@
 "use client";
 
-import Home from "@/components/Home";
-import Overlay from "@/components/Overlay";
-import { useState } from "react";
-// import RoomsBook from "@/components/roomsBook";
 import AboutUs from "@/components/aboutUs";
 import Banner from "@/components/banner";
-import Spa from "@/components/Spa";
-// import Booking from "@/components/booking";
-import Gallery from "@/components/Gallery";
-import Explore from "@/components/explore";
 import Discover from "@/components/discover";
+import Explore from "@/components/explore";
 import Footer from "@/components/footer";
+import Home from "@/components/Home";
+
+import Overlay from "@/components/Overlay";
+import { useState } from "react";
 
 export default function LandingPage() {
-  const [isRenderedHome, setIsRenderedHome] = useState(false);
+  const [isRenderHome, setIsRenderHome] = useState(false);
   const [hideOverlay, setHideOverlay] = useState(false);
+
+  const handleHomeRendering = () => {
+    setIsRenderHome(true);
+    // setTimeout(() => {
+    // }, 400);
+  };
 
   const handleRenderComplete = () => {
     setTimeout(() => {
       setHideOverlay(true);
-    }, 500); // 0.5 seconds
+    }, 500);
   };
 
   return (
-    <div>
-      <div className="w-screen h-screen absolute top-0 left-0 z-50">
-        {!hideOverlay && <Overlay setIsRenderedHome={setIsRenderedHome} />}
+    <div className="relative w-screen">
+      {/* Overlay Section */}
+      <div className="absolute top-0 left-0 w-full h-full z-50 transition-opacity duration-500">
+        {!hideOverlay && <Overlay setHomeRendering={handleHomeRendering} />}
       </div>
 
-      {/* Home always rendered */}
-      {isRenderedHome && (
-        <>
-          <Home onRenderComplete={handleRenderComplete} />
-          <AboutUs />
-          <Banner />
-          <Spa />
-          <Explore />
-          <Discover />
-          <Gallery />
-          <Footer />
-        </>
-      )}
+      {/* Home Already Mounted, Just Hidden Initially */}
+
+      <Home isRendered={isRenderHome} onRenderComplete={handleRenderComplete} />
+
+      {isRenderHome &&
+      <>
+      <AboutUs/>
+      <Banner/>
+      <Explore/>
+      <Discover/>
+      <Footer/>
+      </>}
     </div>
   );
 }
