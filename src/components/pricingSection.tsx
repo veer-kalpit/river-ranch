@@ -1,7 +1,6 @@
-
 import React, { useRef } from "react";
 
-import WaterSplash from "../../public/WatersplashPricing.png"
+import WaterSplash from "../../public/WatersplashPricing.png";
 import Image from "next/image";
 import { useGSAP } from "@gsap/react";
 import ScrollTrigger from "gsap/ScrollTrigger";
@@ -9,23 +8,17 @@ import gsap from "gsap";
 
 gsap.registerPlugin(ScrollTrigger);
 
-
-
-
-
 export default function PricingSection() {
   const splash_2_Ref = useRef(null);
 
   // GSAP Animations
   useGSAP(() => {
-   
-
     // Splash_2 animation (slide in from right)
     gsap
       .timeline({
         scrollTrigger: {
           trigger: splash_2_Ref.current,
-          start: "top 85%",
+          start: "top 70%",
         },
       })
       .to(splash_2_Ref.current, {
@@ -43,23 +36,23 @@ export default function PricingSection() {
   ];
 
   return (
-    <section className="bg-white z-[60] relative py-10 lg:py-0 px-5 lg:px-0 text-center h-screen ">
+    <section className="bg-white z-[60] relative lg:py-24 px-5 lg:px-0 text-center h-fit pb-16 ">
       <Image
         ref={splash_2_Ref}
         src={WaterSplash}
         alt="Water Splash"
-        className="absolute -right-15 -bottom-20 w-[300px] h-[600px] hidden lg:block"
+        className="absolute -right-15 -bottom-20 w-[300px] h-[600px] hidden lg:block z-0"
       />
-      <p className="uppercase text-inter font-light text-[14px] lg:text-[16px] tracking-widest text-[#333333] whitespace-nowrap">
+      <p className="uppercase text-inter font-light text-[14px] lg:text-[16px] tracking-widest text-[#333333] whitespace-nowrap relative z-10">
         Affordable Stays
         <span className="hidden lg:inline">, Memorable Getaways</span>
       </p>
 
-      <h2 className="text-[38px] lg:text-[48px] font-cormorant text-[#205781] lg:text-[#333333] mt-5 lg:mt-10 mb-10">
+      <h2 className="text-[38px] lg:text-[48px] font-cormorant text-[#205781] lg:text-[#333333] mt-5 lg:mt-10 mb-10 relative z-10">
         Pricing
       </h2>
 
-      <div className="lg:w-[1136px] mx-auto">
+      <div className="lg:w-[1136px] mx-auto relative z-10">
         <div className="flex justify-between text-[24px] lg:text-[48px]  font-cormorant font-normal text-[#333333] mb-4 px-4">
           <p className="text-center w-full">No. of Guests</p>
           <p className="text-center w-full">Price</p>
@@ -80,7 +73,7 @@ export default function PricingSection() {
         ))}
       </div>
 
-      <div className=" h-[123.63851928710938px] mt-[83px] flex flex-col items-center justify-center ">
+      <div className=" h-[123.63851928710938px] mt-[83px] flex flex-col items-center justify-center  relative z-10">
         <p className="font-inter font-normal text-[14px] lg:text-[16px]  leading-[20px] text-center lg:w-[802px] text-[#333333]">
           For photographers, wedding or event decorations, live music or DJ
           booking, or any other special requests, please contact us with the
