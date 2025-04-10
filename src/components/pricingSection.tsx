@@ -50,10 +50,11 @@ export default function PricingSection() {
         alt="Water Splash"
         className="absolute -right-15 -bottom-20 w-[300px] h-[600px] hidden lg:block"
       />
-      <p className="uppercase text-inter font-light text-[14px] lg:text-[16px] tracking-widest text-[#333333]">
+      <p className="uppercase text-inter font-light text-[14px] lg:text-[16px] tracking-widest text-[#333333] whitespace-nowrap">
         Affordable Stays
-        <span className="lg:block hidden">, Memorable Getaways</span>
+        <span className="hidden lg:inline">, Memorable Getaways</span>
       </p>
+
       <h2 className="text-[38px] lg:text-[48px] font-cormorant text-[#205781] lg:text-[#333333] mt-5 lg:mt-10 mb-10">
         Pricing
       </h2>
