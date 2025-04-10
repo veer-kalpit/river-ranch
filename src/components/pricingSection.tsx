@@ -43,7 +43,7 @@ export default function PricingSection() {
   ];
 
   return (
-    <section className="bg-white z-[60] relative py-20 px-5 lg:px-0 text-center h-screen ">
+    <section className="bg-white z-[60] relative py-10 lg:py-0 px-5 lg:px-0 text-center h-screen ">
       <Image
         ref={splash_2_Ref}
         src={WaterSplash}
