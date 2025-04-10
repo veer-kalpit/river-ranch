@@ -154,11 +154,10 @@ const Navbar = () => {
         <div className="flex flex-col">
           {[
             { label: "About", href: "#about" },
-            { label: "Rooms", href: "#rooms" },
-            { label: "Events", href: "#events" },
-            { label: "Yoga", href: "#yoga" },
+            { label: "Highlights", href: "#about" },
+            { label: "Experiences", href: "#yoga" },
             { label: "Gallery", href: "#gallery" },
-            { label: "Contact", href: "#contact" },
+            { label: "Contact", href: "#contact" }
           ].map((item, index) => (
             <Link
               key={index}
