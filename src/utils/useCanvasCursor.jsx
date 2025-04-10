@@ -115,12 +115,9 @@ const useCanvasCursor = () => {
       ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
       ctx.globalCompositeOperation = "lighter";
       // When you initialize f:
-      f.hue =
-        Math.random() < 0.5
-          ? Math.floor(Math.random() * (160 - 85) + 85) // Green
-          : Math.floor(Math.random() * (260 - 180) + 180); // Blue
+      f.hue = "#1d95ef";
 
-      ctx.strokeStyle = `hsl(${f.hue}, 50%, 50%, 0.2)`;
+      ctx.strokeStyle = `#427ED1`;
 
       ctx.lineWidth = 1;
       for (var e, t = 0; t < E.trails; t++) {

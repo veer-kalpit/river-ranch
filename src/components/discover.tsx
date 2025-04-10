@@ -149,7 +149,7 @@ const Discover = () => {
       </div>
 
       {/* Section 2: Nature Sanctuary */}
-      <div className="w-full hidden  lg:flex flex-wrap justify-center items-center gap-20 py-10 relative md:gap-30 ">
+      <div className="w-full hidden  lg:flex flex-wrap justify-center items-center gap-20 py-10 lg:pt-30 relative md:gap-30 ">
         {/* Left: Large image + text */}
         <div className="w-fit h-fit space-y-8 px-5 sm:mr-auto md:ml-[5%] lg:px-0 lg:ml-0 lg:mr-0">
           <Image

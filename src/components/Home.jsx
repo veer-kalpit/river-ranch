@@ -87,7 +87,7 @@ const Home = ({ isRendered, onRenderComplete }) => {
       }`}
     >
       {/* Top Gradient */}
-      <div className="absolute top-0 left-0 w-full h-full bg-black/50 z-20" />
+      <div className="absolute top-0 left-0 w-full h-full bg-[#000B18] opacity-50 z-20" />
 
       {/* Background Videos */}
       <div className="w-full h-full relative">
@@ -125,7 +125,7 @@ const Home = ({ isRendered, onRenderComplete }) => {
       {/* Heading Content */}
       <div className="w-fit h-fit absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30 text-white ">
         <h6 className="font-inter text-[12px] tracking-[3px] text-center xl:text-start whitespace-nowrap">
-          WELCOME TO RIVER RENCH
+          WELCOME TO RIVER RANCH
         </h6>
 
         <div className="w-fit h-fit leading-10 sm:leading-20 xl:leading-28">
