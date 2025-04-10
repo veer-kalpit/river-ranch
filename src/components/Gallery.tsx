@@ -55,7 +55,7 @@ function UnsplashGrid() {
 
   return (
     <section id="gallery" className="bg-white z-[50] relative">
-      <div className="container mx-auto px-4 py-20 lg:py-40">
+      <div className="container mx-auto px-4 py-20 lg:py-30">
         <h1 className="text-[#333333] font-inter font-light text-[16px] uppercase text-center">
           Explore River Ranch
         </h1>
@@ -63,7 +63,7 @@ function UnsplashGrid() {
           Gallery
         </h1>
 
-        <div className="p-4 lg:p-40">
+        <div className="p-4 lg:px-30 lg:py-20">
           <Masonry
             breakpointCols={breakpointColumnsObj}
             className="my-masonry-grid"

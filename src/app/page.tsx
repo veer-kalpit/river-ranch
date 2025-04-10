@@ -9,17 +9,18 @@ import Spa from "@/components/Spa";
 import Footer from "@/components/footer";
 import Home from "@/components/Home";
 import Overlay from "@/components/Overlay";
+import PricingSection from "@/components/pricingSection";
 
 import { useRef, useState } from "react";
 
 export default function LandingPage() {
   const [isRenderHome, setIsRenderHome] = useState(false);
   const [hideOverlay, setHideOverlay] = useState(false);
-    const footerRef = useRef<HTMLDivElement | null>(null);
+  const footerRef = useRef<HTMLDivElement | null>(null);
 
- const scrollToFooter = () => {
-   footerRef.current?.scrollIntoView({ behavior: "smooth" });
- };
+  const scrollToFooter = () => {
+    footerRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
 
   const handleHomeRendering = () => {
     setIsRenderHome(true);
@@ -56,6 +57,7 @@ export default function LandingPage() {
           <Explore />
           <Discover />
           <Gallery />
+          <PricingSection />
           <Footer ref={footerRef} />
         </>
       )}
