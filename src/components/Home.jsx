@@ -5,11 +5,12 @@ import { useGSAP } from "@gsap/react";
 import { gsap } from "gsap";
 import Image from "next/image";
 import Navbar from "./Navbar";
+import Footer from "./footer";
 
 // Media
 import prgion from "../../public/pegion.gif";
 
-const Home = ({ isRendered, onRenderComplete }) => {
+const Home = ({ isRendered, onRenderComplete, scrollToFooter }) => {
   const pegionRef = useRef(null);
   const pageRef = useRef(null);
   const videoRef_1 = useRef(null);
@@ -80,7 +81,7 @@ const Home = ({ isRendered, onRenderComplete }) => {
   };
 
   return (
-    <div 
+    <div
       ref={pageRef}
       className={`w-screen h-screen z-0 scale-[2] opacity-0 fixed top-0 left-0 overflow-hidden ${
         isRendered ? "" : "hidden"
@@ -137,7 +138,12 @@ const Home = ({ isRendered, onRenderComplete }) => {
             <span className=" xl:ml-72 pt-2">Into Nature</span>
           </h1>
         </div>
-        <button className="w-[162px] h-[41px] border rounded-[50px] self-center ml-11 mt-20 lg:hidden block font-inter text-[14px] uppercase">Book Now </button>
+        <button
+          onClick={scrollToFooter}
+          className="w-[162px] h-[41px] border rounded-[50px] self-center ml-11 mt-20 lg:hidden block font-inter text-[14px] uppercase"
+        >
+          Book Now{" "}
+        </button>
       </div>
     </div>
   );

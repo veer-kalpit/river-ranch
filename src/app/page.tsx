@@ -10,11 +10,16 @@ import Footer from "@/components/footer";
 import Home from "@/components/Home";
 import Overlay from "@/components/Overlay";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 export default function LandingPage() {
   const [isRenderHome, setIsRenderHome] = useState(false);
   const [hideOverlay, setHideOverlay] = useState(false);
+    const footerRef = useRef<HTMLDivElement | null>(null);
+
+ const scrollToFooter = () => {
+   footerRef.current?.scrollIntoView({ behavior: "smooth" });
+ };
 
   const handleHomeRendering = () => {
     setIsRenderHome(true);
@@ -37,7 +42,11 @@ export default function LandingPage() {
 
       {/* Home Already Mounted, Just Hidden Initially */}
 
-      <Home isRendered={isRenderHome} onRenderComplete={handleRenderComplete} />
+      <Home
+        isRendered={isRenderHome}
+        onRenderComplete={handleRenderComplete}
+        scrollToFooter={scrollToFooter}
+      />
 
       {isRenderHome && (
         <>
@@ -47,7 +56,7 @@ export default function LandingPage() {
           <Explore />
           <Discover />
           <Gallery />
-          <Footer />
+          <Footer ref={footerRef} />
         </>
       )}
     </div>
