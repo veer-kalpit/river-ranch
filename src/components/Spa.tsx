@@ -54,7 +54,7 @@ const Spa = () => {
   }, [inView, controls]);
 
   return (
-    <section className="bg-[#205781] lg:flex flex-col gap-[60px] md:gap-[140px] pb-[120px] md:py-[230px] hidden z-[50] relative">
+    <section id="spa" className="bg-[#205781] lg:flex flex-col gap-[60px] md:gap-[140px] pb-[120px] md:py-[230px] hidden z-[50] relative">
       {/* First Section */}
       <div className="flex flex-col md:flex-row items-center md:justify-center gap-[50px] ">
         {/* Left Content */}

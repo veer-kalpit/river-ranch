@@ -25,7 +25,7 @@ const Overlay = ({ setHomeRendering }) => {
     setIsAnimating(true);
 
     if (videoRef.current) {
-      videoRef.current.playbackRate = 3;
+      videoRef.current.playbackRate = 2;
       videoRef.current.play();
     }
   };
@@ -75,6 +75,7 @@ const Overlay = ({ setHomeRendering }) => {
 
   useEffect(() => {
     if (videoRef.current) {
+      videoRef.current.currentTime = 0.5;
       videoRef.current.pause();
     }
   }, []);
@@ -92,10 +93,11 @@ const Overlay = ({ setHomeRendering }) => {
         playsInline
         onLoadedMetadata={() => {
           if (videoRef.current) {
-            videoRef.current.currentTime = 0.1;
+            videoRef.current.currentTime = 0.5;
+            videoRef.current.pause();
           }
         }}
-        src="/bg.mp4"
+        src="/frame_video_1.mp4"
       />
 
       {/* Heading */}

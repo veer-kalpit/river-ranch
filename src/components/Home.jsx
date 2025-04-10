@@ -80,7 +80,7 @@ const Home = ({ isRendered, onRenderComplete }) => {
   };
 
   return (
-    <div
+    <div 
       ref={pageRef}
       className={`w-screen h-screen z-0 scale-[2] opacity-0 fixed top-0 left-0 overflow-hidden ${
         isRendered ? "" : "hidden"

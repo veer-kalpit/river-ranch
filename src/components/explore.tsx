@@ -42,7 +42,7 @@ const Explore = () => {
       );
   }, [pageRef.current]);
   return (
-    <div
+    <div 
       ref={pageRef}
       className="w-screen h-screen relative overflow-hidden z-[50]"
     >
