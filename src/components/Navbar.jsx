@@ -111,28 +111,30 @@ const Navbar = () => {
         {/* Desktop Navigation Menu */}
         <div className="hidden md:flex items-center gap-7">
           {[
-            "Home",
-            "About",
-            "Rooms",
-            "Events",
-            "Yoga",
-            "Gallery",
-            "Contact",
-          ].map((label, index) => (
+            { label: "Home", href: "#home" },
+            { label: "About", href: "#about" },
+            { label: "Rooms", href: "#rooms" },
+            { label: "Events", href: "#events" },
+            { label: "Yoga", href: "#yoga" },
+            { label: "Gallery", href: "#gallery" },
+            { label: "Contact", href: "#contact" },
+          ].map((item, index) => (
             <Link
               key={index}
-              href="#"
+              href={item.href}
               className="text-white font-light text-[16px] capitalize hover:text-gray-300"
             >
-              {label}
+              {item.label}
             </Link>
           ))}
         </div>
 
         {/* Book Now Button (visible on Desktop only) */}
-        <button className="hidden md:block w-fit border border-white rounded-full px-10 py-2 whitespace-nowrap text-white text-[14px]">
-          BOOK NOW
-        </button>
+        <Link href={"#contact"} className=" cursor-pointer hidden md:block">
+          <button className=" w-fit border border-white rounded-full px-10 py-2 whitespace-nowrap text-white text-[14px]">
+            BOOK NOW
+          </button>
+        </Link>
       </div>
 
       {/* Mobile Slide-In Menu */}
@@ -152,18 +154,23 @@ const Navbar = () => {
 
         {/* Mobile Links */}
         <div className="flex flex-col">
-          {["About", "Rooms", "Events", "Yoga", "Gallery", "Contact"].map(
-            (label, index) => (
-              <Link
-                key={index}
-                href="#"
-                className="text-black text-lg font-semibold mb-6"
-                onClick={() => setIsOpen(false)} // Close menu on link click
-              >
-                {label}
-              </Link>
-            )
-          )}
+          {[
+            { label: "About", href: "#about" },
+            { label: "Rooms", href: "#rooms" },
+            { label: "Events", href: "#events" },
+            { label: "Yoga", href: "#yoga" },
+            { label: "Gallery", href: "#gallery" },
+            { label: "Contact", href: "#contact" },
+          ].map((item, index) => (
+            <Link
+              key={index}
+              href={item.href}
+              className="text-black text-lg font-semibold mb-6"
+              onClick={() => setIsOpen(false)} // Close menu on link click
+            >
+              {item.label}
+            </Link>
+          ))}
         </div>
       </div>
     </nav>
