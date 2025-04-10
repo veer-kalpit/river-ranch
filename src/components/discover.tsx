@@ -160,7 +160,9 @@ const Discover = () => {
 
           <div className="w-fit h-fit space-y-8 ml-12">
             <p className="font-inter w-[250px] text-[#333333] text-xs leading-[18px]">
-              A Nature Sanctuary Is A Paradise Where Greenery Abounds...
+              A Peaceful Retreat Beside The Mysore Bird Sanctuary, Where Calm
+              Waters, Lush Greenery, And Open Skies Offer A Deep Connection To
+              Nature’s Rhythm.
             </p>
             <button className="cursor-pointer w-[60px] font-inter text-[#205781] text-[12px] text-left">
               DISCOVER

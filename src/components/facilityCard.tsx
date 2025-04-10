@@ -1,33 +1,33 @@
 import React from "react";
-import { SiOrganicmaps } from "react-icons/si";
-import { MdPets } from "react-icons/md";
-import { FaSwimmingPool } from "react-icons/fa";
-import { GiWheat } from "react-icons/gi";
+import { FaWater } from "react-icons/fa";
+import { MdDinnerDining } from "react-icons/md";
+import { IoGolf } from "react-icons/io5";
+import { BsStars } from "react-icons/bs";
 
 const items = [
   {
     id: 1,
-    icon: <SiOrganicmaps />,
-    name: "Organic Farming",
-    desc: "Experience our sustainable farming practices with organic vegetables, fruits, and herbs grown right on our property.",
+    icon: <FaWater />,
+    name: "Riverside Views",
+    desc: "Just steps from the water, River Ranch offers the soothing embrace of the river—where nature heals and peace flows.",
   },
   {
     id: 2,
-    icon: <MdPets />,
-    name: "Pet-Friendly",
-    desc: "Bring your furry friends to enjoy wide open spaces, dedicated pet areas, and pet-friendly accommodations.",
+    icon: <MdDinnerDining />,
+    name: "Delicious Dining",
+    desc: "Our award-winning chefs craft a diverse range of cuisines, blending local flavors with global inspirations to create unforgettable dining experiences.",
   },
   {
     id: 3,
-    icon: <FaSwimmingPool />,
-    name: "Swimming Pool",
-    desc: "Relax in our pristine swimming pool surrounded by nature, perfect for cooling off during warm afternoons.",
+    icon: <IoGolf />,
+    name: "Extraordinary Events",
+    desc: "River Ranch is a premier event destination, offering stunning natural backdrops and versatile spaces perfect for weddings, celebrations, and corporate retreats.",
   },
   {
     id: 4,
-    icon: <GiWheat />,
-    name: "Farm Experiences",
-    desc: "Participate in farm activities like harvesting, feeding animals, and learning about sustainable living.",
+    icon: <BsStars />,
+    name: "Special Experiences",
+    desc: "Immerse yourself in the tranquility of nature with yoga and sound healing sessions at River Ranch, where every breath and rhythm brings you closer to balance and inner peace.",
   },
 ];
 
