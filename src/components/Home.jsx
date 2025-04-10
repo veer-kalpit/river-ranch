@@ -125,7 +125,7 @@ const Home = ({ isRendered, onRenderComplete, scrollToFooter }) => {
 
       {/* Heading Content */}
       <div className="w-fit h-fit absolute mt-8 lg:mt-0 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30 text-white ">
-        <h6 className="font-cormorant text-[16px]  font-semibold mb-[45px] lg:mb-3 tracking-[2px] text-center xl:text-start whitespace-nowrap">
+        <h6 className="font-cormorant text-[16px] mb-[45px] lg:mb-3 tracking-[2px] text-center xl:text-start whitespace-nowrap">
           WELCOME TO RIVER RANCH
         </h6>
 

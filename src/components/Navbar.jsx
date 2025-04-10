@@ -111,11 +111,9 @@ const Navbar = () => {
         {/* Desktop Navigation Menu */}
         <div className="hidden md:flex items-center gap-7">
           {[
-            { label: "Home", href: "#home" },
             { label: "About", href: "#about" },
-            { label: "Rooms", href: "#rooms" },
-            { label: "Events", href: "#events" },
-            { label: "Yoga", href: "#yoga" },
+            { label: "Highlights", href: "#about" },
+            { label: "Experiences", href: "#yoga" },
             { label: "Gallery", href: "#gallery" },
             { label: "Contact", href: "#contact" },
           ].map((item, index) => (
@@ -130,8 +128,8 @@ const Navbar = () => {
         </div>
 
         {/* Book Now Button (visible on Desktop only) */}
-        <Link href={"#contact"} className=" cursor-pointer hidden md:block">
-          <button className=" w-fit border border-white rounded-full px-10 py-2 whitespace-nowrap text-white text-[14px]">
+        <Link href={"#contact"} className="cursor-pointer hidden md:block">
+          <button className="cursor-pointer w-fit border border-white rounded-full px-10 py-2 whitespace-nowrap text-white text-[14px]">
             BOOK NOW
           </button>
         </Link>

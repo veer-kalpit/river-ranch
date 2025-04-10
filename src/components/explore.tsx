@@ -42,7 +42,7 @@ const Explore = () => {
       );
   }, [pageRef.current]);
   return (
-    <div 
+    <div
       ref={pageRef}
       className="w-screen h-screen relative overflow-hidden z-[50]"
     >
@@ -57,7 +57,8 @@ const Explore = () => {
           HIGHLIGHTS
         </h6>
         <h1 className="font-cormorant text-[#F5F8FA] text-4xl md:text-5xl leading-8 md:leading-11">
-          Sunrise And Sunset <br /> Right From Your Bed
+          Unforgettable <br />
+          Experiences
         </h1>
       </div>
 
