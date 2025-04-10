@@ -60,7 +60,7 @@ export default function PricingSection() {
 
       <div className="lg:w-[1136px] mx-auto">
         <div className="flex justify-between text-[24px] lg:text-[48px]  font-cormorant font-normal text-[#333333] mb-4 px-4">
-          <p className="text-center w-full">Guests</p>
+          <p className="text-center w-full">No. of Guests</p>
           <p className="text-center w-full">Price</p>
         </div>
 
