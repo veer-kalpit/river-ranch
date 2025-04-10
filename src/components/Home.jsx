@@ -123,19 +123,21 @@ const Home = ({ isRendered, onRenderComplete }) => {
       </div>
 
       {/* Heading Content */}
-      <div className="w-fit h-fit absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30 text-white ">
-        <h6 className="font-inter text-[12px] tracking-[3px] text-center xl:text-start whitespace-nowrap">
+      <div className="w-fit h-fit absolute top-130 lg:top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30 text-white ">
+        <h6 className="font-cormorant text-[16px]  font-semibold mb-[50px] lg:mb-3 tracking-[2px] text-center xl:text-start whitespace-nowrap">
           WELCOME TO RIVER RANCH
         </h6>
 
         <div className="w-fit h-fit leading-10 sm:leading-20 xl:leading-28">
-          <h1 className="font-cormorant font-semibold mb-4 text-[40px] sm:text-[80px] xl:text-[150px] text-center xl:text-start whitespace-nowrap">
-            ESCAPE
+          <h1 className="font-cormorant block lg:hidden font-semibold text-[64px] text-center whitespace-nowrap leading-[150%]">
+            ESCAPE <br /> INTO <br /> NATURE
           </h1>
-          <h1 className="font-cormorant font-semibold text-[40px] sm:text-[80px] xl:text-[150px] text-center xl:text-end xl:ml-72 whitespace-nowrap">
-            INTO NATURE
+          <h1 className="font-cormorant font-semibold hidden lg:block text-[64px] xl:text-[150px] text-left whitespace-nowrap uppercase">
+            Escape <br />
+            <span className=" xl:ml-72 pt-2">Into Nature</span>
           </h1>
         </div>
+        <button className="w-[162px] h-[41px] border rounded-[50px] self-center ml-11 mt-20 lg:hidden block font-inter text-[14px] uppercase">Book Now </button>
       </div>
     </div>
   );

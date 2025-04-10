@@ -115,9 +115,11 @@ const useCanvasCursor = () => {
       ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
       ctx.globalCompositeOperation = "lighter";
       // When you initialize f:
-      f.hue = "#1d95ef";
-
-      ctx.strokeStyle = `#427ED1`;
+      // ctx.strokeStyle = "rgba(66, 126, 209, 0.6)";
+      ctx.strokeStyle = "rgba(50, 100, 180, 0.6)";
+      // ctx.strokeStyle = "rgba(40, 80, 160, 0.6)";
+      // ctx.strokeStyle = "rgba(30, 60, 130, 0.6)";
+      // ctx.strokeStyle = "rgba(20, 40, 90, 0.6)";
 
       ctx.lineWidth = 1;
       for (var e, t = 0; t < E.trails; t++) {

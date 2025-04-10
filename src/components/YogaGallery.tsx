@@ -7,31 +7,31 @@ const items = [
     id: 1,
     url: "/yoga/yogaVid2.mp4",
     title: "Yoga Room 1",
-    urlthumbnail: "/yoga/R.png",
+    urlthumbnail: "/yoga/1.png",
   },
   {
     id: 2,
     url: "/yoga/yogaVid3.mp4",
     title: "Yoga Room 2",
-    urlthumbnail: "/yoga/I.png",
+    urlthumbnail: "/yoga/2.png",
   },
   {
     id: 5,
     url: "/yoga/yogaVid.mp4",
     title: "Yoga Video",
-    urlthumbnail: "/yoga/V.png",
+    urlthumbnail: "/yoga/3.png",
   },
   {
     id: 3,
     url: "/yoga/yogaVid4.mp4",
     title: "Yoga Room 3",
-    urlthumbnail: "/yoga/E.png",
+    urlthumbnail: "/yoga/4.png",
   },
   {
     id: 4,
     url: "/yoga/yogaVid5.mp4",
     title: "Yoga Room 4",
-    urlthumbnail: "/yoga/H.png",
+    urlthumbnail: "/yoga/5.png",
   },
 ];
 
@@ -50,8 +50,8 @@ interface GalleryProps {
 
 function Gallery({ items, setIndex, index }: GalleryProps) {
   return (
-    <div className="w-full px-5 max-w-screen overflow-hidden">
-      <div className="flex gap-1 pb-10 overflow-x-auto no-scrollbar">
+    <div className="w-full px-6 max-w-screen overflow-hidden">
+      <div className="flex gap-1 pb-10 overflow-hidden justify-center">
         {items.map((item: item, i: number) => {
           const isVideo = item.url.endsWith(".mp4");
           const isActive = index === i;
