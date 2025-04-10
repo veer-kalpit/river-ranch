@@ -99,7 +99,7 @@ const Overlay = ({ setHomeRendering }) => {
       />
 
       {/* Heading */}
-      <h1 className="w-full text-center text-white text-5xl sm:text-8xl font-cormorant z-[50]">
+      <h1 className="w-full text-center text-white font-normal text-[48px] lg:text-[188px] lg:leading-[65px]  mb-[80px] lg:mb-0 font-cormorant z-[50]">
         River Ranch
       </h1>
 

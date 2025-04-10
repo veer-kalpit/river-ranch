@@ -50,13 +50,7 @@
   background-position: center;
   position: relative;
 }
-.home {
-  background-image: url("/HomeOverlay.png");
-  background-size: cover;
-  background-color: #000000;
-  background-position: center;
-  position: relative;
-}
+
 
 .banner {
   background-image: url("/bannerBg.png");
