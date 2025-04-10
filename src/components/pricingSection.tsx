@@ -43,22 +43,23 @@ export default function PricingSection() {
   ];
 
   return (
-    <section className="bg-white z-[60] relative pb-20 text-center h-screen ">
+    <section className="bg-white z-[60] relative py-20 px-5 lg:px-0 text-center h-screen ">
       <Image
         ref={splash_2_Ref}
         src={WaterSplash}
         alt="Water Splash"
-        className="absolute -right-15 -bottom-20 w-[300px] h-[600px]"
+        className="absolute -right-15 -bottom-20 w-[300px] h-[600px] hidden lg:block"
       />
-      <p className="uppercase text-inter font-light text-[16px] tracking-widest text-[#333333]">
-        Affordable Stays, Memorable Getaways
+      <p className="uppercase text-inter font-light text-[14px] lg:text-[16px] tracking-widest text-[#333333]">
+        Affordable Stays
+        <span className="lg:block hidden">, Memorable Getaways</span>
       </p>
-      <h2 className="text-[48px] font-cormorant text-[#333333] mt-10 mb-10">
+      <h2 className="text-[38px] lg:text-[48px] font-cormorant text-[#205781] lg:text-[#333333] mt-5 lg:mt-10 mb-10">
         Pricing
       </h2>
 
-      <div className="w-[1136px] mx-auto">
-        <div className="flex justify-between text-[48px]  font-cormorant font-normal text-[#333333] mb-4 px-4">
+      <div className="lg:w-[1136px] mx-auto">
+        <div className="flex justify-between text-[24px] lg:text-[48px]  font-cormorant font-normal text-[#333333] mb-4 px-4">
           <p className="text-center w-full">Guests</p>
           <p className="text-center w-full">Price</p>
         </div>
@@ -79,14 +80,14 @@ export default function PricingSection() {
       </div>
 
       <div className=" h-[123.63851928710938px] mt-[83px] flex flex-col items-center justify-center ">
-        <p className="font-inter font-normal text-[16px] leading-[100%] text-center w-[802px]">
+        <p className="font-inter font-normal text-[14px] lg:text-[16px]  leading-[20px] text-center lg:w-[802px] text-[#333333]">
           For photographers, wedding or event decorations, live music or DJ
           booking, or any other special requests, please contact us with the
           details
         </p>
         <button
           type="button"
-          className="mt-[36px] w-[170px] h-[49.63851547241211px] font-inter text-[16px] leading-[100%] uppercase text-center rounded-[24.82px] border-2 border-[#3333334D]"
+          className="mt-[36px] w-[170px] h-[49.63851547241211px] font-inter text-[16px] leading-[100%] uppercase text-center rounded-[24.82px] border-2 border-[#3333334D] py-[11px]"
         >
           Explore
         </button>
