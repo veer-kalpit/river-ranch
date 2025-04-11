@@ -62,14 +62,14 @@ const Home = ({ isRendered, onRenderComplete, scrollToFooter }) => {
       }`}
     >
       {/* Top Gradient */}
-      <div className="absolute top-0 left-0 w-full h-full bg-[#000B18] opacity-40 z-20" />
+      <div className="absolute top-0 left-0 w-full h-full bg-[#000B18] opacity-30 z-20" />
 
       {/* Background Videos */}
       <div className="w-full h-full relative">
         <video
           ref={videoRef_1}
           className="absolute w-full h-full object-cover z-10"
-          src="/Bird.mp4"
+          src="/Birds.mp4"
           autoPlay
           muted
           playsInline
@@ -78,7 +78,7 @@ const Home = ({ isRendered, onRenderComplete, scrollToFooter }) => {
         <video
           ref={videoRef_2}
           className="absolute w-full h-full object-cover z-0"
-          src="/Bird.mp4"
+          src="/Birds.mp4"
           muted
           playsInline
           onEnded={() => fadeToNextVideo(videoRef_2, videoRef_1)}
