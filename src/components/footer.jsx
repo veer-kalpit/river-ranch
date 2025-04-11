@@ -1,9 +1,49 @@
-import React, { forwardRef } from "react";
+import React, { forwardRef, useState } from "react";
 import Image from "next/image";
 import { MapPin, Clock5, Mail, Phone, Facebook, Instagram } from "lucide-react";
 import Logo from "../../public/logo.png";
 
 const Footer = forwardRef((props, ref) => {
+  const [formData, setFormData] = useState({
+    fullname: "",
+    email: "",
+    phone: "",
+    checkIn: "",
+    checkOut: "",
+    guests: "",
+    request: "",
+  });
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const { fullname, email, phone, checkIn, checkOut, guests, request } =
+      formData;
+
+    const message = ` Booking Inquiry 
+
+ Full Name: ${fullname}
+ Email: ${email}
+ Phone: ${phone}
+Check-in Date: ${checkIn}
+Check-out Date: ${checkOut}
+Number of Guests: ${guests}
+Special Requests: ${request || "None"}
+
+Please confirm the booking.`;
+
+    const phoneNumber = "919686985795"; 
+    const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(
+      message
+    )}`;
+
+    window.open(whatsappURL, "_blank");
+  };
+
   return (
     <section ref={ref} id="contact" className="z-[50] relative">
       <div className="w-screen h-fit min-h-screen bg-[#205781] overflow-hidden relative ">
@@ -101,8 +141,8 @@ const Footer = forwardRef((props, ref) => {
               Request a Booking
             </h1>
 
-            <form className="w-full h-fit space-y-8">
-              {/* name and mail  */}
+            <form onSubmit={handleSubmit} className="w-full h-fit space-y-8">
+              {/* Name & Email */}
               <div className="w-full h-fit flex flex-wrap xl:flex-nowrap gap-8">
                 <div className="w-full sm:max-w-[315px] h-fit flex flex-col gap-4">
                   <label
@@ -116,7 +156,10 @@ const Footer = forwardRef((props, ref) => {
                     type="text"
                     name="fullname"
                     id="fullname"
-                    placeholder="John Doe"
+                    placeholder="Your Name"
+                    value={formData.fullname}
+                    onChange={handleChange}
+                    required
                   />
                 </div>
 
@@ -129,15 +172,18 @@ const Footer = forwardRef((props, ref) => {
                   </label>
                   <input
                     className="w-full font-inter text-xs text-white placeholder:text-white border border-white focus:outline-none px-3 py-5"
-                    type="text"
+                    type="email"
                     name="email"
                     id="email"
-                    placeholder="johndoe123@gmail.com"
+                    placeholder="Emain address"
+                    value={formData.email}
+                    onChange={handleChange}
+                    required
                   />
                 </div>
               </div>
 
-              {/* phone  */}
+              {/* Phone */}
               <div className="w-full sm:max-w-[400px] h-fit flex flex-col gap-4">
                 <label
                   className="font-inter text-white text-sm"
@@ -147,42 +193,51 @@ const Footer = forwardRef((props, ref) => {
                 </label>
                 <input
                   className="w-full font-inter text-xs text-white placeholder:text-white border border-white focus:outline-none px-3 py-5"
-                  type="text"
+                  type="tel"
                   name="phone"
                   id="phone"
-                  placeholder="+91 9876 5432 210"
+                  placeholder="Contact No."
+                  value={formData.phone}
+                  onChange={handleChange}
+                  required
                 />
               </div>
 
-              {/* dates & guest  */}
+              {/* Dates & Guests */}
               <div className="w-full h-fit flex flex-wrap xl:flex-nowrap gap-8">
                 <div className="w-full sm:max-w-[200px] h-fit flex flex-col gap-4">
                   <label
                     className="font-inter text-white text-sm"
-                    htmlFor="check_in_date"
+                    htmlFor="checkIn"
                   >
-                    Check-in Dates
+                    Check-in Date
                   </label>
                   <input
                     className="w-full font-inter text-xs text-white placeholder:text-white border border-white focus:outline-none px-3 py-5"
                     type="date"
-                    name="check_in_date"
-                    id="check_in_date"
+                    name="checkIn"
+                    id="checkIn"
+                    value={formData.checkIn}
+                    onChange={handleChange}
+                    required
                   />
                 </div>
 
                 <div className="w-full sm:max-w-[200px] h-fit flex flex-col gap-4">
                   <label
                     className="font-inter text-white text-sm"
-                    htmlFor="check_out_date"
+                    htmlFor="checkOut"
                   >
-                    Check-out Dates
+                    Check-out Date
                   </label>
                   <input
                     className="w-full font-inter text-xs text-white placeholder:text-white border border-white focus:outline-none px-3 py-5"
                     type="date"
-                    name="check_out_date"
-                    id="check_out_date"
+                    name="checkOut"
+                    id="checkOut"
+                    value={formData.checkOut}
+                    onChange={handleChange}
+                    required
                   />
                 </div>
 
@@ -195,14 +250,17 @@ const Footer = forwardRef((props, ref) => {
                   </label>
                   <input
                     className="w-full font-inter text-xs text-white border border-white focus:outline-none px-3 py-5"
-                    type="text"
+                    type="number"
                     name="guests"
                     id="guests"
+                    value={formData.guests}
+                    onChange={handleChange}
+                    required
                   />
                 </div>
               </div>
 
-              {/* textarea  */}
+              {/* Special Requests */}
               <div className="w-full sm:max-w-[665px] h-fit flex flex-col gap-4">
                 <label
                   className="font-inter text-white text-sm"
@@ -215,11 +273,17 @@ const Footer = forwardRef((props, ref) => {
                   name="request"
                   id="request"
                   rows={8}
-                  placeholder="Tell us about special request or if you’re bringing pets."
+                  placeholder="Tell us about special requests or if you're bringing pets."
+                  value={formData.request}
+                  onChange={handleChange}
                 />
               </div>
 
-              <button className="w-full sm:max-w-[665px] h-fit font-inter bg-white text-[#205781] text-sm flex justify-center items-center py-4 rounded-full cursor-pointer hover:bg-white/40 hover:text-white transition-all duration-300 ease-in-out">
+              {/* Submit */}
+              <button
+                type="submit"
+                className="w-full sm:max-w-[665px] h-fit font-inter bg-white text-[#205781] text-sm flex justify-center items-center py-4 rounded-full cursor-pointer hover:bg-white/40 hover:text-white transition-all duration-300 ease-in-out"
+              >
                 BOOK NOW
               </button>
             </form>
@@ -254,7 +318,9 @@ const Footer = forwardRef((props, ref) => {
             {/* contacts  */}
             <div className="w-full h-fit flex flex-col justify-center items-center gap-3">
               <h6 className="font-inter text-center text-[#FFFFFF] text-[12px]">
-                CMG8+M5J <br />Shrirangapattana <br />Karnataka 571427
+                CMG8+M5J <br />
+                Shrirangapattana <br />
+                Karnataka 571427
               </h6>
 
               <h6 className="font-inter text-center text-[#FFFFFF] text-[12px]">
