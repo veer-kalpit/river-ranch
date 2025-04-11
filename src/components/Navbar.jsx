@@ -112,7 +112,7 @@ const Navbar = () => {
         <div className="hidden md:flex items-center gap-7">
           {[
             { label: "About", href: "#about" },
-            { label: "Highlights", href: "#about" },
+            { label: "Highlights", href: "#spa" },
             { label: "Experiences", href: "#yoga" },
             { label: "Gallery", href: "#gallery" },
             { label: "Contact", href: "#contact" },
@@ -154,7 +154,7 @@ const Navbar = () => {
         <div className="flex flex-col">
           {[
             { label: "About", href: "#about" },
-            { label: "Highlights", href: "#about" },
+            { label: "Highlights", href: "#spa" },
             { label: "Experiences", href: "#yoga" },
             { label: "Gallery", href: "#gallery" },
             { label: "Contact", href: "#contact" }

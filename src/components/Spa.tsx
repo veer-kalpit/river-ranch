@@ -6,7 +6,7 @@ import { motion, useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import "aos/dist/aos.css";
 import AOS from "aos";
-import SpaRoom from "../../public/SpaRoom.png";
+import SpaRoom from "../../public/bottles.png";
 import WaterSplash2 from "../../public/WaterSplashSpa.png";
 
 const Spa = () => {
@@ -14,7 +14,7 @@ const Spa = () => {
 
   const controls = useAnimation();
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.5 });
-  const hasAnimated = useRef(false); // 👈 Animation lock
+  const hasAnimated = useRef(false); 
 
   useEffect(() => {
    AOS.init({
@@ -54,7 +54,10 @@ const Spa = () => {
   }, [inView, controls]);
 
   return (
-    <section id="spa" className="bg-[#205781] lg:flex flex-col gap-[60px] md:gap-[140px] pb-[120px] md:py-[230px] hidden z-[50] relative">
+    <section
+      id="spa"
+      className="bg-[#205781] lg:flex flex-col gap-[60px] md:gap-[140px] pb-[120px] md:py-[230px] hidden z-[50] relative"
+    >
       {/* First Section */}
       <div className="flex flex-col md:flex-row items-center md:justify-center gap-[50px] ">
         {/* Left Content */}
@@ -124,9 +127,10 @@ const Spa = () => {
         <Image
           src={SpaRoom}
           alt="Sauna"
-          width={250}
-          height={350}
-          className="w-[250px] h-[350px] md:w-[391px] md:h-[564px]"
+          width={391}
+          height={564}
+          priority
+          className="w-[250px] h-[350px] lg:w-[391px] lg:h-[564px] rounded-[196px]"
         />
         <div
           data-aos="fade-left"
