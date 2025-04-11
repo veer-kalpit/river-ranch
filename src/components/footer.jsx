@@ -254,19 +254,15 @@ const Footer = forwardRef((props, ref) => {
             {/* contacts  */}
             <div className="w-full h-fit flex flex-col justify-center items-center gap-3">
               <h6 className="font-inter text-center text-[#FFFFFF] text-[12px]">
-                9889 lorem ipsum <br /> street, Pellentesque, <br /> CA, uSA
+                CMG8+M5J <br />Shrirangapattana <br />Karnataka 571427
               </h6>
 
               <h6 className="font-inter text-center text-[#FFFFFF] text-[12px]">
-                riverranch.com
+                Riverranch.com
               </h6>
 
               <h6 className="font-inter text-center text-[#FFFFFF] text-[12px]">
-                info@riverranch.com
-              </h6>
-
-              <h6 className="font-inter text-center text-[#FFFFFF] text-[12px]">
-                0123 4567 89 10
+                +91 9686985795
               </h6>
             </div>
           </div>
