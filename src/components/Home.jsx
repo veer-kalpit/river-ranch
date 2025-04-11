@@ -69,22 +69,25 @@ const Home = ({ isRendered, onRenderComplete, scrollToFooter }) => {
         <video
           ref={videoRef_1}
           className="absolute w-full h-full object-cover z-10"
-          src="/Birds.mp4"
           autoPlay
           muted
           playsInline
           preload="auto"
           onEnded={() => fadeToNextVideo(videoRef_1, videoRef_2)}
-        />
+        >
+          <source src="/Birds.mp4" type="video/mp4" />
+        </video>
+
         <video
           ref={videoRef_2}
           className="absolute w-full h-full object-cover z-0"
-          src="/Birds.mp4"
           muted
           playsInline
           preload="auto"
           onEnded={() => fadeToNextVideo(videoRef_2, videoRef_1)}
-        />
+        >
+          <source src="/Birds.mp4" type="video/mp4" />
+        </video>
       </div>
 
       {/* Navbar */}
