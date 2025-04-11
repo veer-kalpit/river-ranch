@@ -24,8 +24,6 @@ export default function LandingPage() {
 
   const handleHomeRendering = () => {
     setIsRenderHome(true);
-    // setTimeout(() => {
-    // }, 400);
   };
 
   const handleRenderComplete = () => {
@@ -57,7 +55,7 @@ export default function LandingPage() {
           <Explore scrollToFooter={scrollToFooter} />
           <Discover scrollToFooter={scrollToFooter} />
           <Gallery />
-          <PricingSection />
+          <PricingSection scrollToFooter={scrollToFooter} />
           <Footer ref={footerRef} />
         </>
       )}

@@ -9,7 +9,7 @@ import Image from "next/image";
 import Logo from "../../public/logo.png";
 import Hamlogo from "../../public/hamLogo.png";
 
-const Navbar = () => {
+const Navbar = ({ scrollToFooter }) => {
   const [isOpen, setIsOpen] = useState(false); // Track whether mobile menu is open
   const mobileMenuRef = useRef(null); // Ref to the mobile menu div
 
@@ -58,7 +58,7 @@ const Navbar = () => {
   }, [isOpen]);
 
   return (
-    <nav className="w-full z-50 px-4 sm:px-6 md:px-8 lg:px-12 py-6 relative">
+    <nav className="w-full px-4 sm:px-6 md:px-8 lg:px-12 py-6 relative z-[9999]">
       <div className="max-w-7xl mx-auto flex justify-between items-center">
         {/* Logo (Left) */}
         <div>
@@ -128,17 +128,18 @@ const Navbar = () => {
         </div>
 
         {/* Book Now Button (visible on Desktop only) */}
-        <Link href={"#contact"} className="cursor-pointer hidden md:block">
-          <button className="cursor-pointer w-fit border border-white rounded-full px-10 py-2 whitespace-nowrap text-white text-[14px]">
-            BOOK NOW
-          </button>
-        </Link>
+        <button
+          onClick={scrollToFooter}
+          className="\ hidden md:block cursor-pointer w-fit border border-white rounded-full px-10 py-2 whitespace-nowrap text-white text-[14px]"
+        >
+          BOOK NOW
+        </button>
       </div>
 
       {/* Mobile Slide-In Menu */}
       <div
         ref={mobileMenuRef}
-        className="fixed md:hidden top-0 left-0 w-full h-full bg-white z-[60] flex flex-col p-8 pt-24"
+        className="fixed md:hidden top-0 left-0 w-full h-full bg-white flex flex-col p-8 pt-24"
         style={{ display: "none" }}
       >
         {/* Mobile Logo */}
@@ -157,7 +158,7 @@ const Navbar = () => {
             { label: "Highlights", href: "#spa" },
             { label: "Experiences", href: "#yoga" },
             { label: "Gallery", href: "#gallery" },
-            { label: "Contact", href: "#contact" }
+            { label: "Contact", href: "#contact" },
           ].map((item, index) => (
             <Link
               key={index}

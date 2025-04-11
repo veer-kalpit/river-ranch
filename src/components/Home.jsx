@@ -114,7 +114,7 @@ const Home = ({ isRendered, onRenderComplete, scrollToFooter }) => {
      
       {/* Navbar */}
       <div className="absolute top-0 left-0 w-full z-40">
-        <Navbar />
+        <Navbar scrollToFooter={scrollToFooter} />
       </div>
 
       {/* Heading Content */}
