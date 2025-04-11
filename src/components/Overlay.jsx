@@ -11,6 +11,7 @@ import { gsap } from "gsap";
 import frameImage from "../assets/images/frame.png";
 import leaf1 from "../assets/images/himg.png";
 import leaf2 from "../assets/images/himg1.png";
+import logo from "../../public/logo.png";
 
 const Overlay = ({ setHomeRendering }) => {
   const frameRef = useRef(null);
@@ -100,10 +101,12 @@ const Overlay = ({ setHomeRendering }) => {
         src="/frame_video_1.mp4"
       />
 
-      {/* Heading */}
-      <h1 className="w-full text-center text-white font-normal text-[48px] lg:text-[188px] lg:leading-[65px]  mb-[80px] lg:mb-0 font-cormorant z-[50]">
-        River Ranch
-      </h1>
+      {/* Logo */}
+      <Image
+        src={logo}
+        alt="Water Splash"
+        className="w-[130px] min-w-[130px] h-fit object-cover relative z-[50] lg:mt-10"
+      />
 
       {/* Frame and Explore Button */}
       <div className="relative flex items-center justify-center w-full px-4 z-[50]">
