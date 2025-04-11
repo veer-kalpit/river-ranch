@@ -1,6 +1,13 @@
 import React, { forwardRef, useState } from "react";
 import Image from "next/image";
-import { MapPin, Clock5, Mail, Phone, Facebook, Instagram } from "lucide-react";
+import {
+  MapPin,
+  Clock5,
+  Mail,
+  Phone,
+  MessageCircleMore,
+  Instagram,
+} from "lucide-react";
 import Logo from "../../public/logo.png";
 
 const Footer = forwardRef((props, ref) => {
@@ -75,7 +82,7 @@ Please confirm the booking.`;
                     Location
                   </h1>
                   <h1 className="font-inter text-white text-sm">
-                    River Ranch, near Mysore <br /> Karnataka, India
+                    CMG8+M5J, Shrirangapattana, Karnataka 571427
                   </h1>
                 </div>
               </div>
@@ -86,22 +93,10 @@ Please confirm the booking.`;
                 <div className="w-fit h-fit ">
                   <h1 className="font-cormorant text-white text-xl">Phone</h1>
                   <h1 className="font-inter text-white text-sm">
-                    +91 9876 543 210
+                    +91 9686985795
                   </h1>
                 </div>
               </div>
-
-              <div className="w-fit h-fit flex justify-center items-start gap-3">
-                <Mail size={16} color="white" className="mt-1.5" />
-
-                <div className="w-fit h-fit ">
-                  <h1 className="font-cormorant text-white text-xl">Email</h1>
-                  <h1 className="font-inter text-white text-sm">
-                    Info@riverranchmysuru.com
-                  </h1>
-                </div>
-              </div>
-
               <div className="w-fit h-fit flex justify-center items-start gap-3">
                 <Clock5 size={16} color="white" className="mt-1.5" />
 
@@ -121,15 +116,31 @@ Please confirm the booking.`;
                 </h1>
 
                 <div className="w-fit h-fit flex items-center gap-3 mt-3">
-                  <div className="w-10 aspect-square rounded-full bg-[#FFFFFF4D] flex justify-center items-center">
-                    <Phone size={16} color="white" />
-                  </div>
-                  <div className="w-10 aspect-square rounded-full bg-[#FFFFFF4D] flex justify-center items-center">
-                    <Facebook size={16} color="white" />
-                  </div>
-                  <div className="w-10 aspect-square rounded-full bg-[#FFFFFF4D] flex justify-center items-center">
-                    <Instagram size={16} color="white" />
-                  </div>
+                  <a href="tel:+919686985795">
+                    <div className="w-10 aspect-square rounded-full bg-[#FFFFFF4D] flex justify-center items-center cursor-pointer">
+                      <Phone size={16} color="white" />
+                    </div>
+                  </a>
+
+                  <a
+                    href="https://wa.me/919686985795"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <div className="w-10 aspect-square rounded-full bg-[#FFFFFF4D] flex justify-center items-center cursor-pointer">
+                      <MessageCircleMore size={16} color="white" />
+                    </div>
+                  </a>
+
+                  <a
+                    href="https://instagram.com/yourusername"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <div className="w-10 aspect-square rounded-full bg-[#FFFFFF4D] flex justify-center items-center cursor-pointer">
+                      <Instagram size={16} color="white" />
+                    </div>
+                  </a>
                 </div>
               </div>
             </div>

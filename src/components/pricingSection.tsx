@@ -12,7 +12,9 @@ interface PricingSectionProps {
   scrollToFooter: () => void;
 }
 
-export default function PricingSection({ scrollToFooter }: PricingSectionProps) {
+export default function PricingSection({
+  scrollToFooter,
+}: PricingSectionProps) {
   const splash_2_Ref = useRef(null);
   const pageRef = useRef(null);
 
@@ -102,8 +104,9 @@ export default function PricingSection({ scrollToFooter }: PricingSectionProps) 
           details
         </p>
         <button
+          type="button"
           onClick={scrollToFooter}
-          className=" cursor-pointer mt-[36px] w-[170px] h-[49.63851547241211px] font-inter text-[16px] leading-[100%] uppercase text-center rounded-[24.82px] border-2 border-[#3333334D] py-[11px]"
+          className=" cursor-pointer mt-[36px] w-[170px] h-[49.63851547241211px] font-inter text-[16px] leading-[100%] uppercase text-center rounded-[24.82px] border-2 border-[#3333334D] py-[11px] hover:bg-white hover:text-[#205781]"
         >
           Explore
         </button>
