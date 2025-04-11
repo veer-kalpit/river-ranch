@@ -69,7 +69,7 @@ const Home = ({ isRendered, onRenderComplete, scrollToFooter }) => {
         <video
           ref={videoRef_1}
           className="absolute w-full h-full object-cover z-10"
-          src="/04.mp4"
+          src="/Bird.mp4"
           autoPlay
           muted
           playsInline
@@ -78,7 +78,7 @@ const Home = ({ isRendered, onRenderComplete, scrollToFooter }) => {
         <video
           ref={videoRef_2}
           className="absolute w-full h-full object-cover z-0"
-          src="/04.mp4"
+          src="/Bird.mp4"
           muted
           playsInline
           onEnded={() => fadeToNextVideo(videoRef_2, videoRef_1)}
