@@ -8,7 +8,11 @@ import gsap from "gsap";
 
 gsap.registerPlugin(ScrollTrigger);
 
-export default function PricingSection({ scrollToFooter }) {
+interface PricingSectionProps {
+  scrollToFooter: () => void;
+}
+
+export default function PricingSection({ scrollToFooter }: PricingSectionProps) {
   const splash_2_Ref = useRef(null);
   const pageRef = useRef(null);
 
