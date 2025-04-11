@@ -14,14 +14,14 @@ const Spa = () => {
 
   const controls = useAnimation();
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.5 });
-  const hasAnimated = useRef(false); 
+  const hasAnimated = useRef(false);
 
   useEffect(() => {
-   AOS.init({
-     duration: 1200,
-     easing: "ease-in-out",
-     once: true, 
-   });
+    AOS.init({
+      duration: 1200,
+      easing: "ease-in-out",
+      once: true,
+    });
     const video = videoRef.current;
     if (!video) return;
 
@@ -74,7 +74,15 @@ const Spa = () => {
           </p>
           <button
             type="button"
-            className="w-[140px] md:w-[170px] h-[40px] md:h-[50px] rounded-[20px] md:rounded-[25px] border-2 border-white text-white uppercase self-center lg:self-start"
+            onClick={() => {
+              const phoneNumber = "919686985795";
+              const message = "Hi, I want to book an event in River Ranch";
+              const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(
+                message
+              )}`;
+              window.open(whatsappURL, "_blank");
+            }}
+            className="w-[140px] md:w-[170px] h-[40px] md:h-[50px] rounded-[20px] md:rounded-[25px] border-2 border-white text-white uppercase self-center lg:self-start hover:bg-white hover:text-[#205781] transition-all duration-300"
           >
             Explore
           </button>

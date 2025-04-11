@@ -51,11 +51,11 @@ export default function LandingPage() {
 
       {isRenderHome && (
         <>
-          <AboutUs />
+          <AboutUs scrollToFooter={scrollToFooter} />
           <Banner />
           <Spa />
-          <Explore />
-          <Discover />
+          <Explore scrollToFooter={scrollToFooter} />
+          <Discover scrollToFooter={scrollToFooter} />
           <Gallery />
           <PricingSection />
           <Footer ref={footerRef} />

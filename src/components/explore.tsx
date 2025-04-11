@@ -14,7 +14,12 @@ import gsap from "gsap";
 // Register plugin
 gsap.registerPlugin(ScrollTrigger);
 
-const Explore = () => {
+interface ExploreProps {
+  scrollToFooter: () => void;
+}
+
+
+const Explore: React.FC<ExploreProps> = ({ scrollToFooter }) => {
   const pageRef = useRef(null);
   const cardRef = useRef(null);
 
@@ -91,7 +96,11 @@ const Explore = () => {
                 The Mind, Body, And Soul.
               </p>
 
-              <button className="cursor-pointer w-[60px] font-inter text-[#205781] text-[12px] text-left mt-4">
+              <button
+                type="button"
+                onClick={scrollToFooter}
+                className="cursor-pointer w-[60px] font-inter text-[#205781] text-[12px] text-left mt-4"
+              >
                 EXPLORE
                 <hr className="w-full mt-0.5" />
               </button>

@@ -18,7 +18,12 @@ import YogaGallery from "./YogaGallery";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const Discover = () => {
+
+interface DiscoverProps {
+  scrollToFooter: () => void;
+}
+
+const Discover: React.FC<DiscoverProps> = ({ scrollToFooter }) => {
   // Refs for animated elements
   const splashRef = useRef(null);
   const splash_1_Ref = useRef(null);
@@ -122,10 +127,22 @@ const Discover = () => {
           </div>
           <div className="w-fit h-fit space-y-8">
             <p className="font-inter w-[250px] text-[#333333] text-xs leading-[18px]">
-              Yoga Is A Holistic Practice That Harmonizes The Body, Mind, And
-              Soul, Promoting Inner Peace And Physical Vitality...
+              River Ranch offers yoga, meditation, and sound healing in
+              nature—restoring balance, easing stress, and awakening inner peace
+              through movement, breath, and sound.
             </p>
-            <button className="cursor-pointer w-[60px] font-inter text-[#205781] text-[12px] text-left">
+            <button
+              type="button"
+              onClick={() => {
+                const phoneNumber = "919686985795"; 
+                const message = "I want to book an experiance at River Ranch";
+                const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(
+                  message
+                )}`;
+                window.open(whatsappURL, "_blank");
+              }}
+              className="cursor-pointer w-[60px] font-inter text-[#205781] text-[12px] text-left"
+            >
               DISCOVER
               <hr className="w-full mt-0.5" />
             </button>
@@ -164,7 +181,11 @@ const Discover = () => {
               Waters, Lush Greenery, And Open Skies Offer A Deep Connection To
               Nature’s Rhythm.
             </p>
-            <button className="cursor-pointer w-[60px] font-inter text-[#205781] text-[12px] text-left">
+            <button
+              type="button"
+              onClick={scrollToFooter}
+              className="cursor-pointer w-[60px] font-inter text-[#205781] text-[12px] text-left"
+            >
               DISCOVER
               <hr className="w-full mt-0.5" />
             </button>

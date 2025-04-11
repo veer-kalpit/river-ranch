@@ -107,12 +107,7 @@ const Banner = () => {
             environmental impact. Pets are always welcome, because vacations are
             better with the whole family—including four-legged members!
           </p>
-          <button
-            type="button"
-            className="border-b-2 pb-3 mt-4 font-inter font-normal text-base uppercase text-[#205781] border-[#205781] w-fit mx-auto lg:mx-0"
-          >
-            See Rooms
-          </button>
+          
         </div>
 
         {/* VIDEO + SPLASH IMAGE */}
