@@ -133,7 +133,7 @@ Please confirm the booking.`;
                   </a>
 
                   <a
-                    href="https://instagram.com/yourusername"
+                    href="https://www.instagram.com/river_ranch_mysuru?igsh=dDhjMzZoNGRxeHhi"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
