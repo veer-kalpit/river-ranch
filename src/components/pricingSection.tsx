@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 
-import WaterSplash from "../../public/WatersplashPricing.png";
+import WaterSplash from "../../public/splash_4.png";
 import Image from "next/image";
 import { useGSAP } from "@gsap/react";
 import ScrollTrigger from "gsap/ScrollTrigger";
@@ -10,6 +10,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 export default function PricingSection() {
   const splash_2_Ref = useRef(null);
+  const pageRef = useRef(null);
 
   // GSAP Animations
   useGSAP(() => {
@@ -17,16 +18,23 @@ export default function PricingSection() {
     gsap
       .timeline({
         scrollTrigger: {
-          trigger: splash_2_Ref.current,
-          start: "top 70%",
+          trigger: pageRef.current,
+          start: "top 40%",
         },
       })
-      .to(splash_2_Ref.current, {
-        scale: 1,
-        right: 0,
-        duration: 0.6,
-        ease: "power3.out",
-      });
+      .fromTo(
+        splash_2_Ref.current,
+        {
+          x: "-100%", // start off-screen to the left
+          scale: 0, // start larger
+        },
+        {
+          x: "0%", // move to original position
+          scale: 1, // shrink to normal
+          duration: 0.6,
+          ease: "power3.out",
+        }
+      );
   }, []);
 
   const pricingData = [
@@ -36,13 +44,23 @@ export default function PricingSection() {
   ];
 
   return (
-    <section className="bg-white z-[60] relative lg:py-24 px-5 lg:px-0 text-center h-fit pb-16 ">
-      <Image
+    <section
+      ref={pageRef}
+      className="bg-white z-[60] relative lg:py-24 px-5 lg:px-0 text-center h-fit pb-16"
+    >
+      <div
         ref={splash_2_Ref}
-        src={WaterSplash}
-        alt="Water Splash"
-        className="absolute -right-15 -bottom-20 w-[300px] h-[600px] hidden lg:block z-0"
-      />
+        className="w-screen h-full scale-[1] absolute top-0 left-0 z-0"
+      >
+        <div className="w-screen min-w-[800px] h-fit">
+          <Image
+            src={WaterSplash}
+            alt="Water Splash"
+            className="w-full h-fit object-cover"
+          />
+        </div>
+      </div>
+
       <p className="uppercase text-inter font-light text-[14px] lg:text-[16px] tracking-widest text-[#333333] whitespace-nowrap relative z-10">
         Affordable Stays
         <span className="hidden lg:inline">, Memorable Getaways</span>
