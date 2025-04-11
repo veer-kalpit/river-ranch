@@ -50,8 +50,8 @@ interface GalleryProps {
 
 function Gallery({ items, setIndex, index }: GalleryProps) {
   return (
-    <div className="w-full px-6 max-w-screen overflow-hidden">
-      <div className="flex gap-1 pb-10 overflow-hidden justify-center">
+    <div className="w-full  max-w-screen overflow-hidden">
+      <div className="flex  pb-10 overflow-hidden justify-center">
         {items.map((item: item, i: number) => {
           const isVideo = item.url.endsWith(".mp4");
           const isActive = index === i;
