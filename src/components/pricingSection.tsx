@@ -8,7 +8,7 @@ import gsap from "gsap";
 
 gsap.registerPlugin(ScrollTrigger);
 
-export default function PricingSection() {
+export default function PricingSection({ scrollToFooter }) {
   const splash_2_Ref = useRef(null);
   const pageRef = useRef(null);
 
@@ -98,8 +98,8 @@ export default function PricingSection() {
           details
         </p>
         <button
-          type="button"
-          className="mt-[36px] w-[170px] h-[49.63851547241211px] font-inter text-[16px] leading-[100%] uppercase text-center rounded-[24.82px] border-2 border-[#3333334D] py-[11px]"
+          onClick={scrollToFooter}
+          className=" cursor-pointer mt-[36px] w-[170px] h-[49.63851547241211px] font-inter text-[16px] leading-[100%] uppercase text-center rounded-[24.82px] border-2 border-[#3333334D] py-[11px]"
         >
           Explore
         </button>
