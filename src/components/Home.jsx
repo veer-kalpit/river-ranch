@@ -73,6 +73,7 @@ const Home = ({ isRendered, onRenderComplete, scrollToFooter }) => {
           autoPlay
           muted
           playsInline
+          preload="auto"
           onEnded={() => fadeToNextVideo(videoRef_1, videoRef_2)}
         />
         <video
@@ -81,11 +82,11 @@ const Home = ({ isRendered, onRenderComplete, scrollToFooter }) => {
           src="/Birds.mp4"
           muted
           playsInline
+          preload="auto"
           onEnded={() => fadeToNextVideo(videoRef_2, videoRef_1)}
         />
       </div>
 
-     
       {/* Navbar */}
       <div className="absolute top-0 left-0 w-full z-40">
         <Navbar scrollToFooter={scrollToFooter} />
