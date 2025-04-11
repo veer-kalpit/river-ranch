@@ -18,7 +18,6 @@ import YogaGallery from "./YogaGallery";
 
 gsap.registerPlugin(ScrollTrigger);
 
-
 interface DiscoverProps {
   scrollToFooter: () => void;
 }
@@ -86,11 +85,20 @@ const Discover: React.FC<DiscoverProps> = ({ scrollToFooter }) => {
         {/* Left: Text + Splash_1 overlay */}
         <div className="w-fit h-fit space-y-0 lg:space-y-5 mr-[12%] sm:mr-[40%] md:mr-0">
           <div className="w-fit h-fit">
-            <h6 className="font-inter font-extralight text-[#333333] text-[10px] mb-6 tracking-[3.5px]">
-              YOGA AND HEALING EXPERIENCES
+            <h6 className="font-inter font-extralight text-[#333333] text-[14px] mb-6 tracking-[3.5px]">
+              <span className="lg:hidden block">
+                {" "}
+                Premier event destination
+              </span>
+              <span className="lg:block hidden">
+                YOGA AND HEALING EXPERIENCES{" "}
+              </span>
             </h6>
             <h1 className="font-cormorant max-w-[300px] text-[#205781] text-3xl sm:text-4xl leading-9">
-              Enjoy Yoga Sessions That Restore Balance And Bring Peace.
+              <span className="lg:block hidden">
+                Enjoy Yoga Sessions That Restore Balance And Bring Peace.
+              </span>
+              <span className="lg:hidden block ">River Ranch — Where Moments Turn Into Memories.</span>
             </h1>
           </div>
 
@@ -134,7 +142,7 @@ const Discover: React.FC<DiscoverProps> = ({ scrollToFooter }) => {
             <button
               type="button"
               onClick={() => {
-                const phoneNumber = "919686985795"; 
+                const phoneNumber = "919686985795";
                 const message = "I want to book an experiance at River Ranch";
                 const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(
                   message

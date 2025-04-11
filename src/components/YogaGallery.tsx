@@ -107,11 +107,11 @@ export default function Index() {
 
   return (
     <div className="relative px-6">
-      <p className="font-inter font-normal text-[14px] leading-[25px] text-center mb-8 capitalize">
-        Yoga is a holistic practice that harmonizes the body, mind, and soul,
-        promoting inner peace and physical vitality. Through mindfulness,
-        meditation, and movement, it offers a transformative healing experience,
-        easing stress, improving well-being, and fostering self-awareness.
+      <p className="font-inter font-normal text-[14px] leading-[25px] text- mb-8 capitalize">
+        River Ranch is the perfect destination for unforgettable events—be it
+        weddings, parties, retreats, or corporate gatherings. With nature as
+        your backdrop and curated experiences like riverside dinners and live
+        music, every moment here feels truly special.
       </p>
       <Gallery items={items} index={index} setIndex={setIndex} />
     </div>

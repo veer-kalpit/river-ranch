@@ -88,14 +88,14 @@ const Home = ({ isRendered, onRenderComplete, scrollToFooter }) => {
       }`}
     >
       {/* Top Gradient */}
-      <div className="absolute top-0 left-0 w-full h-full bg-[#000B18] opacity-50 z-20" />
+      <div className="absolute top-0 left-0 w-full h-full bg-[#000B18] opacity-40 z-20" />
 
       {/* Background Videos */}
       <div className="w-full h-full relative">
         <video
           ref={videoRef_1}
           className="absolute w-full h-full object-cover z-10"
-          src="/video1.mp4"
+          src="/04.mp4"
           autoPlay
           muted
           playsInline
@@ -104,20 +104,14 @@ const Home = ({ isRendered, onRenderComplete, scrollToFooter }) => {
         <video
           ref={videoRef_2}
           className="absolute w-full h-full object-cover z-0"
-          src="/video1.mp4"
+          src="/04.mp4"
           muted
           playsInline
           onEnded={() => fadeToNextVideo(videoRef_2, videoRef_1)}
         />
       </div>
 
-      <Image
-        ref={pegionRef}
-        className="w-[200px] h-fit absolute top-0 left-0 z-40"
-        src={prgion}
-        alt="pegion"
-      />
-
+     
       {/* Navbar */}
       <div className="absolute top-0 left-0 w-full z-40">
         <Navbar />
