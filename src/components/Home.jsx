@@ -7,8 +7,6 @@ import Image from "next/image";
 import Navbar from "./Navbar";
 import Footer from "./footer";
 
-// Media
-import prgion from "../../public/pegion.gif";
 
 const Home = ({ isRendered, onRenderComplete, scrollToFooter }) => {
   const pegionRef = useRef(null);
@@ -16,31 +14,7 @@ const Home = ({ isRendered, onRenderComplete, scrollToFooter }) => {
   const videoRef_1 = useRef(null);
   const videoRef_2 = useRef(null);
 
-  // Pigeon animation
-  useGSAP(() => {
-    if (!pegionRef.current || !isRendered) return;
 
-    gsap.set(pegionRef.current, { x: "-15vw" });
-
-    gsap.to(pegionRef.current, {
-      keyframes: [
-        { x: "-0vw", y: "28vh", duration: 1 },
-        { x: "15vw", y: "25vh", duration: 0.9 },
-        { x: "30vw", y: "32vh", duration: 0.8 },
-        { x: "45vw", y: "23vh", duration: 0.9 },
-        { x: "60vw", y: "33vh", duration: 0.8 },
-        { x: "75vw", y: "21vh", duration: 0.9 },
-        { x: "90vw", y: "30vh", duration: 0.8 },
-        { x: "105vw", y: "24vh", duration: 1 },
-        { x: "115vw", y: "20vh", duration: 1 },
-      ],
-      onComplete: () => {
-        if (pegionRef.current) {
-          pegionRef.current.style.display = "none"; // fully remove it
-        }
-      },
-    });
-  }, [isRendered]);
 
   // Page entrance zoom
   useGSAP(() => {
