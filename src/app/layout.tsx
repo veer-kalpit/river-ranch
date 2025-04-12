@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import Cursor from "@/components/cursor"
+import ClickEffect from "@/components/ClickEffect";
 
 
 export const metadata: Metadata = {
@@ -15,9 +16,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-      >
+      <body>
         <Cursor />
+        <ClickEffect /> 
         {children}
       </body>
     </html>

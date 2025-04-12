@@ -203,3 +203,27 @@ img[style*="fixed"] {
   background-clip: padding-box;
 }
 
+.click-ripple {
+  position: fixed;
+  width: 100px;
+  height: 100px;
+  margin-left: -50px;
+  margin-top: -50px;
+  border-radius: 50%;
+  background: rgba(0, 162, 255, 0.25); /* soft blue */
+  box-shadow: 0 0 10px rgba(0, 162, 255, 0.4);
+  pointer-events: none;
+  animation: ripple-animation 0.9s ease-out;
+  z-index: 9999;
+}
+
+@keyframes ripple-animation {
+  from {
+    transform: scale(0.4);
+    opacity: 1;
+  }
+  to {
+    transform: scale(2.5);
+    opacity: 0;
+  }
+}
