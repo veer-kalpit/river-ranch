@@ -66,11 +66,13 @@ const Spa = () => {
           className="w-[250px] md:w-[312px] flex gap-6 md:gap-10 flex-col mt-[100px] md:mt-[375px] text-center md:text-left"
         >
           <h3 className="font-inter font-light text-sm md:text-lg tracking-wider text-white uppercase pt-10 md:pt-0 ">
-            birthday & events
+            event DESTINATION
           </h3>
           <p className="font-inter font-normal text-sm md:text-lg leading-relaxed md:leading-[25px] text-white">
-            Birthdays and events bring loved ones together to celebrate life and
-            create lasting memories.
+            Weddings, sangeets, parties, birthdays, and corporate retreats come
+            alive in this unique event destination—where every gathering becomes
+            a celebration of life, love, and connection, set against nature’s
+            perfect backdrop.
           </p>
           <button
             type="button"
@@ -130,7 +132,7 @@ const Spa = () => {
         className="flex  flex-col md:flex-row items-center md:justify-center gap-[50px] md:gap-[80px]"
       >
         <p className="font-cormorant font-semibold text-xl md:text-[48px] leading-tight md:leading-[65px] capitalize text-white max-w-xs md:w-[341px] text-center md:text-left mt-[50px] md:mt-[116px]">
-          &quot;Dine by the river, where nature flows & flavors thrive.&quot;
+          Dine by the river, where nature flows & flavors thrive.
         </p>
         <Image
           src={SpaRoom}

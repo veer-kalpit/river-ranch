@@ -68,12 +68,12 @@ export default function PricingSection({
       </div>
 
       <p className="uppercase text-inter font-light text-[14px] lg:text-[16px] tracking-widest text-[#333333] whitespace-nowrap relative z-10">
-        Affordable Stays
-        <span className="hidden lg:inline">, Memorable Getaways</span>
+        Affordable Dining
+        <span className="hidden lg:inline">, Memorable Taste</span>
       </p>
 
       <h2 className="text-[38px] lg:text-[48px] font-cormorant text-[#205781] lg:text-[#333333] mt-5 lg:mt-10 mb-10 relative z-10">
-        Pricing
+        Dining
       </h2>
 
       <div className="lg:w-[1136px] mx-auto relative z-10">

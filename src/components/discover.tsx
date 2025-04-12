@@ -96,9 +96,11 @@ const Discover: React.FC<DiscoverProps> = ({ scrollToFooter }) => {
             </h6>
             <h1 className="font-cormorant max-w-[300px] text-[#205781] text-3xl sm:text-4xl leading-9">
               <span className="lg:block hidden">
-                Enjoy Yoga Sessions That Restore Balance And Bring Peace.
+                Enjoy Expert sessions that restore balance and bring peace.{" "}
               </span>
-              <span className="lg:hidden block ">River Ranch — Where Moments Turn Into Memories.</span>
+              <span className="lg:hidden block ">
+                River Ranch — Where Moments Turn Into Memories.
+              </span>
             </h1>
           </div>
 
@@ -207,8 +209,8 @@ const Discover: React.FC<DiscoverProps> = ({ scrollToFooter }) => {
               NATURE SANCTUARY
             </h6>
             <h1 className="font-cormorant max-w-[300px] text-[#205781] text-3xl sm:text-4xl leading-9">
-              A Nature Sanctuary Is A Peaceful Heaven Full Of Greenery And
-              Natural Beauty.
+              A nature sanctuary, serene and lush, where peace flows through
+              wild beauty.
             </h1>
           </div>
           <Image

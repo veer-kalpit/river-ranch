@@ -107,7 +107,6 @@ const Banner = () => {
             environmental impact. Pets are always welcome, because vacations are
             better with the whole family—including four-legged members!
           </p>
-          
         </div>
 
         {/* VIDEO + SPLASH IMAGE */}
@@ -120,14 +119,14 @@ const Banner = () => {
             preload="auto"
             width={549}
             height={688}
-            className="lg:w-[549px] lg:h-[688px] w-[331px] h-[468px] mt-6 lg:mt-[42px] z-10"
+            className="lg:w-[549px] lg:h-[688px] w-[329px] h-[463px]  z-10"
           >
-            <source src="/Bannervid.mp4" type="video/mp4" />
+            <source src="/Haldi.mp4" type="video/mp4" />
           </video>
 
           <div
             ref={splashRef}
-            className="absolute -top-[188px] -right-[300px] hidden lg:block w-[1000px] h-[1000px] rounded-full overflow-hidden"
+            className="absolute -top-[150px] -right-[300px] hidden lg:block w-[1000px] h-[1000px] rounded-full overflow-hidden"
           >
             <Image
               src={WaterSplash}

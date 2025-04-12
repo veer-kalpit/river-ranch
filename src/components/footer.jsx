@@ -306,24 +306,20 @@ Please confirm the booking.`;
           <hr className="hidden md:block w-full border-[1px] border-white" />
 
           <div className="w-full h-full flex flex-col-reverse md:flex-row justify-center items-center gap-3 ">
-            {/* Logo  */}
-            <div className="w-full h-fit flex flex-col justify-center items-center gap-3 mt-10 md:mt-0">
-              <Image
-                className="w-[150px] h-fit object-cover"
-                src={Logo}
-                alt="explore_background"
-              />
+           {/* Logo  */}
+                  <div className="w-full h-fit flex flex-col justify-center items-center gap-3 mt-10 md:mt-0">
+                    <Image
+                    className="w-[150px] h-fit object-cover"
+                    src={Logo}
+                    alt="explore_background"
+                    />
 
-              <h6 className="font-inter font-extralight text-[#FFFFFF] text-[10px]">
-                Copyright River ranch
-              </h6>
+                    <h6 className="font-inter font-extralight text-[#FFFFFF] text-[10px]">
+                    Copyright ©  River Ranch.
+                    </h6>
+                  </div>
 
-              <h6 className="font-inter font-extralight text-[#FFFFFF] text-[10px]">
-                Copyright Dotcreativemarket
-              </h6>
-            </div>
-
-            {/* line  */}
+                  {/* line  */}
             <div className="hidden md:block border border-white h-full"></div>
 
             {/* contacts  */}
