@@ -1,5 +1,5 @@
 "use client";
-import React, { SetStateAction, useEffect, useRef, useState } from "react";
+import React, { SetStateAction, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
 const items = [
