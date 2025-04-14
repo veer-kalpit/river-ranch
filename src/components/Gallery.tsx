@@ -54,7 +54,7 @@ function UnsplashGrid() {
   const [hoveredId, setHoveredId] = useState<number | null>(null);
 
   return (
-    <section id="gallery" className="bg-white z-[50] relative">
+    <section id="gallery" className="bg-white relative">
       <div className="container mx-auto px-4 py-20 lg:py-30">
         <h1 className="text-[#333333] font-inter font-light text-[16px] uppercase text-center">
           Explore River Ranch

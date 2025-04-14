@@ -1,5 +1,5 @@
 "use client";
-import React, { SetStateAction, useEffect, useState } from "react";
+import React, { SetStateAction, useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 
 const items = [
@@ -93,7 +93,6 @@ function Gallery({ items, setIndex, index }: GalleryProps) {
   );
 }
 
-
 export default function Index() {
   const [index, setIndex] = useState(0);
 
@@ -106,7 +105,7 @@ export default function Index() {
   }, []);
 
   return (
-    <div className="relative px-6">
+    <div className="w-fit h-fit px-6">
       <p className="font-inter font-normal text-[14px] leading-[25px] text- mb-8 capitalize">
         River Ranch is the perfect destination for unforgettable events—be it
         weddings, parties, retreats, or corporate gatherings. With nature as

@@ -27,6 +27,8 @@ const Discover: React.FC<DiscoverProps> = ({ scrollToFooter }) => {
   const splashRef = useRef(null);
   const splash_1_Ref = useRef(null);
   const splash_2_Ref = useRef(null);
+  const splash_3_Ref = useRef(null);
+  const splash_4_Ref = useRef(null);
 
   // GSAP Animations
   useGSAP(() => {
@@ -73,13 +75,36 @@ const Discover: React.FC<DiscoverProps> = ({ scrollToFooter }) => {
         duration: 0.6,
         ease: "power3.out",
       });
+
+    gsap
+      .timeline({
+        scrollTrigger: {
+          trigger: splash_3_Ref.current,
+          start: "top 70%", // triggers when splash enters 70% of viewport
+        },
+      })
+      .to(splash_3_Ref.current, {
+        scale: 1,
+        duration: 0.6,
+        ease: "power3.out",
+      });
+
+    gsap
+      .timeline({
+        scrollTrigger: {
+          trigger: splash_4_Ref.current,
+          start: "top 70%", // triggers when splash enters 70% of viewport
+        },
+      })
+      .to(splash_4_Ref.current, {
+        scale: 1,
+        duration: 0.6,
+        ease: "power3.out",
+      });
   }, []);
 
   return (
-    <div
-      id="yoga"
-      className="block w-screen bg-white overflow-hidden z-50 relative"
-    >
+    <div id="yoga" className="block w-screen h-fit bg-white z-50 relative">
       {/* Section 1: Yoga and Healing */}
       <div className="relative w-full h-auto flex flex-col md:flex-row flex-wrap justify-center items-center gap-20 py-10 md:gap-30 md:pt-30 md:py-0 md:px-10">
         {/* Left: Text + Splash_1 overlay */}
@@ -228,8 +253,25 @@ const Discover: React.FC<DiscoverProps> = ({ scrollToFooter }) => {
           alt="Splash_3"
         />
       </div>
-      <div className="block lg:hidden">
+      <div className="w-full block lg:hidden z-50">
+        <Image
+          ref={splash_3_Ref}
+          className="w-[300px] h-fit absolute top-[-20%] right-[-100px] scale-0 md:hidden"
+          src={Splash}
+          alt="Water Splash"
+        />
         <YogaGallery />
+
+        <div
+          ref={splash_4_Ref}
+          className="w-[300px] h-fit absolute top-[93%] sm:left-[25%] scale-0"
+        >
+          <Image
+            className="w-full h-fit object-cover scale-x-[-1]"
+            src={Splash_1}
+            alt="Water Splash"
+          />
+        </div>
       </div>
     </div>
   );
