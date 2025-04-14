@@ -35,7 +35,7 @@ export default function LandingPage() {
   return (
     <div className="relative w-screen">
       {/* Overlay Section */}
-      <div className="absolute top-0 left-0 w-full h-full z-50 transition-opacity duration-500">
+      <div className="absolute top-0 left-0 w-full h-full  transition-opacity duration-500">
         {!hideOverlay && <Overlay setHomeRendering={handleHomeRendering} />}
       </div>
 
