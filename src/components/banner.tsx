@@ -141,11 +141,11 @@ const Banner = () => {
         ref={waterSlashRef}
         src={WaterSplash}
         alt="Water splash"
-        className=" w-[400px] h-fit absolute top-[-100px] right-[-100px] object-cover z-0 lg:hidden"
+        className=" w-[400px] h-fit absolute top-[-100px] right-[-150px] object-cover z-0 lg:hidden"
       />
-      <div className="flex flex-col lg:flex-row justify-center p-10 gap-12 lg:gap-[115px] pt-10 lg:pb-[800px] lg:pt-[160px] h-auto lg:h-screen relative z-10">
+      <div className="w-full h-fit flex flex-col lg:flex-row py-8 lg:py-24 px-8 lg:px-24 gap-10 justify-center items-center ">
         {/* TEXT COLUMN */}
-        <div ref={textRef} className="flex flex-col text-left max-w-lg">
+        <div ref={textRef} className="w-full h-fit flex flex-col text-left ">
           <h1 className="font-cormorant font-semibold text-3xl md:text-4xl lg:text-5xl leading-tight text-[#205781] capitalize">
             A Haven of Tranquility
           </h1>
@@ -159,23 +159,21 @@ const Banner = () => {
         </div>
 
         {/* VIDEO + SPLASH IMAGE */}
-        <div className="flex lg:relative">
+        <div className="w-full lg:w-fit h-fit flex ">
           <video
             ref={videoRef}
             loop
             muted
             autoPlay
             preload="auto"
-            width={549}
-            height={688}
-            className="lg:w-[549px] lg:h-[688px] w-[329px] h-[463px]  z-10"
+            className="w-full aspect-video max-w-[800px] relative z-10"
           >
             <source src="/Haldi.mp4" type="video/mp4" />
           </video>
 
           <div
             ref={splashRef}
-            className="absolute -top-[150px] -right-[300px] hidden lg:block w-[1000px] h-[1000px] rounded-full overflow-hidden"
+            className="w-[800px] h-[650px] absolute object-cover top-0 right-[-100px] z-0 hidden lg:block"
           >
             <Image
               src={WaterSplash}

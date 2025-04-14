@@ -18,7 +18,6 @@ interface ExploreProps {
   scrollToFooter: () => void;
 }
 
-
 const Explore: React.FC<ExploreProps> = ({ scrollToFooter }) => {
   const pageRef = useRef(null);
   const cardRef = useRef(null);
