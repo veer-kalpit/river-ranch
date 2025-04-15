@@ -143,7 +143,7 @@ const Banner = () => {
         alt="Water splash"
         className=" w-[400px] h-fit absolute top-[-100px] right-[-150px] object-cover z-0 lg:hidden"
       />
-      <div className="w-full h-fit flex flex-col lg:flex-row py-8 lg:py-24 px-8 lg:px-24 gap-10 justify-center items-center ">
+      <div className="w-full h-fit flex flex-col lg:flex-row py-8 lg:py-24 px-8 lg:px-24 gap-16 mb-16 lg:gap-0 lg:mb-0 justify-center items-center ">
         {/* TEXT COLUMN */}
         <div ref={textRef} className="w-full h-fit flex flex-col text-left ">
           <h1 className="font-cormorant font-semibold text-3xl md:text-4xl lg:text-5xl leading-tight text-[#205781] capitalize">
