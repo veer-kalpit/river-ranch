@@ -10,6 +10,7 @@ import Footer from "@/components/footer";
 import Home from "@/components/Home";
 import Overlay from "@/components/Overlay";
 import PricingSection from "@/components/pricingSection";
+import Menu from "@/components/menu"
 
 import { useRef, useState } from "react";
 
@@ -56,6 +57,7 @@ export default function LandingPage() {
           <Discover scrollToFooter={scrollToFooter} />
           <Gallery />
           <PricingSection scrollToFooter={scrollToFooter} />
+          <Menu/>
           <Footer ref={footerRef} />
         </>
       )}
