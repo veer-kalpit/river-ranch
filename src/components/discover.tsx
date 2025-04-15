@@ -6,9 +6,10 @@ import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 // image imports
-import Yoga1 from "../../public/yoga.png";
+import Yoga1 from "../../public/yoga.jpeg";
 import Splash_1 from "../../public/splash_1.png";
-import Yoga2 from "../../public/Yoga2.png";
+import Yoga2 from "../../public/Yoga2.jpeg";
+import Frame from "../../public/frame.png";
 import Warehouse_2 from "../../public/ware_house_2.png";
 import Warehouse_3 from "../../public/ware_house_3.jpeg";
 import Splash from "../../public/splash.png";
@@ -37,11 +38,11 @@ const Discover: React.FC<DiscoverProps> = ({ scrollToFooter }) => {
       .timeline({
         scrollTrigger: {
           trigger: splashRef.current,
-          start: "top 70%", // triggers when splash enters 70% of viewport
+          start: "top 55%", // triggers when splash enters 70% of viewport
         },
       })
       .to(splashRef.current, {
-        scale: 1,
+        scale: 1.3,
         height: "600px",
         duration: 0.6,
         ease: "power3.out",
@@ -130,11 +131,16 @@ const Discover: React.FC<DiscoverProps> = ({ scrollToFooter }) => {
           </div>
 
           {/* Main Image */}
-          <div className="hidden md:block w-[150px] h-[250px] md:min-w-[180px] md:h-[280px] relative">
+          <div className="hidden md:flex w-[250px] h-[350px] relative justify-center items-center">
             <Image
-              className="w-[150px] h-[250px] md:min-w-[180px] md:h-[280px] rounded-full object-cover shadow-lg relative z-10"
+              className="w-full h-[80%] object-cover shadow-lg relative z-10 "
               src={Yoga1}
               alt="ware house"
+            />
+            <Image
+              className="w-full h-full object-cover z-50 scale-[1.4] absolute top-0 left-0"
+              src={Frame}
+              alt="Frame"
             />
 
             {/* Splash_1 overlay animation */}
@@ -185,15 +191,21 @@ const Discover: React.FC<DiscoverProps> = ({ scrollToFooter }) => {
         </div>
 
         {/* Right: Splash image with animation */}
-        <div className="w-[150px] h-fit md:min-w-[180px] md:h-[280px] relative -mt-3 ml-auto mr-[5%] md:mt-0 min-[768px]:ml-0 min-[768px]:mr-0 lg:block  hidden">
+        <div className="w-[250px] h-[350px]  relative -mt-3 ml-auto mr-[5%] md:mt-0 min-[768px]:ml-0 min-[768px]:mr-0 lg:flex  hidden  justify-center items-center">
           <Image
-            className="w-full h-full rounded-full object-cover shadow-lg relative z-10"
+            className="w-full h-[80%] object-cover shadow-lg relative z-10"
             src={Yoga2}
             alt="ware house"
           />
+
+          <Image
+            className="w-full h-full object-cover z-50 scale-[1.4] absolute top-0 left-0"
+            src={Frame}
+            alt="Frame"
+          />
           <div
             ref={splashRef}
-            className="splashItem w-[550px] h-[0px] scale-0 absolute top-[-75%] left-[-65%] overflow-hidden z-0"
+            className="splashItem w-[550px] h-[0px] scale-0 absolute top-[-95%] left-[0%] overflow-hidden z-0"
           >
             <Image className="w-full h-[600px]" src={Splash} alt="Splash" />
           </div>

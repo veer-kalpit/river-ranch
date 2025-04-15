@@ -11,6 +11,7 @@ import Home from "@/components/Home";
 import Overlay from "@/components/Overlay";
 import PricingSection from "@/components/pricingSection";
 import Menu from "@/components/menu"
+import SoundPlayer from "@/components/soundPlayer";
 
 import { useRef, useState } from "react";
 
@@ -41,7 +42,7 @@ export default function LandingPage() {
       </div>
 
       {/* Home Already Mounted, Just Hidden Initially */}
-
+      <SoundPlayer isRendered={isRenderHome} />
       <Home
         isRendered={isRenderHome}
         onRenderComplete={handleRenderComplete}
