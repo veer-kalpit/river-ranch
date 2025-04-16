@@ -17,7 +17,7 @@ export default function Menu() {
 
       <div className="mx-auto flex flex-col-reverse lg:flex-row items-center justify-center gap-20 lg:gap-[120px]">
         {/* Text Content */}
-        <div className="flex flex-col w-full max-w-md items-center lg:text-left">
+        <div className="flex flex-col w-full max-w-md items-center lg:items-start lg:text-left">
           <h1 className="text-[24px] lg:text-[48px] font-cormorant font-semibold leading-[65px] capitalize text-[#205781] mb-[35px] lg:block hidden">
             Explore Our Menu
           </h1>
@@ -35,7 +35,7 @@ export default function Menu() {
           >
             <button
               type="button"
-              className="cursor-pointer w-[170px] h-[50px] font-inter text-[16px] leading-[100%] uppercase text-center rounded-full border-2 text-[#205781] border-[#205781] py-[11px] hover:bg-white hover:text-[#205781] transition-all"
+              className="cursor-pointer w-[170px] h-[50px] font-inter text-[16px] mt-0 lg:mt-[35px] leading-[100%] uppercase text-center rounded-full border-2 text-[#205781] border-[#205781] py-[11px] hover:bg-white hover:text-[#205781] transition-all"
             >
               See Menu
             </button>
