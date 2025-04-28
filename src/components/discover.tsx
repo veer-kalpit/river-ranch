@@ -107,26 +107,26 @@ const Discover: React.FC<DiscoverProps> = ({ scrollToFooter }) => {
   return (
     <div id="yoga" className="block w-screen h-fit bg-white z-50 relative">
       {/* Section 1: Yoga and Healing */}
-      <div className="relative w-full h-auto flex flex-col md:flex-row flex-wrap justify-center items-center gap-20 py-10 md:gap-30 md:pt-30 md:py-0 md:px-10">
+      <div className="relative w-full h-auto flex flex-col md:flex-row flex-wrap justify-center items-center py-5 md:gap-30 md:pt-30 md:py-0 md:px-10">
         {/* Left: Text + Splash_1 overlay */}
-        <div className="w-fit h-fit space-y-0 lg:space-y-5 mr-[12%] sm:mr-[40%] md:mr-0">
+        <div className="w-fit h-fit space-y-0 lg:space-y-5 md:mr-0">
           <div className="w-fit h-fit">
             <h6 className="font-inter font-extralight text-[#333333] text-[14px] mb-6 tracking-[3.5px]">
-              <span className="lg:hidden block">
-                {" "}
-                Premier event destination
-              </span>
               <span className="lg:block hidden">
-                YOGA AND HEALING EXPERIENCES{" "}
+                YOGA AND HEALING EXPERIENCES
+              </span>
+              <span className="block lg:hidden text-center">
+                Moments and Memories
               </span>
             </h6>
             <h1 className="font-cormorant max-w-[300px] text-[#205781] text-3xl sm:text-4xl leading-9">
               <span className="lg:block hidden">
-                Enjoy Expert sessions that restore balance and bring peace.{" "}
+                Enjoy Expert sessions that restore balance and bring peace.
               </span>
-              <span className="lg:hidden block ">
-                River Ranch — Where Moments Turn Into Memories.
+              <span className="lg:hidden block text-center">
+                Parties and Get-Togethers
               </span>
+             
             </h1>
           </div>
 
@@ -213,25 +213,30 @@ const Discover: React.FC<DiscoverProps> = ({ scrollToFooter }) => {
       </div>
 
       {/* Section 2: Nature Sanctuary */}
-      <div className="w-full hidden  lg:flex flex-wrap justify-center items-center gap-20 py-10 lg:pt-30 relative md:gap-30 ">
+      <div className="w-full flex flex-wrap justify-center items-center gap-20 py-10 lg:pt-30 relative md:gap-30 ">
         {/* Left: Large image + text */}
-        <div className="w-fit h-fit space-y-8 px-5 sm:mr-auto md:ml-[5%] lg:px-0 lg:ml-0 lg:mr-0">
-          <Image
-            className="w-[600px] h-[250px] sm:h-[350px] object-cover shadow-lg relative z-10"
-            src={Warehouse_3}
-            alt="Warehouse_3"
-          />
+        <div className="w-fit h-fit space-y-2 px-0 sm:mr-auto md:ml-[5%] lg:px-0 lg:ml-0 lg:mr-0">
+          <video
+            loop
+            muted
+            autoPlay
+            preload="auto"
+            className=" aspect-video w-[412px] lg:w-[453px] h-[595px] relative z-10"
+          >
+            <source src="/video.mp4" type="video/mp4" />
+          </video>
 
-          <div className="w-fit h-fit space-y-8 ml-12">
-            <p className="font-inter w-[250px] text-[#333333] text-xs leading-[18px]">
-              A Peaceful Retreat Beside The Mysore Bird Sanctuary, Where Calm
-              Waters, Lush Greenery, And Open Skies Offer A Deep Connection To
-              Nature’s Rhythm.
+          <div className="w-fit h-fit space-y-8 ml-0 lg:ml-12">
+            <p className="font-inter lg:w-[250px] text-[#333333] text-[16px] leading-[25px] text-center px-[36px] lg:px-0 lg:text-left">
+              Celebrate life’s best moments at River Ranch, where lively parties
+              and relaxed get-togethers come alive by the riverside. Dance under
+              the stars, swap stories by the water, and make memories that’ll
+              stay with you forever.
             </p>
             <button
               type="button"
               onClick={scrollToFooter}
-              className="cursor-pointer w-[60px] font-inter text-[#205781] text-[12px] text-left"
+              className="cursor-pointer w-[60px] font-inter text-[#205781] text-[12px] text-left hidden lg:block"
             >
               DISCOVER
               <hr className="w-full mt-0.5" />
@@ -240,14 +245,14 @@ const Discover: React.FC<DiscoverProps> = ({ scrollToFooter }) => {
         </div>
 
         {/* Right: Text + image */}
-        <div className="w-fit h-fit space-y-16 relative ml-auto mr-[5%] z-10 lg:ml-0 lg:mr-0">
+        <div className="w-fit hidden lg:block h-fit space-y-16 relative ml-auto mr-[5%] z-10 lg:ml-0 lg:mr-0">
           <div className="w-fit h-fit">
             <h6 className="font-inter font-extralight text-[#333333] text-[10px] mb-6 tracking-[3.5px]">
-              NATURE SANCTUARY
+              Parties and get together
             </h6>
             <h1 className="font-cormorant max-w-[300px] text-[#205781] text-3xl sm:text-4xl leading-9">
-              A nature sanctuary, serene and lush, where peace flows through
-              wild beauty.
+              The Perfect Destination for Parties, Get-Togethers, and
+              Unforgettable Celebrations
             </h1>
           </div>
           <Image
@@ -258,12 +263,6 @@ const Discover: React.FC<DiscoverProps> = ({ scrollToFooter }) => {
         </div>
 
         {/* Splash_2: Animated on scroll */}
-        <Image
-          ref={splash_2_Ref}
-          className="w-[220px] h-fit scale-0 absolute top-[69%] lg:top-[50%] right-[-10%] z-0"
-          src={Splash_3}
-          alt="Splash_3"
-        />
       </div>
       <div className="w-full block lg:hidden z-50">
         <Image
@@ -272,18 +271,19 @@ const Discover: React.FC<DiscoverProps> = ({ scrollToFooter }) => {
           src={Splash}
           alt="Water Splash"
         />
-        <YogaGallery />
-
-        <div
-          ref={splash_4_Ref}
-          className="w-[300px] h-fit absolute top-[93%] sm:left-[25%] scale-0"
-        >
-          <Image
-            className="w-full h-fit object-cover scale-x-[-1]"
-            src={Splash_1}
-            alt="Water Splash"
-          />
-        </div>
+      </div>
+      <div className="relative">
+        <p className="font-cormorant font-normal text-[#205781] text-[28px] lg:text-[48px] leading-[100%] capitalize text-center">
+          “Host unforgettable events with ease <br />
+          at River Ranch, offering an expansive <br />
+          500-floating capacity for <br /> your celebrations.”
+        </p>
+        <Image
+          ref={splash_2_Ref}
+          className="w-[220px] h-fit scale-0 absolute top-[69%] lg:-top-18 right-[-10%] z-0 hidden lg:block"
+          src={Splash_3}
+          alt="Splash_3"
+        />
       </div>
     </div>
   );

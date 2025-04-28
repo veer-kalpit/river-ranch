@@ -142,6 +142,18 @@ Please confirm the booking.`;
                     </div>
                   </a>
                 </div>
+                {/* Check Availability Button */}
+                <div className="w-full h-fit flex justify-center items-center mb-8">
+                  <a
+                    href="https://calendar.google.com/calendar/embed?src=79b59a57e2562661d8d01589c4c727e6ba1e09f35e6996c140136b04983c4560%40group.calendar.google.com&ctz=UTC"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <button className="w-full h-fit font-inter border-1 text-white text-sm flex justify-center items-center py-4 px-8 rounded-full cursor-pointer transform transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-lg hover:bg-gradient-to-r hover:from-[#154c6a] hover:to-[#205781] mt-10">
+                      Check Availability
+                    </button>
+                  </a>
+                </div>
               </div>
             </div>
           </div>
