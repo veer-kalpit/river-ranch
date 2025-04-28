@@ -55,7 +55,7 @@ function UnsplashGrid() {
 
   return (
     <section id="gallery" className="bg-white relative">
-      <div className="container mx-auto px-4 py-20 lg:py-30">
+      <div className="container mx-auto px-4 lg:py-20">
         <h1 className="text-[#333333] font-inter font-light text-[16px] uppercase text-center">
           Explore River Ranch
         </h1>
