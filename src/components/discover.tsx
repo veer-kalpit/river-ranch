@@ -12,7 +12,7 @@ import Yoga2 from "../../public/Yoga2.jpeg";
 import Frame from "../../public/frame.png";
 import Warehouse_2 from "../../public/ware_house_2.png";
 import Splash from "../../public/splash.png";
-import Splash_3 from "../../public/splash_3.png";
+
 import Sunset from "../../public/sunset.jpeg";
 import YogaGallery from "./YogaGallery";
 import frameImage from "../assets/images/frame.png";
@@ -28,7 +28,6 @@ const Discover: React.FC<DiscoverProps> = ({ scrollToFooter }) => {
   const splashRef = useRef(null);
   const splash_1_Ref = useRef(null);
   const splash_2_Ref = useRef(null);
-  const splash_3_Ref = useRef(null);
   const splash_4_Ref = useRef(null);
 
   // GSAP Animations
