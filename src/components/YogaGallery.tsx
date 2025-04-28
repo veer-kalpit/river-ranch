@@ -105,13 +105,7 @@ export default function Index() {
   }, []);
 
   return (
-    <div className="w-fit h-fit px-6">
-      <p className="font-inter font-normal text-[14px] leading-[25px] text- mb-8 capitalize">
-        River Ranch is the perfect destination for unforgettable events—be it
-        weddings, parties, retreats, or corporate gatherings. With nature as
-        your backdrop and curated experiences like riverside dinners and live
-        music, every moment here feels truly special.
-      </p>
+    <div className="w-full h-fit">
       <Gallery items={items} index={index} setIndex={setIndex} />
     </div>
   );
