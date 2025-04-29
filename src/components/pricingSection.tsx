@@ -36,7 +36,7 @@ export default function PricingSection({
         },
         {
           x: "0%", // move to original position
-          scale: 1, // shrink to normal
+          scale: 1.5, // shrink to normal
           duration: 0.6,
           ease: "power3.out",
         }
@@ -52,13 +52,13 @@ export default function PricingSection({
   return (
     <section
       ref={pageRef}
-      className="bg-white z-[60] relative lg:py-24 px-5 lg:px-0 text-center h-fit pb-16"
+      className="bg-white z-[60] relative lg:py-24 px-5 lg:px-0 text-center h-fit pb-16 lg:pb-0"
     >
       <div
         ref={splash_2_Ref}
-        className="w-screen h-full scale-[1] absolute top-0 left-0 z-0"
+        className="w-screen h-full scale-[1.5] -rotate-12 absolute top-0 left-0 z-0"
       >
-        <div className="w-screen min-w-[800px] h-fit">
+        <div className="w-screen min-w-[800px] lg:ml-28 xl:-mt-44 h-fit">
           <Image
             src={WaterSplash}
             alt="Water Splash"

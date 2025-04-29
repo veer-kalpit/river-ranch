@@ -46,6 +46,7 @@ const Spa = () => {
     if (inView && !hasAnimated.current) {
       controls.start({
         y: 0,
+        scale: 1,
         opacity: 1,
         transition: { duration: 1.2, ease: "easeOut" },
       });
@@ -59,11 +60,11 @@ const Spa = () => {
       className="bg-[#205781] lg:flex flex-col gap-[60px] md:gap-[140px] pb-[120px] md:py-[230px] hidden z-[50] relative"
     >
       {/* First Section */}
-      <div className="flex flex-col md:flex-row items-center md:justify-center gap-[50px] ">
+      <div className="flex justify-center items-center">
         {/* Left Content */}
         <div
           data-aos="fade-right"
-          className="w-[250px] md:w-[312px] flex gap-6 md:gap-10 flex-col mt-[100px] md:mt-[375px] text-center md:text-left"
+          className="w-full max-w-[300px] flex gap-6 md:gap-10 flex-col text-center md:text-left"
         >
           <h3 className="font-inter font-light text-sm md:text-lg tracking-wider text-white uppercase pt-10 md:pt-0 ">
             event DESTINATION
@@ -111,7 +112,7 @@ const Spa = () => {
           {/* Animated Water Splash */}
           <motion.div
             ref={ref}
-            initial={{ y: -400, opacity: 0 }}
+            initial={{ y: -400, scale: 0, opacity: 0 }}
             animate={controls}
             className="absolute -top-[260px] -right-[200px] w-[500px] h-[700px] z-10"
           >

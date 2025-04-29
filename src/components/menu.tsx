@@ -6,7 +6,7 @@ import Naan from "../../public/Naan.png";
 
 export default function Menu() {
   return (
-    <section className="bg-white z-[60] relative px-10   text-center h-fit py-5 lg:py-[214px]">
+    <div className="w-screen bg-white z-[60] relative px-10  text-center min-h-fit pb-10 lg:pb-[250px] lg:pt-20">
       <p className="uppercase text-inter font-light text-[14px] lg:text-[16px] tracking-widest text-[#333333] whitespace-nowrap">
         Discover Delicious Choices
       </p>
@@ -67,6 +67,6 @@ export default function Menu() {
           />
         </div>
       </div>
-    </section>
+    </div>
   );
 }
