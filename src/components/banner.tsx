@@ -3,8 +3,8 @@
 import React, { useRef } from "react";
 import Image from "next/image";
 import gsap from "gsap";
-import WaterSplash from "../../public/WaterSpllash.png";
-import WaterSplash_2 from "../../public/splash_5.png";
+import WaterSplash from "../../public/splash_5.png";
+import WaterSplash_2 from "../../public/WaterSpllash.png";
 import FacilityCard from "./facilityCard";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
@@ -54,7 +54,7 @@ const Banner = () => {
       })
       .fromTo(
         waterSlashRef.current,
-        { scale: 0, y: "-500px" },
+        { scale: 0, y: "-300px" },
         {
           scale: 1,
           y: "0px",
@@ -137,59 +137,61 @@ const Banner = () => {
       ref={pageRef}
       className="w-full h-fit bg-white z-[50] relative overflow-hidden"
     >
-      <Image
+      <div
         ref={waterSlashRef}
-        src={WaterSplash}
-        alt="Water splash"
-        className=" w-[400px] h-fit absolute top-[-100px] right-[-150px] object-cover z-0 lg:hidden"
-      />
-      <div className="w-full h-fit flex flex-col lg:flex-row py-8 lg:py-24 px-8 lg:px-24 gap-16 mb-16 lg:gap-0 lg:mb-0 justify-center items-center ">
-        {/* TEXT COLUMN */}
-        <div ref={textRef} className="w-full h-fit flex flex-col text-left ">
+        className="w-[500px] h-fit absolute top-[-85px] right-[-50px] z-0 lg:hidden"
+      >
+        <Image
+          src={WaterSplash}
+          alt="Water splash"
+          className=" w-full h-fit object-cover scale-y-[-1] scale-x-[-1]"
+        />
+      </div>
+      <div className="w-full h-fit flex flex-col lg:flex-row justify-center items-center lg:items-start gap-10 lg:gap-32 px-5 lg:px-10 py-24 lg:py-20 ">
+        {/* TEXT */}
+        <div
+          ref={textRef}
+          className="w-fit lg:w-fit h-fit text-center lg:text-left"
+        >
           <h1 className="font-cormorant font-semibold text-3xl md:text-4xl lg:text-5xl leading-tight text-[#205781] capitalize">
             A Haven of Tranquility
           </h1>
-          <p className="mt-4 font-inter font-normal text-base md:text-lg leading-relaxed text-[#333333] lg:w-[361px] lg:mt-10">
-            River Ranch, once a family farm, is now a sanctuary for reconnecting
-            with nature and escaping city life. Committed to sustainability, we
-            practice rainwater harvesting and organic farming to minimize our
-            environmental impact. Pets are always welcome, because vacations are
-            better with the whole family—including four-legged members!
+          <p className=" w-full max-w-[450px] font-inter font-normal text-base md:text-lg leading-relaxed text-[#333333] mt-5">
+            River Ranch is a scenic resort and event destination, perfect for
+            relaxing getaways, weddings, and celebrations. Surrounded by lush
+            landscapes and open skies, it offers the ideal backdrop for
+            unforgettable experiences, combining comfort, beauty, and charm.
           </p>
         </div>
 
-        {/* VIDEO + SPLASH IMAGE */}
-        <div className="w-full lg:w-fit h-fit flex ">
+        {/* VIDEO */}
+        <div className="w-fit lg:w-fit h-fit flex ">
           <video
             ref={videoRef}
             loop
             muted
             autoPlay
+            playsInline
             preload="auto"
-            className="w-full aspect-video max-w-[800px] relative z-10"
+            className="w-full max-w-[450px] h-[550px] object-cover relative z-10"
           >
             <source src="/Haldi.mp4" type="video/mp4" />
           </video>
-
-          <div
-            ref={splashRef}
-            className="w-[800px] h-[650px] absolute object-cover top-0 right-[-100px] z-0 hidden lg:block"
-          >
-            <Image
-              src={WaterSplash}
-              alt="Water splash"
-              fill
-              className="object-cover"
-            />
-          </div>
         </div>
       </div>
 
       {/* FACILITY SECTION */}
       <FacilityCard />
       <Image
-        ref={splashRef_2}
+        ref={splashRef}
         src={WaterSplash_2}
+        alt="Water splash"
+        className="w-[800px] h-fit absolute top-[-200px] right-[-100px] hidden lg:block object-cover z-0"
+      />
+
+      <Image
+        ref={splashRef_2}
+        src={WaterSplash}
         alt="Water splash"
         className=" w-[400px] sm:w-[600px]  h-fit absolute bottom-[-80px] sm:bottom-[-150px] right-[-50px] md:hidden object-cover"
       />

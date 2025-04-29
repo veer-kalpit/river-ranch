@@ -91,6 +91,7 @@ const Discover: React.FC<DiscoverProps> = ({ scrollToFooter }) => {
 
   return (
     <div id="yoga" className="block w-screen h-fit bg-white z-50 relative">
+      {/* yoga gallery for mobile  */}
       <div className="w-full lg:hidden z-50 py-10">
         <h6 className="font-inter font-extralight text-[#333333] text-center text-[14px] mb-6 tracking-[3.5px]">
           EVENT DESTINATION
@@ -101,17 +102,17 @@ const Discover: React.FC<DiscoverProps> = ({ scrollToFooter }) => {
         <YogaGallery />
       </div>
 
-      <div className="w-full h-fit lg:py-20 lg:px-20">
+      <div className="w-full h-fit flex justify-center items-center gap-28 lg:py-20 lg:px-20">
         {/* frame video  */}
-        <div className="w-fit h-fit flex flex-col justify-center items-center relative overflow-hidden mx-auto lg:mx-0">
+        <div className="w-fit h-fit flex flex-col justify-center items-center relative overflow-hidden">
           <h6 className="font-inter font-extralight text-[#333333] text-center text-[14px] mb-6 tracking-[3.5px]">
-            WEDDING BY RIVER
+            WEDDING BY THE RIVER
           </h6>
-          <h1 className="font-cormorant text-center text-[#205781] text-3xl sm:text-4xl leading-9">
+          <h1 className="font-cormorant text-center text-[#205781] text-3xl sm:text-4xl leading-9 -mb-5">
             Celebrations <br />
             and Ceremonies
           </h1>
-          <div className="w-[350px] h-[400px] relative overflow-hidden">
+          <div className="w-[400px] h-[600px] relative overflow-hidden">
             <Image
               src={frameImage}
               alt="Frame"
@@ -128,7 +129,7 @@ const Discover: React.FC<DiscoverProps> = ({ scrollToFooter }) => {
             ></video>
           </div>
 
-          <p className="font-inter w-fit max-w-[500px] text-center text-[#333333] text-xs leading-[18px] px-10">
+          <p className="font-inter w-fit max-w-[500px] text-center text-[#333333] text-xs leading-[18px] px-10 -mt-5">
             Embrace the golden glow of tradition at River Ranch. Let the
             tranquil riverside ambiance set the stage for laughter, rituals, and
             vibrant celebrations.
@@ -141,7 +142,7 @@ const Discover: React.FC<DiscoverProps> = ({ scrollToFooter }) => {
 
         <div
           ref={splashRef}
-          className=" hidden lg:block splashItem w-[550px] h-[600px] scale-0 absolute top-[5%] right-0 overflow-hidden"
+          className=" hidden lg:block splashItem w-[550px] h-[600px] scale-0 overflow-hidden"
         >
           <Image className="w-full h-full" src={Splash} alt="Splash" />
         </div>
@@ -149,7 +150,7 @@ const Discover: React.FC<DiscoverProps> = ({ scrollToFooter }) => {
 
       {/* Section 1: Yoga and Healing */}
       <div className="relative w-full h-auto px-10 lg:px-20 ">
-        <div className="w-full h-fit hidden lg:flex justify-center items-end gap-56 mb-16">
+        <div className="w-full h-fit hidden lg:flex justify-center items-center gap-40 mb-32">
           <div className="w-fit h-fit ">
             <h6 className="font-inter font-extralight text-[#333333] text-start text-[14px] mb-6 tracking-[3.5px]">
               YOGA AND HEALING EXPERIENCE
@@ -158,12 +159,15 @@ const Discover: React.FC<DiscoverProps> = ({ scrollToFooter }) => {
               Yoga, Sound Healing <br /> And Meditation
             </h1>
           </div>
-          <div className="w-[200px] h-[250px] md:w-[230px] md:h-[320px] relative">
-            <Image
-              className="w-full h-full object-cover shadow-lg relative z-10"
-              src={Warehouse_2}
-              alt="beach"
-            />
+          <div className="w-full max-w-[250px] h-[350px] relative">
+            <video
+              autoPlay
+              muted
+              loop
+              playsInline
+              className="w-full h-full object-cover"
+              src="/garden_video.mp4"
+            ></video>
           </div>
         </div>
 
@@ -184,7 +188,7 @@ const Discover: React.FC<DiscoverProps> = ({ scrollToFooter }) => {
             {/* Splash_1 overlay animation */}
             <div
               ref={splash_1_Ref}
-              className="w-fit h-fit scale-0 absolute top-[86%] left-[-28%] z-0"
+              className="w-fit h-fit scale-0 absolute top-[90%] left-[-28%] z-0"
             >
               <Image
                 className="w-full h-fit scale-x-[-1] -ml-1"
@@ -238,7 +242,7 @@ const Discover: React.FC<DiscoverProps> = ({ scrollToFooter }) => {
             Healing And <br />
             Meditation
           </h1>
-          <div className="w-full max-w-[300px] aspect-square flex justify-center items-center gap-10 relative rounded-2xl overflow-hidden mt-8">
+          <div className="w-full max-w-[300px] aspect-square flex justify-center items-center gap-10 relative rounded-4xl overflow-hidden mt-8">
             <Image
               className="w-full h-full object-cover shadow-lg relative z-10"
               src={Yoga2}
@@ -254,56 +258,66 @@ const Discover: React.FC<DiscoverProps> = ({ scrollToFooter }) => {
       </div>
 
       {/* Section 2: Nature Sanctuary */}
-      <div className="w-full flex flex-wrap justify-center items-center gap-20 py-10 lg:pt-30 relative md:gap-30">
-        {/* Left: Large image + text */}
-        <div className="w-fit h-fit space-y-2 px-0 sm:mr-auto md:ml-[5%] lg:px-0 lg:ml-0 lg:mr-0">
-          <video
-            loop
-            muted
-            autoPlay
-            preload="auto"
-            className=" aspect-video w-[412px] lg:w-[453px] h-[595px] relative z-10"
-          >
-            <source src="/video.mp4" type="video/mp4" />
-          </video>
+      <div className="w-full h-fit overflow-hidden lg:pt-32">
+        <h6 className="font-inter font-extralight text-[#333333] text-center text-[14px] mb-6 tracking-[3.5px] lg:hidden">
+          MOMENTS AND MEMORIES
+        </h6>
+        <h1 className="font-cormorant text-center text-[#205781] text-3xl sm:text-4xl leading-9 lg:hidden">
+          Parties And <br />
+          Get-Togethers
+        </h1>
 
-          <div className="w-fit h-fit space-y-8 ml-0 lg:ml-12">
-            <p className="font-inter lg:w-[250px] text-[#333333] text-[16px] leading-[25px] text-center px-[36px] lg:px-0 lg:text-left">
-              Celebrate life’s best moments at River Ranch, where lively parties
-              and relaxed get-togethers come alive by the riverside. Dance under
-              the stars, swap stories by the water, and make memories that’ll
-              stay with you forever.
-            </p>
-            <button
-              type="button"
-              onClick={scrollToFooter}
-              className="cursor-pointer w-[60px] font-inter text-[#205781] text-[12px] text-left hidden lg:block"
+        <div className="w-full flex justify-center items-center gap-[350px] relative mt-16">
+          {/* Left: Large image + text */}
+          <div className="w-fit flex flex-col justify-center items-center">
+            <video
+              loop
+              muted
+              autoPlay
+              preload="auto"
+              className=" w-[300px] h-[450px] object-cover relative z-10"
             >
-              DISCOVER
-              <hr className="w-full mt-0.5" />
-            </button>
-          </div>
-        </div>
+              <source src="/video.mp4" type="video/mp4" />
+            </video>
 
-        {/* Right: Text + image */}
-        <div className="w-fit hidden lg:block h-fit space-y-16 relative ml-auto mr-[5%] z-10 lg:ml-0 lg:mr-0">
-          <div className="w-fit h-fit">
-            <h6 className="font-inter font-extralight text-[#333333] text-[10px] mb-6 tracking-[3.5px]">
-              Parties and get together
-            </h6>
-            <h1 className="font-cormorant max-w-[300px] text-[#205781] text-3xl sm:text-4xl leading-9">
-              The Perfect Destination for Parties, Get-Togethers, and
-              Unforgettable Celebrations
-            </h1>
+            <div className="w-fit h-fit px-10 lg:px-5">
+              <p className="font-inter lg:w-[250px] text-[#333333] text-[16px] leading-[25px] text-center lg:text-left mt-16 ">
+                Celebrate life’s best moments at River Ranch, where lively
+                parties and relaxed get-togethers come alive by the riverside.
+                Dance under the stars, swap stories by the water, and make
+                memories that’ll stay with you forever.
+              </p>
+              <button
+                type="button"
+                onClick={scrollToFooter}
+                className="cursor-pointer w-[60px] font-inter text-[#205781] text-[12px] text-left hidden lg:block mt-8"
+              >
+                DISCOVER
+                <hr className="w-full mt-0.5" />
+              </button>
+            </div>
           </div>
-          <Image
-            className="w-[150px] h-[250px] md:min-w-[180px] md:h-[280px] rounded-full object-cover shadow-lg z-10 ml-auto mr-[15%] lg:ml-0 lg:mr-0"
-            src={Sunset}
-            alt="Sunset"
-          />
-        </div>
 
-        {/* Splash_2: Animated on scroll */}
+          {/* Right: Text + image */}
+          <div className="w-fit hidden lg:block h-fit space-y-8 relative ml-auto mr-[5%] z-10 lg:ml-0 lg:mr-0">
+            <div className="w-fit h-fit">
+              <h6 className="font-inter font-extralight text-[#333333] text-center text-[14px] mb-6 tracking-[3.5px]">
+                Parties and get together
+              </h6>
+              <h1 className="font-cormorant text-[#205781] text-left text-3xl sm:text-4xl leading-9">
+                The Perfect <br /> Destination for <br /> Parties, Get- <br />Togethers, and <br />
+                Unforgettable <br /> Celebrations
+              </h1>
+            </div>
+            <Image
+              className="w-[150px] h-[250px] md:min-w-[180px] md:h-[280px] rounded-full object-cover shadow-lg z-10 ml-auto mr-[15%] lg:ml-0 lg:mr-0"
+              src={Sunset}
+              alt="Sunset"
+            />
+          </div>
+
+          {/* Splash_2: Animated on scroll */}
+        </div>
       </div>
     </div>
   );

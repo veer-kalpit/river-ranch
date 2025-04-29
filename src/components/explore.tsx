@@ -88,11 +88,10 @@ const Explore: React.FC<ExploreProps> = ({ scrollToFooter }) => {
               </h1>
 
               <p className="font-inter w-[250px] text-[#333333] text-xs leading-[18px] mt-4">
-                Lush Living Is An Immersive Experience That Blends Luxury With
-                Nature, Offering Vibrant Greenery, Serene Spaces, And
-                Unparalleled Comfort. It Embodies A Lifestyle Where Elegance
-                Meets Tranquility, Creating A Harmonious Retreat To Rejuvenate
-                The Mind, Body, And Soul.
+                An immersive experience that blends luxury with nature, offering
+                vibrant greenery, serene spaces, and unparalleled comfort. It
+                embodies a lifestyle where elegance meets tranquility, creating
+                a harmonious retreat to rejuvenate the mind, body, and soul.
               </p>
 
               <button

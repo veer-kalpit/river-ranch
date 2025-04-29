@@ -245,25 +245,6 @@ Please confirm the booking.`;
                     required
                   />
                 </div>
-
-                <div className="w-full sm:max-w-[200px] h-fit flex flex-col gap-4">
-                  <label
-                    className="font-inter text-white text-sm"
-                    htmlFor="checkOut"
-                  >
-                    Check-out Date
-                  </label>
-                  <input
-                    className="w-full font-inter text-xs text-white placeholder:text-white border border-white focus:outline-none px-3 py-5"
-                    type="date"
-                    name="checkOut"
-                    id="checkOut"
-                    value={formData.checkOut}
-                    onChange={handleChange}
-                    required
-                  />
-                </div>
-
                 <div className="w-full sm:max-w-[200px] h-fit flex flex-col gap-4">
                   <label
                     className="font-inter text-white text-sm"

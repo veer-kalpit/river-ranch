@@ -14,23 +14,11 @@ const AboutUs: React.FC<AboutUsProps> = ({ scrollToFooter }) => {
         About Us
       </h1>
       <p className="mt-6 md:mt-10 font-cormorant font-semibold text-[18px] lg:text-[36px] leading-normal text-white max-w-[90%] md:max-w-[1185px] capitalize">
-        <span className="lg:block hidden">
-          Located just ten minutes from Mysore, the River Ranch Resort is
-          nestled beside a serene bird sanctuary and overlooks the tranquil
-          Kaveri River. Immerse yourself in nature as you witness birds from
-          30-40 countries gracing the skies, making it a haven for bird
-          enthusiasts. The gentle slopes near the river provide the perfect
-          setting for a relaxed evening or a breathtaking sunset experience.
-          Whether you&apos;re looking for a peaceful escape or a scenic
-          adventure, the River Ranch Resort offers the ideal blend of comfort
-          and natural beauty.
-        </span>
-        <span className="lg:hidden block">
-          Just ten minutes from Mysore, the River Ranch Resort sits by a serene
-          bird sanctuary and the calming Kaveri River. Enjoy sightings of birds
-          from 30-40 countries and breathtaking sunsets over gentle river
-          slopes—a perfect retreat for nature lovers
-        </span>
+        Located just ten minutes from Mysore, River Ranch Resort sits beside a
+        serene bird sanctuary and overlooks the tranquil Kaveri River. Watch
+        birds from 30-40 countries and enjoy gentle riverbank slopes perfect for
+        peaceful evenings and stunning sunsets. A perfect blend of comfort and
+        natural beauty awaits.
       </p>
       <button
         type="button"

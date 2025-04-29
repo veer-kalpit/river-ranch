@@ -54,12 +54,12 @@ function UnsplashGrid() {
   const [hoveredId, setHoveredId] = useState<number | null>(null);
 
   return (
-    <section id="gallery" className="bg-white relative">
+    <div id="gallery" className="bg-white relative py-16 lg:py-0 lg:pt-10">
       <div className="container mx-auto px-4 lg:py-20">
-        <h1 className="text-[#333333] font-inter font-light text-[16px] uppercase text-center">
+        <h6 className="font-inter font-extralight text-[#333333] text-center text-[14px] mb-6 tracking-[3.5px]">
           Explore River Ranch
-        </h1>
-        <h1 className="text-[48px] leading-[65px] font-semibold font-cormorant mt-10 text-[#205781] text-center">
+        </h6>
+        <h1 className="font-cormorant text-center text-[#205781] text-3xl sm:text-4xl leading-9">
           Gallery
         </h1>
 
@@ -81,7 +81,7 @@ function UnsplashGrid() {
           </Masonry>
         </div>
       </div>
-    </section>
+    </div>
   );
 }
 

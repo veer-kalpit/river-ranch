@@ -33,7 +33,7 @@ const items = [
 
 const FacilityCard = () => {
   return (
-    <div className="grid gap-8 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 pb-20 px-6 md:px-16 lg:px-24">
+    <div className="grid gap-8 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 pb-20 px-6 md:px-16 lg:px-24 relative z-20">
       {items.map((item) => (
         <div
           key={item.id}
