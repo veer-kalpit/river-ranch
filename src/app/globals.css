@@ -227,3 +227,22 @@ img[style*="fixed"] {
     opacity: 0;
   }
 }
+
+
+/* Highlight booked and available dates in calendar */
+/* Cross out past dates */
+.past-date {
+  text-decoration: line-through;
+  color: #ccc;
+}
+
+/* Optional: Style for available and booked dates */
+.available-date {
+  background-color: #4caf50;
+}
+
+.booked-date {
+  background-color: #f44336;
+}
+
+

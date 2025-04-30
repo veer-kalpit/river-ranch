@@ -59,7 +59,7 @@ export default function LandingPage() {
           <Gallery />
           <PricingSection scrollToFooter={scrollToFooter} />
           <Menu/>
-          <Footer ref={footerRef} />
+          <Footer  />
         </>
       )}
     </div>
