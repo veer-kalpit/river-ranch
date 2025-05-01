@@ -7,14 +7,11 @@ import Image from "next/image";
 import Navbar from "./Navbar";
 import Footer from "./footer";
 
-
 const Home = ({ isRendered, onRenderComplete, scrollToFooter }) => {
   const pegionRef = useRef(null);
   const pageRef = useRef(null);
   const videoRef_1 = useRef(null);
   const videoRef_2 = useRef(null);
-
-
 
   // Page entrance zoom
   useGSAP(() => {
@@ -65,7 +62,7 @@ const Home = ({ isRendered, onRenderComplete, scrollToFooter }) => {
       <div className="absolute top-0 left-0 w-full h-full bg-[#000B18] opacity-30 z-20" />
 
       {/* Background Videos */}
-      <div className="w-full h-full relative">
+      <div className="w-full h-full relative hidden sm:block">
         <video
           ref={videoRef_1}
           className="absolute w-full h-full object-cover z-10"
@@ -89,6 +86,16 @@ const Home = ({ isRendered, onRenderComplete, scrollToFooter }) => {
           <source src="/Birds.mp4" type="video/mp4" />
         </video>
       </div>
+
+      <video
+        className="absolute w-full h-full object-cover sm:hidden"
+        autoPlay
+        muted
+        playsInline
+        preload="auto"
+      >
+        <source src="/mobile_video.mp4" type="video/mp4" />
+      </video>
 
       {/* Navbar */}
       <div className="absolute top-0 left-0 w-full z-40">
