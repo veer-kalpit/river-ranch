@@ -6,14 +6,14 @@ interface AboutUsProps {
 
 const AboutUs: React.FC<AboutUsProps> = ({ scrollToFooter }) => {
   return (
-    <section
+    <div
       id="about"
       className="about-us flex flex-col items-center justify-center w-full h-auto max-w-[1920px] bg-[#205781] px-4 py-16 text-center z-[50] mt-[100vh]"
     >
       <h1 className="font-inter font-light text-base tracking-[30%] uppercase text-white">
         About Us
       </h1>
-      <p className="mt-6 md:mt-10 font-cormorant font-semibold text-[18px] lg:text-[36px] leading-normal text-white max-w-[90%] md:max-w-[1185px] capitalize">
+      <p className="mt-6 md:mt-10 font-cormorant font-semibold text-[18px] lg:text-[36px] leading-normal text-white max-w-[90%] md:max-w-[1185px]">
         Located just ten minutes from Mysore, River Ranch Resort sits beside a
         serene bird sanctuary and overlooks the tranquil Kaveri River. Watch
         birds from 30-40 countries and enjoy gentle riverbank slopes perfect for
@@ -30,7 +30,7 @@ const AboutUs: React.FC<AboutUsProps> = ({ scrollToFooter }) => {
           Book Now
         </span> */}
       </button>
-    </section>
+    </div>
   );
 };
 

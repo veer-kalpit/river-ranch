@@ -122,10 +122,10 @@ const Banner = () => {
       })
       .fromTo(
         splashRef_2.current,
-        { y: "100%", scale: 0 },
+        { y: "300px", scale: 0 },
         {
-          y: "0%",
-          scale: 1,
+          y: "0px",
+          scale: 1.3,
           duration: 1,
           ease: "power3.out",
         }
@@ -139,20 +139,17 @@ const Banner = () => {
     >
       <div
         ref={waterSlashRef}
-        className="w-[500px] h-fit absolute top-[-85px] right-[-50px] z-0 lg:hidden"
+        className="w-[500px] h-fit absolute top-[-450px] left-[-200px] z-0 lg:hidden"
       >
         <Image
-          src={WaterSplash}
+          src={WaterSplash_2}
           alt="Water splash"
-          className=" w-full h-fit object-cover scale-y-[-1] scale-x-[-1]"
+          className=" w-full h-fit object-cover rotate-90 scale-y-[1.5]"
         />
       </div>
-      <div className="w-full h-fit flex flex-col lg:flex-row justify-center items-center lg:items-start gap-10 lg:gap-32 px-5 lg:px-10 py-24 lg:py-20 ">
+      <div className="w-full h-fit flex flex-col lg:flex-row justify-center items-center lg:items-start gap-10 lg:gap-32 px-5 lg:px-10 py-32 lg:py-20 ">
         {/* TEXT */}
-        <div
-          ref={textRef}
-          className="w-fit lg:w-fit h-fit text-center lg:text-left"
-        >
+        <div ref={textRef} className="w-fit lg:w-fit h-fit text-left">
           <h1 className="font-cormorant font-semibold text-3xl md:text-4xl lg:text-5xl leading-tight text-[#205781] capitalize">
             A Haven of Tranquility
           </h1>
@@ -193,7 +190,7 @@ const Banner = () => {
         ref={splashRef_2}
         src={WaterSplash}
         alt="Water splash"
-        className=" w-[400px] sm:w-[600px]  h-fit absolute bottom-[-80px] sm:bottom-[-150px] right-[-50px] md:hidden object-cover"
+        className="w-[600px] h-fit absolute rotate-[200deg] bottom-[50px] right-0 md:hidden object-cover z-20"
       />
     </div>
   );

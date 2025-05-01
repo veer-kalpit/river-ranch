@@ -26,7 +26,6 @@ interface DiscoverProps {
 const Discover: React.FC<DiscoverProps> = ({ scrollToFooter }) => {
   // Refs for animated elements
   const splashRef = useRef(null);
-  const splash_1_Ref = useRef(null);
   const splash_2_Ref = useRef(null);
   const splash_4_Ref = useRef(null);
 
@@ -42,20 +41,6 @@ const Discover: React.FC<DiscoverProps> = ({ scrollToFooter }) => {
       })
       .to(splashRef.current, {
         scale: 1.3,
-        duration: 0.6,
-        ease: "power3.out",
-      });
-
-    // Splash_1 animation (scale up separately)
-    gsap
-      .timeline({
-        scrollTrigger: {
-          trigger: splash_1_Ref.current,
-          start: "top 80%",
-        },
-      })
-      .to(splash_1_Ref.current, {
-        scale: 1.2,
         duration: 0.6,
         ease: "power3.out",
       });
@@ -90,7 +75,7 @@ const Discover: React.FC<DiscoverProps> = ({ scrollToFooter }) => {
   }, []);
 
   return (
-    <div id="yoga" className="block w-screen h-fit bg-white z-50 relative">
+    <div id="yoga" className="block w-screen h-fit bg-white z-50 relative pt-10 lg:pt-20">
       {/* yoga gallery for mobile  */}
       <div className="w-full lg:hidden z-50 py-10">
         <h6 className="font-inter font-extralight text-[#333333] text-center text-[14px] mb-6 tracking-[3.5px]">
@@ -102,9 +87,9 @@ const Discover: React.FC<DiscoverProps> = ({ scrollToFooter }) => {
         <YogaGallery />
       </div>
 
-      <div className="w-full h-fit flex justify-center items-center gap-28 lg:py-20 lg:px-20">
+      <div className="w-full h-fit flex justify-center items-center relative">
         {/* frame video  */}
-        <div className="w-fit h-fit flex flex-col justify-center items-center relative overflow-hidden">
+        <div className="w-fit h-fit flex flex-col justify-center items-center relative overflow-hidden lg:mr-80">
           <h6 className="font-inter font-extralight text-[#333333] text-center text-[14px] mb-6 tracking-[3.5px]">
             WEDDING BY THE RIVER
           </h6>
@@ -142,18 +127,18 @@ const Discover: React.FC<DiscoverProps> = ({ scrollToFooter }) => {
 
         <div
           ref={splashRef}
-          className=" hidden lg:block splashItem w-[550px] h-[600px] scale-0 overflow-hidden"
+          className=" hidden lg:block splashItem w-[550px] h-[600px] scale-0 overflow-hidden absolute top-0 right-[-10%]"
         >
           <Image className="w-full h-full" src={Splash} alt="Splash" />
         </div>
       </div>
 
       {/* Section 1: Yoga and Healing */}
-      <div className="relative w-full h-auto px-10 lg:px-20 ">
-        <div className="w-full h-fit hidden lg:flex justify-center items-center gap-40 mb-32">
+      <div className="relative w-full h-auto px-10  space-y-28">
+        <div className="w-full h-fit hidden lg:flex justify-center items-end gap-40 ">
           <div className="w-fit h-fit ">
             <h6 className="font-inter font-extralight text-[#333333] text-start text-[14px] mb-6 tracking-[3.5px]">
-              YOGA AND HEALING EXPERIENCE
+              SPIRITUAL EXPERIENCES
             </h6>
             <h1 className="font-cormorant text-start text-[#205781] text-3xl sm:text-4xl leading-9">
               Yoga, Sound Healing <br /> And Meditation
@@ -171,37 +156,22 @@ const Discover: React.FC<DiscoverProps> = ({ scrollToFooter }) => {
           </div>
         </div>
 
-        <div className="w-full hidden lg:flex justify-center items-center gap-10 xl:gap-56">
-          {/* left side  */}
-          <div className="hidden md:flex w-[250px] h-[350px] relative justify-center items-center">
-            <Image
-              className="w-full h-[80%] object-cover shadow-lg relative z-10 "
-              src={Yoga1}
-              alt="ware house"
-            />
-            <Image
-              className="w-full h-full object-cover z-50 scale-[1.4] absolute top-0 left-0"
-              src={Frame}
-              alt="Frame"
-            />
-
-            {/* Splash_1 overlay animation */}
-            <div
-              ref={splash_1_Ref}
-              className="w-fit h-fit scale-0 absolute top-[90%] left-[-28%] z-0"
-            >
+        <div className="w-full hidden lg:flex justify-center items-end gap-10 lg:gap-64 xl:gap-80 ">
+          <div className="flex flex-col justify-center items-center gap-14">
+            <div className="hidden md:flex w-[250px] h-[350px] relative justify-center items-center">
               <Image
-                className="w-full h-fit scale-x-[-1] -ml-1"
-                src={Splash_1}
-                alt="splash_1"
+                className="w-full h-[80%] object-cover shadow-lg relative z-10 "
+                src={Yoga1}
+                alt="ware house"
+              />
+              <Image
+                className="w-full h-full object-cover z-50 scale-[1.4] absolute top-0 left-0"
+                src={Frame}
+                alt="Frame"
               />
             </div>
-          </div>
-
-          {/* right side  */}
-          <div className="w-fit h-fit flex justify-center items-center gap-10 relative">
-            <div className="w-fit h-fit space-y-8 ml-12">
-              <p className="font-inter w-[250px] text-[#333333] text-xs leading-[18px]">
+            <div className="w-fit h-fit space-y-8">
+              <p className="font-inter w-[230px] text-[#333333] text-xs leading-[18px]">
                 A Peaceful Retreat Beside The Mysore Bird Sanctuary, Where Calm
                 Waters, Lush Greenery, And Open Skies Offer A Deep Connection To
                 Nature’s Rhythm.
@@ -215,19 +185,20 @@ const Discover: React.FC<DiscoverProps> = ({ scrollToFooter }) => {
                 <hr className="w-full mt-0.5" />
               </button>
             </div>
-            <div className="w-[250px] h-[350px] relative ">
-              <Image
-                className="w-[70%] h-[70%] mt-14 ml-10 object-cover shadow-lg relative z-10"
-                src={Yoga2}
-                alt="ware house"
-              />
+          </div>
 
-              <Image
-                className="w-full h-full object-cover z-50 scale-[1.4] absolute top-0 left-0"
-                src={Frame}
-                alt="Frame"
-              />
-            </div>
+          <div className="w-[250px] h-[350px] relative mb-5">
+            <Image
+              className="w-[70%] h-[70%] mt-14 ml-10 object-cover shadow-lg relative z-10"
+              src={Yoga2}
+              alt="ware house"
+            />
+
+            <Image
+              className="w-full h-full object-cover z-50 scale-[1.4] absolute top-0 left-0"
+              src={Frame}
+              alt="Frame"
+            />
           </div>
         </div>
       </div>
@@ -258,16 +229,16 @@ const Discover: React.FC<DiscoverProps> = ({ scrollToFooter }) => {
       </div>
 
       {/* Section 2: Nature Sanctuary */}
-      <div className="w-full h-fit overflow-hidden lg:pt-32">
-        <h6 className="font-inter font-extralight text-[#333333] text-center text-[14px] mb-6 tracking-[3.5px] lg:hidden">
+      <div className="w-full h-fit overflow-hidden ">
+        <h6 className="font-inter font-extralight text-[#333333] text-center text-[14px] tracking-[3.5px] lg:hidden">
           MOMENTS AND MEMORIES
         </h6>
-        <h1 className="font-cormorant text-center text-[#205781] text-3xl sm:text-4xl leading-9 lg:hidden">
+        <h1 className="font-cormorant text-center text-[#205781] text-3xl sm:text-4xl leading-9 lg:hidden mb-10 lg:mb-0">
           Parties And <br />
           Get-Togethers
         </h1>
 
-        <div className="w-full flex justify-center items-center gap-[350px] relative mt-16">
+        <div className="w-full flex justify-center items-end gap-40 relative">
           {/* Left: Large image + text */}
           <div className="w-fit flex flex-col justify-center items-center">
             <video
@@ -275,7 +246,7 @@ const Discover: React.FC<DiscoverProps> = ({ scrollToFooter }) => {
               muted
               autoPlay
               preload="auto"
-              className=" w-[300px] h-[450px] object-cover relative z-10"
+              className=" w-[300px] h-[400px] object-cover relative z-10"
             >
               <source src="/video.mp4" type="video/mp4" />
             </video>
@@ -299,18 +270,18 @@ const Discover: React.FC<DiscoverProps> = ({ scrollToFooter }) => {
           </div>
 
           {/* Right: Text + image */}
-          <div className="w-fit hidden lg:block h-fit space-y-8 relative ml-auto mr-[5%] z-10 lg:ml-0 lg:mr-0">
+          <div className="w-fit hidden lg:block h-fit space-y-48 relative lg:mt-20">
             <div className="w-fit h-fit">
-              <h6 className="font-inter font-extralight text-[#333333] text-center text-[14px] mb-6 tracking-[3.5px]">
+              <h1 className="font-cormorant text-[#205781] text-right text-3xl sm:text-4xl leading-9  mb-6" >
+                The Perfect Destination for <br /> Parties, Get- Togethers, and <br />
+                Unforgettable Celebrations
+              </h1>
+              <h6 className="font-inter font-extralight text-[#333333] text-right text-[14px] tracking-[3.5px]">
                 Parties and get together
               </h6>
-              <h1 className="font-cormorant text-[#205781] text-left text-3xl sm:text-4xl leading-9">
-                The Perfect <br /> Destination for <br /> Parties, Get- <br />Togethers, and <br />
-                Unforgettable <br /> Celebrations
-              </h1>
             </div>
             <Image
-              className="w-[150px] h-[250px] md:min-w-[180px] md:h-[280px] rounded-full object-cover shadow-lg z-10 ml-auto mr-[15%] lg:ml-0 lg:mr-0"
+              className="w-[250px] h-[400px] rounded-full object-cover shadow-lg ml-auto"
               src={Sunset}
               alt="Sunset"
             />

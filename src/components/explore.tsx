@@ -93,15 +93,6 @@ const Explore: React.FC<ExploreProps> = ({ scrollToFooter }) => {
                 embodies a lifestyle where elegance meets tranquility, creating
                 a harmonious retreat to rejuvenate the mind, body, and soul.
               </p>
-
-              <button
-                type="button"
-                onClick={scrollToFooter}
-                className="cursor-pointer w-[60px] font-inter text-[#205781] text-[12px] text-left mt-4"
-              >
-                EXPLORE
-                <hr className="w-full mt-0.5" />
-              </button>
             </div>
           </div>
         </div>

@@ -60,14 +60,14 @@ const Spa = () => {
       className="bg-[#205781] lg:flex flex-col gap-[60px] md:gap-[140px] pb-[120px] md:py-[230px] hidden z-[50] relative"
     >
       {/* First Section */}
-      <div className="flex justify-center items-center">
+      <div className="flex justify-center items-start">
         {/* Left Content */}
         <div
           data-aos="fade-right"
-          className="w-full max-w-[300px] flex gap-6 md:gap-10 flex-col text-center md:text-left"
+          className="w-full max-w-[300px] flex gap-6 md:gap-10 flex-col text-center md:text-left mt-10"
         >
-          <h3 className="font-inter font-light text-sm md:text-lg tracking-wider text-white uppercase pt-10 md:pt-0 ">
-            event DESTINATION
+          <h3 className="font-cormorant font-semibold text-3xl tracking-wider text-white pt-10 md:pt-0 ">
+            Event <br /> Destination
           </h3>
           <p className="font-inter font-normal text-sm md:text-lg leading-relaxed md:leading-[25px] text-white">
             Weddings, sangeets, parties, birthdays, and corporate retreats come
@@ -145,12 +145,12 @@ const Spa = () => {
         />
         <div
           data-aos="fade-left"
-          className="w-[250px] md:w-[312px] flex flex-col gap-6 md:gap-10 mt-[100px] md:mt-[300px] justify-center text-center lg:text-left"
+          className="w-[250px] flex flex-col gap-6 md:gap-10 mt-[100px] md:mt-[300px] justify-center text-center lg:text-left"
         >
-          <h3 className="font-inter font-light text-sm md:text-[16px] tracking-wider text-white uppercase">
-            river side dining
+           <h3 className="font-cormorant font-semibold text-3xl tracking-wider text-white pt-10 md:pt-0 ">
+            River Side <br /> Dining
           </h3>
-          <p className="font-inter font-normal text-sm md:text-[16px] leading-relaxed md:leading-[25px] capitalize text-white">
+          <p className="font-inter font-normal text-sm md:text-[16px] leading-relaxed md:leading-[25px] text-white">
             Riverside dining combines delicious food with the calming charm of
             flowing water, creating a serene and delightful experience.
           </p>
