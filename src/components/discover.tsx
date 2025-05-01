@@ -7,7 +7,6 @@ import ScrollTrigger from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 // image imports
 import Yoga1 from "../../public/yoga.jpeg";
-import Splash_1 from "../../public/splash_1.png";
 import Yoga2 from "../../public/Yoga2.jpeg";
 import Frame from "../../public/frame.png";
 import Splash from "../../public/splash.png";
