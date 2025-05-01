@@ -54,10 +54,7 @@ function UnsplashGrid() {
   const [hoveredId, setHoveredId] = useState<number | null>(null);
 
   return (
-    <div
-      id="gallery"
-      className="bg-white relative pt-10 lg:pt-20"
-    >
+    <div id="gallery" className="bg-white relative pt-10 lg:pt-20">
       <div className="container mx-auto px-4">
         <h6 className="font-inter font-extralight text-[#333333] text-center text-[14px] mb-6 tracking-[3.5px]">
           Explore River Ranch
@@ -66,7 +63,7 @@ function UnsplashGrid() {
           Gallery
         </h1>
 
-        <div className="lg:mt-20 lg:px-20">
+        <div className="mt-10 lg:mt-20 lg:px-20">
           <Masonry
             breakpointCols={breakpointColumnsObj}
             className="my-masonry-grid"

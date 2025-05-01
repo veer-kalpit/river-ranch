@@ -7,15 +7,14 @@ import Naan from "../../public/Naan.png";
 export default function Menu() {
   return (
     <div className="w-screen bg-white z-[60] relative px-10  text-center min-h-fit pb-10 lg:pb-[250px] pt-12 lg:pt-20">
-      <p className="uppercase text-inter font-light text-[14px] lg:text-[16px] tracking-widest text-[#333333] whitespace-nowrap">
+      <h6 className="font-inter font-extralight text-[#333333] text-center text-[14px] mb-6 tracking-[3.5px]">
         Discover Delicious Choices
-      </p>
-
-      <h2 className="text-[38px] lg:text-[48px] font-cormorant text-[#205781] lg:text-[#333333] mb-10 lg:mt-10 lg:mb-[105px]">
+      </h6>
+      <h1 className="font-cormorant text-center text-[#205781] text-3xl sm:text-4xl leading-9">
         Menu
-      </h2>
+      </h1>
 
-      <div className="mx-auto flex flex-col-reverse lg:flex-row items-center justify-center gap-20 lg:gap-[120px]">
+      <div className="mx-auto flex flex-col-reverse lg:flex-row items-center justify-center gap-20 lg:gap-[120px] mt-10 lg:mt-20">
         {/* Text Content */}
         <div className="flex flex-col w-full max-w-md items-center lg:items-start lg:text-left">
           <h1 className="text-[24px] lg:text-[48px] font-cormorant font-semibold leading-[65px] capitalize text-[#205781] mb-[35px] lg:block hidden">

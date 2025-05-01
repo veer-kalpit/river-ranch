@@ -227,20 +227,21 @@ Please confirm the booking.`;
 
           {/* Booking Form */}
           <div className="w-full space-y-8">
-            <h1 className="text-center font-cormorant text-white text-2xl">
+            <h1 className=" font-cormorant text-white text-2xl">
               Request a Booking
             </h1>
 
             {/* Check-In Date Input */}
-            <div className="w-full max-w-[400px] mx-auto">
-              <h2 className="text-white font-cormorant text-xl mb-4 text-center">
+            <div className="w-full max-w-[400px]">
+              <label className="text-white text-sm font-inter">
                 Select Check-In Date
-              </h2>
+              </label>
+
               <input
                 type="text"
                 value={formData.checkIn || "Select a Date"}
                 onClick={() => setShowCalendar(!showCalendar)} // Toggle calendar visibility
-                className="w-full border border-white text-white placeholder-white px-3 py-5 cursor-pointer"
+                className="w-full border border-white text-white placeholder-white px-3 py-5 cursor-pointer mt-4"
                 readOnly
                 placeholder="Click to select a date"
               />
@@ -335,7 +336,7 @@ Please confirm the booking.`;
               <div className="w-full flex justify-center">
                 <button
                   type="submit"
-                  className="w-full py-4 px-8 rounded-full text-white bg-gradient-to-r from-[#154c6a] to-[#205781]"
+                  className="w-full py-4 px-8 rounded-full border-2 border-white text-white cursor-pointer hover:scale-[1.1] transition-all duration-150"
                 >
                   Book Now
                 </button>
