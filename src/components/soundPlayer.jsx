@@ -9,7 +9,17 @@ function SoundPlayer({ isRendered }) {
 
   useEffect(() => {
     if (!isRendered) return;
-    playClickSound();
+    const checkScreen = () => {
+      if (window.innerWidth > 640) {
+        playClickSound();
+      }
+    };
+
+    window.addEventListener("resize", checkScreen);
+    checkScreen(); // Check on initial load
+    return () => {
+      window.removeEventListener("resize", checkScreen);
+    };
   }, [isRendered]);
 
   return null;

@@ -71,6 +71,7 @@ export default function AdminDashboard() {
     } else {
       createBooking.mutate(form);
     }
+    
     setForm({
       fullname: "",
       email: "",

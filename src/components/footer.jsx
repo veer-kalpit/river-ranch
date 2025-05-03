@@ -26,12 +26,19 @@ const Footer = () => {
   const [selectedDate, setSelectedDate] = useState(null);
   const [showCalendar, setShowCalendar] = useState(false); // State to show calendar
 
-  // Fetch bookings on mount
-  useEffect(() => {
+  // Create reusable fetch function
+  const fetchBookings = () => {
     axios
       .get("/api/bookings")
-      .then((response) => setBookings(response.data))
+      .then((response) => {
+        setBookings(response.data);
+      })
       .catch((error) => console.error("Error fetching bookings:", error));
+  };
+
+  // useEffect on mount
+  useEffect(() => {
+    fetchBookings();
   }, []);
 
   // Check if the selected date is available
@@ -81,28 +88,27 @@ const Footer = () => {
     e.preventDefault();
 
     const { fullname, email, phone, checkIn, guests } = formData;
-    const message = ` Booking Inquiry 
+    //     const message = ` Booking Inquiry
 
- Full Name: ${fullname}
- Email: ${email}
- Phone: ${phone}
-Check-in Date: ${checkIn}
+    //  Full Name: ${fullname}
+    //  Email: ${email}
+    //  Phone: ${phone}
+    // Check-in Date: ${checkIn}
 
-Number of Guests: ${guests}
+    // Number of Guests: ${guests}
 
+    // Please confirm the booking.`;
 
-Please confirm the booking.`;
+    //     const phoneNumber = "919686985795";
+    //     const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(
+    //       message
+    //     )}`;
 
-    const phoneNumber = "919686985795";
-    const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(
-      message
-    )}`;
-
-    window.open(whatsappURL, "_blank");
-    if (!isDateAvailable(new Date(checkIn))) {
-      alert("Selected date is already booked. Please choose another date.");
-      return;
-    }
+    //     window.open(whatsappURL, "_blank");
+    //     if (!isDateAvailable(new Date(checkIn))) {
+    //       alert("Selected date is already booked. Please choose another date.");
+    //       return;
+    //     }
 
     const newBooking = {
       fullname,
@@ -126,6 +132,7 @@ Please confirm the booking.`;
           request: "",
         });
         setSelectedDate(null);
+        fetchBookings(); // Refetch bookings to update the list
       })
       .catch((error) => {
         console.error("Error creating booking:", error);
