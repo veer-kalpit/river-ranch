@@ -1,37 +1,44 @@
-import { connectDB } from "@/lib/mongodb";
-import { Booking } from "@/models/Booking";
 import { NextRequest, NextResponse } from "next/server";
 
-// Helper function to validate the booking data
 interface BookingData {
-  fullname: string;
+  start: string;
+  end: string;
+  name: string;
   email: string;
-  phone: string;
-  date: string;
-  guests: number;
+  phone?: string;
+  guests?: number;
+  special?: string; // renamed from 'notes'
 }
 
-const validateBooking = (body: BookingData) => {
-  if (
-    !body.fullname ||
-    !body.email ||
-    !body.phone ||
-    !body.date ||
-    !body.guests
-  ) {
-    throw new Error(
-      "Missing required fields: fullname, email, phone, date, guests."
-    );
+const SHEETS_WEBHOOK_URL =
+  "https://script.google.com/macros/s/AKfycbw-fgEsMbbBelKdVyK2MZhWfVpFBevF5PsFgc8jstBrT9gDHyUDvHNNTZy86Zmc0Gzf/exec";
+
+const validateBooking = (data: BookingData) => {
+  const { start, end, name, email } = data;
+
+  if (!start || !end || !name || !email) {
+    throw new Error("Missing required fields: start, end, name, email.");
+  }
+
+  const startDate = new Date(start);
+  const endDate = new Date(end);
+
+  if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) {
+    throw new Error("Invalid date format. Use ISO format YYYY-MM-DD.");
+  }
+
+  if (endDate < startDate) {
+    throw new Error("End date cannot be before start date.");
   }
 };
 
 export async function GET() {
   try {
-    await connectDB();
-    const bookings = await Booking.find();
-    return NextResponse.json(bookings);
+    const response = await fetch(SHEETS_WEBHOOK_URL);
+    const data = await response.json();
+    return NextResponse.json(data);
   } catch (error) {
-    console.error("Error fetching bookings:", error);
+    console.error("GET error:", error);
     return NextResponse.json(
       { error: "Failed to fetch bookings" },
       { status: 500 }
@@ -41,22 +48,50 @@ export async function GET() {
 
 export async function POST(req: NextRequest) {
   try {
-    await connectDB();
-    const body = await req.json();
+    const body: BookingData = await req.json();
 
-    console.log("Incoming booking:", body); // ✅ Add this
-
-    // Validate incoming booking data
     validateBooking(body);
 
-    // Create the booking
-    const booking = await Booking.create(body);
-    return NextResponse.json(booking, { status: 201 });
+    const sanitizedData: BookingData = {
+      ...body,
+      phone: body.phone ? String(body.phone) : undefined,
+      guests: body.guests ? Number(body.guests) : undefined,
+      special: body.special ? String(body.special) : undefined,
+    };
+
+    const sheetsResponse = await fetch(SHEETS_WEBHOOK_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(sanitizedData),
+    });
+
+    const result = await sheetsResponse.json();
+
+    if (!result.success) {
+      throw new Error(result.message || "Booking submission failed");
+    }
+
+    return NextResponse.json(result, { status: 201 });
   } catch (error) {
-    console.error("Error creating booking:", error); // ✅ Full error log
-    const errorMessage =
-      error instanceof Error ? error.message : "Unknown error";
-    return NextResponse.json({ error: errorMessage }, { status: 400 });
+    console.error("POST error:", error);
+    return NextResponse.json(
+      { error: error instanceof Error ? error.message : "Unknown error" },
+      { status: 400 }
+    );
   }
 }
 
+// Optional CORS support
+export function OPTIONS() {
+  return NextResponse.json(
+    {},
+    {
+      status: 204,
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "POST, GET, OPTIONS",
+        "Access-Control-Allow-Headers": "Content-Type",
+      },
+    }
+  );
+}

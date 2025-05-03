@@ -1,3 +1,4 @@
+"use client";
 import { forwardRef, useEffect, useState } from "react";
 import axios from "axios";
 import Image from "next/image";
@@ -10,140 +11,157 @@ import {
 } from "lucide-react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
-import Logo from "../../public/logo.png"; // You can use this if needed
+import Logo from "../../public/logo.png";
+
+export async function submitBooking(data) {
+  const response = await fetch(
+    "https://script.google.com/macros/s/AKfycbw-fgEsMbbBelKdVyK2MZhWfVpFBevF5PsFgc8jstBrT9gDHyUDvHNNTZy86Zmc0Gzf/exec",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    }
+  );
+
+  const result = await response.json();
+
+  if (!result.success) {
+    throw new Error(result.message || "Booking failed");
+  }
+
+  return result;
+}
 
 const Footer = forwardRef((props, ref) => {
   const [bookings, setBookings] = useState([]);
   const [formData, setFormData] = useState({
-    fullname: "",
+    name: "",
     email: "",
     phone: "",
-    checkIn: "",
-    checkOut: "",
     guests: "",
+    start: "",
+    end: "",
+    notes: "",
     request: "",
   });
   const [selectedDate, setSelectedDate] = useState(null);
-  const [showCalendar, setShowCalendar] = useState(false); // State to show calendar
+  const [selectedCheckoutDate, setSelectedCheckoutDate] = useState(null);
+  const [showCheckInCalendar, setShowCheckInCalendar] = useState(false);
+  const [showCheckOutCalendar, setShowCheckOutCalendar] = useState(false);
+const fetchBookings = () => {
+  axios
+    .get(
+      "https://script.google.com/macros/s/AKfycbw-fgEsMbbBelKdVyK2MZhWfVpFBevF5PsFgc8jstBrT9gDHyUDvHNNTZy86Zmc0Gzf/exec"
+    )
+    .then((response) => {
+      const bookings = response.data?.bookings;
+      setBookings(Array.isArray(bookings) ? bookings : []);
+    })
+    .catch((error) => console.error("Error fetching bookings:", error));
+};
 
-  // Create reusable fetch function
-  const fetchBookings = () => {
-    axios
-      .get("/api/bookings")
-      .then((response) => {
-        setBookings(response.data);
-      })
-      .catch((error) => console.error("Error fetching bookings:", error));
-  };
 
-  // useEffect on mount
   useEffect(() => {
     fetchBookings();
   }, []);
 
-  // Check if the selected date is available
   const isDateAvailable = (date) => {
     return !bookings.some(
-      (booking) => new Date(booking.date).toDateString() === date.toDateString()
+      (booking) =>
+        new Date(booking.start).toDateString() <= date.toDateString() &&
+        new Date(booking.end).toDateString() >= date.toDateString()
     );
   };
 
-  // Assign class for tile based on availability
   const tileClassName = ({ date, view }) => {
     if (view === "month") {
-      // Cross out past dates
-      if (date < new Date()) {
-        return "past-date"; // Apply a CSS class to cross out past dates
-      }
+      if (date < new Date()) return "past-date";
       return isDateAvailable(date) ? "available-date" : "booked-date";
     }
     return "";
   };
 
-  // Disable selection of booked dates
   const tileDisabled = ({ date, view }) => {
     return view === "month" && !isDateAvailable(date);
   };
 
-  // Handle input changes
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // Handle date selection and ensure it is properly formatted
   const handleDateSelect = (date) => {
     const localDate = new Date(date);
-    localDate.setHours(12, 0, 0, 0); // Set the time to noon to avoid timezone issues
+    localDate.setHours(12, 0, 0, 0);
     setSelectedDate(localDate);
-
     setFormData({
       ...formData,
-      checkIn: localDate.toISOString().split("T")[0], // Save only the date part (YYYY-MM-DD)
+      start: localDate.toISOString().split("T")[0],
     });
-    setShowCalendar(false); // Close calendar on date select
+    setShowCheckInCalendar(false);
   };
 
-  // Submit booking
-  const handleSubmit = (e) => {
+  const handleCheckoutDateSelect = (date) => {
+    const localDate = new Date(date);
+    localDate.setHours(12, 0, 0, 0);
+    setSelectedCheckoutDate(localDate);
+    setFormData({
+      ...formData,
+      end: localDate.toISOString().split("T")[0],
+    });
+    setShowCheckOutCalendar(false);
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    const { name, email, phone, start, end, guests, request } = formData;
 
-    const { fullname, email, phone, checkIn, guests } = formData;
-    //     const message = ` Booking Inquiry
+    if (new Date(end) <= new Date(start)) {
+      alert("Checkout date must be after the check-in date.");
+      return;
+    }
 
-    //  Full Name: ${fullname}
-    //  Email: ${email}
-    //  Phone: ${phone}
-    // Check-in Date: ${checkIn}
+    if (!isDateAvailable(new Date(start))) {
+      alert(
+        "Selected check-in date is already booked. Please choose another date."
+      );
+      return;
+    }
 
-    // Number of Guests: ${guests}
-
-    // Please confirm the booking.`;
-
-    //     const phoneNumber = "919686985795";
-    //     const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(
-    //       message
-    //     )}`;
-
-    //     window.open(whatsappURL, "_blank");
-    //     if (!isDateAvailable(new Date(checkIn))) {
-    //       alert("Selected date is already booked. Please choose another date.");
-    //       return;
-    //     }
-
-    const newBooking = {
-      fullname,
-      email,
-      phone,
-      date: checkIn,
-      guests: Number(guests),
-    };
-
-    axios
-      .post("/api/bookings", newBooking)
-      .then(() => {
-        alert("Booking successful!");
-        setFormData({
-          fullname: "",
-          email: "",
-          phone: "",
-          checkIn: "",
-          checkOut: "",
-          guests: "",
-          request: "",
-        });
-        setSelectedDate(null);
-        fetchBookings(); // Refetch bookings to update the list
-      })
-      .catch((error) => {
-        console.error("Error creating booking:", error);
-        alert("Failed to create booking. Please try again.");
+    try {
+      await submitBooking({
+        name,
+        email,
+        phone,
+        guests: Number(guests),
+        notes: request,
+        start,
+        end,
       });
+
+      alert("Booking successful!");
+      setFormData({
+        name: "",
+        email: "",
+        phone: "",
+        start: "",
+        end: "",
+        guests: "",
+        request: "",
+      });
+      setSelectedDate(null);
+      setSelectedCheckoutDate(null);
+      fetchBookings();
+    } catch (error) {
+      console.error("Error submitting booking:", error);
+      alert("Failed to submit booking. Please try again.");
+    }
   };
 
   return (
     <section ref={ref} id="contact" className="z-[50] relative">
-      <div className="w-screen h-fit min-h-screen bg-[#205781] overflow-hidden relative ">
-        {/* headings  */}
+      <div className="w-screen h-fit min-h-screen bg-[#205781] overflow-hidden relative">
         <div className="w-fit h-fit text-center space-y-3 mx-auto mt-10">
           <h6 className="font-inter font-extralight text-[#FFFFFF] text-[12px] tracking-[3.5px]">
             GET IN TOUCH WITH US
@@ -153,57 +171,50 @@ const Footer = forwardRef((props, ref) => {
           </h1>
         </div>
 
-        {/* socialization  */}
         <div className="w-full h-fit flex flex-col-reverse lg:flex-row gap-20 mt-10 md:mt-20 mx-auto px-5 lg:px-30">
-          {/* social links  */}
+          {/* Contact Info */}
           <div className="w-full h-fit space-y-8">
             <h1 className="font-cormorant text-white text-2xl">
               Contact Information
             </h1>
-
-            <div className="w-fit h-fit space-y-8">
-              <div className="w-fit h-fit flex justify-center items-start gap-3">
+            <div className="space-y-8">
+              <div className="flex gap-3 items-start">
                 <MapPin size={16} color="white" className="mt-1.5" />
-
-                <div className="w-fit h-fit ">
-                  <h1 className="font-cormorant text-white text-xl">
+                <div>
+                  <h1 className="text-white text-xl font-cormorant">
                     Location
                   </h1>
-                  <h1 className="font-inter text-white text-sm">
+                  <p className="text-white text-sm font-inter">
                     CMG8+M5J, Shrirangapattana, Karnataka 571427
-                  </h1>
+                  </p>
                 </div>
               </div>
-
-              <div className="w-fit h-fit flex justify-center items-start gap-3">
+              <div className="flex gap-3 items-start">
                 <Phone size={16} color="white" className="mt-1.5" />
-
-                <div className="w-fit h-fit ">
-                  <h1 className="font-cormorant text-white text-xl">Phone</h1>
-                  <h1 className="font-inter text-white text-sm">
+                <div>
+                  <h1 className="text-white text-xl font-cormorant">Phone</h1>
+                  <p className="text-white text-sm font-inter">
                     +91 9686985795
-                  </h1>
+                  </p>
                 </div>
               </div>
-              <div className="w-fit h-fit flex justify-center items-start gap-3">
+              <div className="flex gap-3 items-start">
                 <Clock5 size={16} color="white" className="mt-1.5" />
-
-                <div className="w-fit h-fit ">
-                  <h1 className="font-cormorant text-white text-xl">
+                <div>
+                  <h1 className="text-white text-xl font-cormorant">
                     Booking hours
                   </h1>
-                  <h1 className="font-inter text-white text-sm">
+                  <p className="text-white text-sm font-inter">
                     Monday - Sunday: 9:00 AM - 6:00 PM
-                  </h1>
+                  </p>
                 </div>
               </div>
 
-              <div className="w-fit h-fit">
-                <h1 className="font-cormorant text-white text-xl">
+              <div>
+                <h1 className="text-white text-xl font-cormorant">
                   Contact Us
                 </h1>
-
-                <div className="w-fit h-fit flex items-center gap-3 mt-3">
+                <div className="flex gap-3 mt-3">
                   <a href="tel:+919686985795">
                     <div className="w-10 aspect-square rounded-full bg-[#FFFFFF4D] flex justify-center items-center cursor-pointer">
                       <Phone size={16} color="white" />
@@ -234,33 +245,62 @@ const Footer = forwardRef((props, ref) => {
 
           {/* Booking Form */}
           <div className="w-full space-y-8">
-            <h1 className=" font-cormorant text-white text-2xl">
+            <h1 className="text-white text-2xl font-cormorant">
               Request a Booking
             </h1>
 
-            {/* Check-In Date Input */}
             <div className="w-full max-w-[400px]">
               <label className="text-white text-sm font-inter">
                 Select Check-In Date
               </label>
-
               <input
                 type="text"
-                value={formData.checkIn || "Select a Date"}
-                onClick={() => setShowCalendar(!showCalendar)} // Toggle calendar visibility
+                value={formData.start || "Select a Date"}
+                onClick={() => {
+                  setShowCheckInCalendar(!showCheckInCalendar);
+                  setShowCheckOutCalendar(false); // Close check-out calendar if check-in is selected
+                }}
                 className="w-full border border-white text-white placeholder-white px-3 py-5 cursor-pointer mt-4"
                 readOnly
-                placeholder="Click to select a date"
               />
-              {showCalendar && (
+              {showCheckInCalendar && (
                 <div className="mt-4">
                   <Calendar
                     value={selectedDate}
-                    onChange={handleDateSelect} // Using handleDateSelect function to handle date selection
+                    onChange={handleDateSelect}
                     tileClassName={tileClassName}
                     tileDisabled={tileDisabled}
-                    minDate={new Date()} // Disable past dates
-                    view="month" // Show only one month
+                    minDate={new Date()}
+                    view="month"
+                    className="rounded-lg shadow-md"
+                  />
+                </div>
+              )}
+            </div>
+
+            <div className="w-full max-w-[400px]">
+              <label className="text-white text-sm font-inter">
+                Select Checkout Date
+              </label>
+              <input
+                type="text"
+                value={formData.end || "Select a Date"}
+                onClick={() => {
+                  setShowCheckOutCalendar(!showCheckOutCalendar);
+                  setShowCheckInCalendar(false); // Close check-in calendar if check-out is selected
+                }}
+                className="w-full border border-white text-white placeholder-white px-3 py-5 cursor-pointer mt-4"
+                readOnly
+              />
+              {showCheckOutCalendar && (
+                <div className="mt-4">
+                  <Calendar
+                    value={selectedCheckoutDate}
+                    onChange={handleCheckoutDateSelect}
+                    tileClassName={tileClassName}
+                    tileDisabled={tileDisabled}
+                    minDate={new Date(formData.start || new Date())}
+                    view="month"
                     className="rounded-lg shadow-md"
                   />
                 </div>
@@ -268,7 +308,6 @@ const Footer = forwardRef((props, ref) => {
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-8">
-              {/* Fullname & Email */}
               <div className="flex flex-wrap gap-8">
                 <div className="flex flex-col gap-4 w-full sm:max-w-[315px]">
                   <label className="text-white text-sm font-inter">
@@ -276,11 +315,11 @@ const Footer = forwardRef((props, ref) => {
                   </label>
                   <input
                     type="text"
-                    name="fullname"
-                    value={formData.fullname}
+                    name="name"
+                    value={formData.name}
                     onChange={handleChange}
                     required
-                    className="w-full border border-white text-white placeholder-white px-3 py-5"
+                    className="w-full border border-white text-white px-3 py-5"
                     placeholder="Your Name"
                   />
                 </div>
@@ -292,13 +331,12 @@ const Footer = forwardRef((props, ref) => {
                     value={formData.email}
                     onChange={handleChange}
                     required
-                    className="w-full border border-white text-white placeholder-white px-3 py-5"
+                    className="w-full border border-white text-white px-3 py-5"
                     placeholder="Email"
                   />
                 </div>
               </div>
 
-              {/* Phone */}
               <div className="flex flex-col gap-4 w-full sm:max-w-[400px]">
                 <label className="text-white text-sm font-inter">Phone</label>
                 <input
@@ -307,12 +345,11 @@ const Footer = forwardRef((props, ref) => {
                   value={formData.phone}
                   onChange={handleChange}
                   required
-                  className="w-full border border-white text-white placeholder-white px-3 py-5"
+                  className="w-full border border-white text-white px-3 py-5"
                   placeholder="Phone Number"
                 />
               </div>
 
-              {/* Guests */}
               <div className="flex flex-col gap-4 w-full sm:max-w-[200px]">
                 <label className="text-white text-sm font-inter">Guests</label>
                 <input
@@ -326,7 +363,6 @@ const Footer = forwardRef((props, ref) => {
                 />
               </div>
 
-              {/* Request */}
               <div className="flex flex-col gap-4 w-full sm:max-w-[400px]">
                 <label className="text-white text-sm font-inter">
                   Special Request
@@ -335,7 +371,7 @@ const Footer = forwardRef((props, ref) => {
                   name="request"
                   value={formData.request}
                   onChange={handleChange}
-                  className="w-full border border-white text-white placeholder-white px-3 py-5"
+                  className="w-full border border-white text-white px-3 py-5"
                   placeholder="Any special requests?"
                 />
               </div>
@@ -396,4 +432,5 @@ const Footer = forwardRef((props, ref) => {
   );
 });
 
+Footer.displayName = "Footer";
 export default Footer;
