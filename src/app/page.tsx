@@ -9,7 +9,7 @@ import Spa from "@/components/Spa";
 import Footer from "@/components/footer";
 import Home from "@/components/Home";
 import Overlay from "@/components/Overlay";
-import PricingSection from "@/components/pricingSection";
+// import PricingSection from "@/components/pricingSection";
 import Menu from "@/components/menu"
 import SoundPlayer from "@/components/soundPlayer";
 
