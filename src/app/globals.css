@@ -245,4 +245,18 @@ img[style*="fixed"] {
   background-color: #f44336;
 }
 
+/* globals.css or wherever you include styles */
+.react-calendar__tile.available-date {
+  background-color: rgba(0, 128, 0, 0.1);
+}
+
+.react-calendar__tile.booked-date {
+  background-color: rgba(255, 0, 0, 0.2);
+  text-decoration: line-through;
+}
+
+.react-calendar__tile.past-date {
+  opacity: 0.5;
+  pointer-events: none;
+}
 

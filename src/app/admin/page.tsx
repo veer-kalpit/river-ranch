@@ -16,9 +16,13 @@ export default function AdminDashboard() {
     email: "",
     phone: "",
     date: "",
+    checkIn: "",
+    checkOut: "",
+    slot: "",
     guests: 1,
     status: "booked",
   });
+
   const [editing, setEditing] = useState<string | null>(null);
   const client = useQueryClient();
 
@@ -62,6 +66,9 @@ export default function AdminDashboard() {
   const deleteBooking = useMutation({
     mutationFn: (id: string) => axios.delete(`/api/bookings/${id}`),
     onSuccess: () => client.invalidateQueries({ queryKey: ["bookings"] }),
+    onError: (error) => {
+      console.error("Error deleting booking:", error);
+    },
   });
 
   const handleSubmit = () => {
@@ -71,12 +78,15 @@ export default function AdminDashboard() {
     } else {
       createBooking.mutate(form);
     }
-    
+
     setForm({
       fullname: "",
       email: "",
       phone: "",
       date: "",
+      checkIn: "",
+      checkOut: "",
+      slot: "",
       guests: 1,
       status: "booked",
     });
@@ -123,7 +133,7 @@ export default function AdminDashboard() {
         </button>
       </div>
 
-      {/* Form */}
+      {/* Booking Form */}
       <div className="p-4 space-y-3 border border-gray-200 rounded mb-6 bg-gray-50">
         <input
           className="w-full px-3 py-2 border rounded"
@@ -144,26 +154,46 @@ export default function AdminDashboard() {
           onChange={(e) => setForm({ ...form, phone: e.target.value })}
         />
         <input
-          className="w-full px-3 py-2 border rounded"
           type="date"
+          className="w-full px-3 py-2 border rounded"
           value={form.date}
           onChange={(e) => setForm({ ...form, date: e.target.value })}
         />
         <input
+          type="date"
           className="w-full px-3 py-2 border rounded"
+          placeholder="Check-In"
+          value={form.checkIn}
+          onChange={(e) => setForm({ ...form, checkIn: e.target.value })}
+        />
+        <input
+          type="date"
+          className="w-full px-3 py-2 border rounded"
+          placeholder="Check-Out"
+          value={form.checkOut}
+          onChange={(e) => setForm({ ...form, checkOut: e.target.value })}
+        />
+        <label htmlFor="slot-select" className="block text-sm font-medium text-gray-700">
+          Slot
+        </label>
+        <select
+          id="slot-select"
+          className="w-full px-3 py-2 border rounded"
+          value={form.slot}
+          onChange={(e) => setForm({ ...form, slot: e.target.value })}
+        >
+          <option value="">Select Slot</option>
+          <option value="morning">Morning</option>
+          <option value="evening">Evening</option>
+        </select>
+        <input
           type="number"
           min={1}
+          className="w-full px-3 py-2 border rounded"
           value={form.guests}
           onChange={(e) => setForm({ ...form, guests: Number(e.target.value) })}
         />
-        <label
-          htmlFor="status"
-          className="block text-sm font-medium text-gray-700"
-        >
-          Booking Status
-        </label>
         <select
-          id="status"
           className="w-full px-3 py-2 border rounded"
           value={form.status}
           onChange={(e) => setForm({ ...form, status: e.target.value })}
@@ -184,58 +214,87 @@ export default function AdminDashboard() {
         {isLoading ? (
           <p>Loading...</p>
         ) : (
-          bookings.map((b: { _id: string; fullname: string; email: string; phone: string; date: string; guests: number; status: string }) => (
-            <div
-              key={b._id}
-              className="p-4 flex justify-between items-center border rounded bg-white shadow-sm"
-            >
-              <div>
-                <p>
-                  <strong>Date:</strong>{" "}
-                  {new Date(b.date).toLocaleDateString("en-GB")}
-                </p>
-                <p>
-                  <strong>Name:</strong> {b.fullname}
-                </p>
-                <p>
-                  <strong>Email:</strong> {b.email}
-                </p>
-                <p>
-                  <strong>Phone:</strong> {b.phone}
-                </p>
-                <p>
-                  <strong>Guests:</strong> {b.guests}
-                </p>
-                <p>
-                  <strong>Status:</strong> {b.status}
-                </p>
+          bookings.map(
+            (b: {
+              _id: string;
+              fullname: string;
+              email: string;
+              phone: string;
+              date: string;
+              checkIn: string;
+              checkOut: string;
+              slot: string;
+              guests: number;
+              status: string;
+            }) => (
+              <div
+                key={b._id}
+                className="p-4 flex justify-between items-center border rounded bg-white shadow-sm"
+              >
+                <div>
+                  <p>
+                    <strong>Date:</strong>{" "}
+                    {new Date(b.date).toLocaleDateString("en-GB")}
+                  </p>
+                  <p>
+                    <strong>Name:</strong> {b.fullname}
+                  </p>
+                  <p>
+                    <strong>Email:</strong> {b.email}
+                  </p>
+                  <p>
+                    <strong>Phone:</strong> {b.phone}
+                  </p>
+                  <p>
+                    <strong>Guests:</strong> {b.guests}
+                  </p>
+                  <p>
+                    <strong>Check-In:</strong>{" "}
+                    {b.checkIn &&
+                      new Date(b.checkIn).toLocaleDateString("en-GB")}
+                  </p>
+                  <p>
+                    <strong>Check-Out:</strong>{" "}
+                    {b.checkOut &&
+                      new Date(b.checkOut).toLocaleDateString("en-GB")}
+                  </p>
+                  <p>
+                    <strong>Slot:</strong> {b.slot}
+                  </p>
+                  <p>
+                    <strong>Status:</strong> {b.status}
+                  </p>
+                </div>
+                <div className="space-x-2">
+                  <button
+                    className="px-3 py-1 border rounded hover:bg-gray-100"
+                    onClick={() => {
+                      setForm({
+                        fullname: b.fullname,
+                        email: b.email,
+                        phone: b.phone,
+                        date: b.date?.split("T")[0] || "",
+                        checkIn: b.checkIn?.split("T")[0] || "",
+                        checkOut: b.checkOut?.split("T")[0] || "",
+                        slot: b.slot || "",
+                        guests: b.guests,
+                        status: b.status,
+                      });
+                      setEditing(b._id);
+                    }}
+                  >
+                    Edit
+                  </button>
+                  <button
+                    className="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600"
+                    onClick={() => deleteBooking.mutate(b._id)}
+                  >
+                    Delete
+                  </button>
+                </div>
               </div>
-              <div className="space-x-2">
-                <button
-                  className="px-3 py-1 border rounded hover:bg-gray-100"
-                  onClick={() => {
-                    setForm({
-                      fullname: b.fullname,
-                      email: b.email,
-                      phone: b.phone,
-                      date: b.date.split("T")[0],
-                      guests: b.guests,
-                      status: b.status,
-                    });
-                    setEditing(b._id);
-                  }}
-                >
-                  Edit
-                </button>
-                <button
-                  className="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600"
-                  onClick={() => deleteBooking.mutate(b._id)}
-                >
-                  Delete
-                </button>
-              </div>
-            </div>
-          ))
+            )
+          )
         )}
       </div>
     </div>

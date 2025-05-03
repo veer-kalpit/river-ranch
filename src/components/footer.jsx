@@ -22,9 +22,12 @@ const Footer = forwardRef((props, ref) => {
     checkOut: "",
     guests: "",
     request: "",
+    slot: "", // Added slot field
   });
   const [selectedDate, setSelectedDate] = useState(null);
-  const [showCalendar, setShowCalendar] = useState(false); // State to show calendar
+  const [selectedCheckOutDate, setSelectedCheckOutDate] = useState(null);
+  const [showCalendar, setShowCalendar] = useState(false); // State to show calendar for checkIn
+  const [showCheckOutCalendar, setShowCheckOutCalendar] = useState(false); // State to show calendar for checkOut
 
   // Create reusable fetch function
   const fetchBookings = () => {
@@ -70,8 +73,8 @@ const Footer = forwardRef((props, ref) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // Handle date selection and ensure it is properly formatted
-  const handleDateSelect = (date) => {
+  // Handle check-in date selection
+  const handleCheckInDateSelect = (date) => {
     const localDate = new Date(date);
     localDate.setHours(12, 0, 0, 0); // Set the time to noon to avoid timezone issues
     setSelectedDate(localDate);
@@ -83,40 +86,49 @@ const Footer = forwardRef((props, ref) => {
     setShowCalendar(false); // Close calendar on date select
   };
 
+  // Handle check-out date selection
+  const handleCheckOutDateSelect = (date) => {
+    const localDate = new Date(date);
+    localDate.setHours(12, 0, 0, 0);
+    setSelectedCheckOutDate(localDate);
+    setFormData({
+      ...formData,
+      checkOut: localDate.toISOString().split("T")[0], // Save only the date part (YYYY-MM-DD)
+    });
+    setShowCheckOutCalendar(false); // Close calendar for checkOut on date select
+  };
+
   // Submit booking
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const { fullname, email, phone, checkIn, guests } = formData;
-    //     const message = ` Booking Inquiry
+    const { fullname, email, phone, checkIn, checkOut, guests, slot } =
+      formData;
 
-    //  Full Name: ${fullname}
-    //  Email: ${email}
-    //  Phone: ${phone}
-    // Check-in Date: ${checkIn}
-
-    // Number of Guests: ${guests}
-
-    // Please confirm the booking.`;
-
-    //     const phoneNumber = "919686985795";
-    //     const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(
-    //       message
-    //     )}`;
-
-    //     window.open(whatsappURL, "_blank");
-    //     if (!isDateAvailable(new Date(checkIn))) {
-    //       alert("Selected date is already booked. Please choose another date.");
-    //       return;
-    //     }
+    if (
+      !fullname ||
+      !email ||
+      !phone ||
+      !checkIn ||
+      !checkOut ||
+      !guests ||
+      !slot
+    ) {
+      alert("Please fill in all required fields.");
+      return;
+    }
 
     const newBooking = {
-      fullname,
-      email,
-      phone,
-      date: checkIn,
-      guests: Number(guests),
-    };
+  fullname,
+  email,
+  phone,
+  date: checkIn,  // Use checkIn as date (or combine checkIn and checkOut if needed)
+  checkIn,
+  checkOut,
+  guests: Number(guests),
+  slot,
+};
+
 
     axios
       .post("/api/bookings", newBooking)
@@ -130,8 +142,10 @@ const Footer = forwardRef((props, ref) => {
           checkOut: "",
           guests: "",
           request: "",
+          slot: "", // Reset slot after submission
         });
         setSelectedDate(null);
+        setSelectedCheckOutDate(null);
         fetchBookings(); // Refetch bookings to update the list
       })
       .catch((error) => {
@@ -256,7 +270,7 @@ const Footer = forwardRef((props, ref) => {
                 <div className="mt-4">
                   <Calendar
                     value={selectedDate}
-                    onChange={handleDateSelect} // Using handleDateSelect function to handle date selection
+                    onChange={handleCheckInDateSelect} // Using handleCheckInDateSelect function to handle date selection
                     tileClassName={tileClassName}
                     tileDisabled={tileDisabled}
                     minDate={new Date()} // Disable past dates
@@ -267,133 +281,139 @@ const Footer = forwardRef((props, ref) => {
               )}
             </div>
 
-            <form onSubmit={handleSubmit} className="space-y-8">
-              {/* Fullname & Email */}
-              <div className="flex flex-wrap gap-8">
-                <div className="flex flex-col gap-4 w-full sm:max-w-[315px]">
-                  <label className="text-white text-sm font-inter">
-                    Full Name
-                  </label>
-                  <input
-                    type="text"
-                    name="fullname"
-                    value={formData.fullname}
-                    onChange={handleChange}
-                    required
-                    className="w-full border border-white text-white placeholder-white px-3 py-5"
-                    placeholder="Your Name"
-                  />
-                </div>
-                <div className="flex flex-col gap-4 w-full sm:max-w-[315px]">
-                  <label className="text-white text-sm font-inter">Email</label>
-                  <input
-                    type="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    required
-                    className="w-full border border-white text-white placeholder-white px-3 py-5"
-                    placeholder="Email"
-                  />
-                </div>
-              </div>
+            {/* Check-Out Date Input */}
+            <div className="w-full max-w-[400px]">
+              <label className="text-white text-sm font-inter">
+                Select Check-Out Date
+              </label>
 
-              {/* Phone */}
-              <div className="flex flex-col gap-4 w-full sm:max-w-[400px]">
-                <label className="text-white text-sm font-inter">Phone</label>
-                <input
-                  type="tel"
-                  name="phone"
-                  value={formData.phone}
-                  onChange={handleChange}
-                  required
-                  className="w-full border border-white text-white placeholder-white px-3 py-5"
-                  placeholder="Phone Number"
-                />
-              </div>
-
-              {/* Guests */}
-              <div className="flex flex-col gap-4 w-full sm:max-w-[200px]">
-                <label className="text-white text-sm font-inter">Guests</label>
-                <input
-                  type="number"
-                  name="guests"
-                  value={formData.guests}
-                  onChange={handleChange}
-                  required
-                  className="w-full border border-white text-white placeholder-white px-3 py-5"
-                  placeholder="Number of Guests"
-                />
-              </div>
-
-              {/* Request */}
-              <div className="flex flex-col gap-4 w-full sm:max-w-[400px]">
-                <label className="text-white text-sm font-inter">
-                  Special Request
-                </label>
-                <textarea
-                  name="request"
-                  value={formData.request}
-                  onChange={handleChange}
-                  className="w-full border border-white text-white placeholder-white px-3 py-5"
-                  placeholder="Any special requests?"
-                />
-              </div>
-
-              <div className="w-full flex justify-center">
-                <button
-                  type="submit"
-                  className="w-full py-4 px-8 rounded-full border-2 border-white text-white cursor-pointer hover:scale-[1.1] transition-all duration-150"
-                >
-                  Book Now
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-
-        {/* footer end  */}
-        <div className="w-full h-[500px] md:h-[350px] mt-10 md:mt-20">
-          <hr className="hidden md:block w-full border-[1px] border-white" />
-
-          <div className="w-full h-full flex flex-col-reverse md:flex-row justify-center items-center gap-3 ">
-            {/* Logo  */}
-            <div className="w-full h-fit flex flex-col justify-center items-center gap-3 mt-10 md:mt-0">
-              <Image
-                className="w-[150px] h-fit object-cover"
-                src={Logo}
-                alt="explore_background"
+              <input
+                type="text"
+                value={formData.checkOut || "Select a Date"}
+                onClick={() => setShowCheckOutCalendar(!showCheckOutCalendar)} // Toggle calendar visibility
+                className="w-full border border-white text-white placeholder-white px-3 py-5 cursor-pointer mt-4"
+                readOnly
+                placeholder="Click to select a date"
               />
-
-              <h6 className="font-inter font-extralight text-[#FFFFFF] text-[10px]">
-                Copyright © River Ranch.
-              </h6>
+              {showCheckOutCalendar && (
+                <div className="mt-4">
+                  <Calendar
+                    value={selectedCheckOutDate}
+                    onChange={handleCheckOutDateSelect} // Using handleCheckOutDateSelect function to handle date selection
+                    tileClassName={tileClassName}
+                    tileDisabled={tileDisabled}
+                    minDate={selectedDate || new Date()} // Disable past dates and check-in dates
+                    view="month" // Show only one month
+                    className="rounded-lg shadow-md"
+                  />
+                </div>
+              )}
             </div>
 
-            {/* line  */}
-            <div className="hidden md:block border border-white h-full"></div>
-
-            {/* contacts  */}
-            <div className="w-full h-fit flex flex-col justify-center items-center gap-3">
-              <h6 className="font-inter text-center text-[#FFFFFF] text-[12px]">
-                CMG8+M5J <br />
-                Shrirangapattana <br />
-                Karnataka 571427
-              </h6>
-
-              <h6 className="font-inter text-center text-[#FFFFFF] text-[12px]">
-                Riverranch.com
-              </h6>
-
-              <h6 className="font-inter text-center text-[#FFFFFF] text-[12px]">
-                +91 9686985795
-              </h6>
+            {/* Slot Selection */}
+            <div className="flex flex-col gap-4 w-full sm:max-w-[400px]">
+              <label className="text-white text-sm font-inter">
+                Preferred Slot
+              </label>
+              <select
+                name="slot"
+                value={formData.slot}
+                onChange={handleChange}
+                className="w-full border border-white text-white placeholder-white px-3 py-5"
+              >
+                <option value="" disabled>
+                  Select Slot
+                </option>
+                <option value="morning">Morning</option>
+                <option value="evening">Evening</option>
+              </select>
             </div>
+            {/* Guests */}
+            <div className="flex flex-col gap-4 w-full sm:max-w-[400px]">
+              <label className="text-white text-sm font-inter">
+                Number of Guests
+              </label>
+              <select
+                name="guests"
+                value={formData.guests}
+                onChange={handleChange}
+                className="w-full border border-white text-white px-3 py-5"
+              >
+                <option value="1">1 Guest</option>
+                <option value="2">2 Guests</option>
+                <option value="3">3 Guests</option>
+                <option value="4">4 Guests</option>
+                <option value="5">5 Guests</option>
+                <option value="6">6 Guests</option>
+                <option value="7">7 Guests</option>
+                <option value="8">8 Guests</option>
+              </select>
+            </div>
+
+            {/* Other Inputs */}
+            <div className="flex flex-col gap-4 w-full sm:max-w-[400px]">
+              <label className="text-white text-sm font-inter">Name</label>
+              <input
+                type="text"
+                name="fullname"
+                value={formData.fullname}
+                onChange={handleChange}
+                className="w-full border border-white text-white placeholder-white px-3 py-5"
+                placeholder="Your Name"
+              />
+            </div>
+
+            <div className="flex flex-col gap-4 w-full sm:max-w-[400px]">
+              <label className="text-white text-sm font-inter">Email</label>
+              <input
+                type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                className="w-full border border-white text-white placeholder-white px-3 py-5"
+                placeholder="Your Email"
+              />
+            </div>
+
+            <div className="flex flex-col gap-4 w-full sm:max-w-[400px]">
+              <label className="text-white text-sm font-inter">Phone</label>
+              <input
+                type="tel"
+                name="phone"
+                value={formData.phone}
+                onChange={handleChange}
+                className="w-full border border-white text-white placeholder-white px-3 py-5"
+                placeholder="Your Phone Number"
+              />
+            </div>
+            {/* Special Request (Notes) */}
+            <div className="flex flex-col gap-4 w-full sm:max-w-[400px]">
+              <label className="text-white text-sm font-inter">
+                Special Request
+              </label>
+              <textarea
+                name="request"
+                value={formData.request}
+                onChange={handleChange}
+                className="w-full border border-white text-white placeholder-white px-3 py-5"
+                placeholder="Any special requests?"
+              />
+            </div>
+
+            {/* Submit Button */}
+            <button
+              onClick={handleSubmit}
+              className="w-full sm:max-w-[400px] px-6 py-4 bg-[#205781] text-white text-lg font-inter rounded-lg"
+            >
+              Book Now
+            </button>
           </div>
         </div>
       </div>
     </section>
   );
 });
+
+Footer.displayName = "Footer";
 
 export default Footer;

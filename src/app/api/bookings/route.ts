@@ -2,13 +2,14 @@ import { connectDB } from "@/lib/mongodb";
 import { Booking } from "@/models/Booking";
 import { NextRequest, NextResponse } from "next/server";
 
-// Helper function to validate the booking data
 interface BookingData {
   fullname: string;
   email: string;
   phone: string;
-  date: string;
+  checkIn: string;
+  checkOut: string;
   guests: number;
+  slot: "morning" | "evening";
 }
 
 const validateBooking = (body: BookingData) => {
@@ -16,26 +17,43 @@ const validateBooking = (body: BookingData) => {
     !body.fullname ||
     !body.email ||
     !body.phone ||
-    !body.date ||
-    !body.guests
+    !body.checkIn ||
+    !body.checkOut ||
+    !body.guests ||
+    !body.slot
   ) {
     throw new Error(
-      "Missing required fields: fullname, email, phone, date, guests."
+      "Missing required fields: fullname, email, phone, checkIn, checkOut, guests, slot."
     );
+  }
+
+  if (!["morning", "evening"].includes(body.slot.toLowerCase())) {
+    throw new Error("Invalid slot. Must be 'morning' or 'evening'.");
+  }
+
+  const checkInDate = new Date(body.checkIn);
+  const checkOutDate = new Date(body.checkOut);
+
+  if (isNaN(checkInDate.getTime()) || isNaN(checkOutDate.getTime())) {
+    throw new Error("Invalid check-in or check-out date format.");
+  }
+
+  if (checkInDate >= checkOutDate) {
+    throw new Error("Check-out date must be after check-in date.");
   }
 };
 
 export async function GET() {
   try {
     await connectDB();
-    const bookings = await Booking.find();
+    const bookings = await Booking.find().sort({ checkIn: 1 });
     return NextResponse.json(bookings);
   } catch (error) {
-    console.error("Error fetching bookings:", error);
     return NextResponse.json(
       { error: "Failed to fetch bookings" },
       { status: 500 }
     );
+    console.error("Error fetching bookings:", error);
   }
 }
 
@@ -43,20 +61,19 @@ export async function POST(req: NextRequest) {
   try {
     await connectDB();
     const body = await req.json();
+    console.log("Incoming booking:", body);
 
-    console.log("Incoming booking:", body); // ✅ Add this
-
-    // Validate incoming booking data
     validateBooking(body);
 
-    // Create the booking
-    const booking = await Booking.create(body);
+    const booking = await Booking.create({
+      ...body,
+      slot: body.slot.toLowerCase(), // normalize
+    });
+
     return NextResponse.json(booking, { status: 201 });
   } catch (error) {
-    console.error("Error creating booking:", error); // ✅ Full error log
     const errorMessage =
       error instanceof Error ? error.message : "Unknown error";
     return NextResponse.json({ error: errorMessage }, { status: 400 });
   }
 }
-
