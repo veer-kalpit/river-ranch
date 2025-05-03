@@ -73,7 +73,10 @@ const Discover: React.FC<DiscoverProps> = ({ scrollToFooter }) => {
   }, []);
 
   return (
-    <div id="yoga" className="block w-screen h-fit bg-white z-50 relative pt-10 lg:pt-20">
+    <div
+      id="yoga"
+      className="block w-screen h-fit bg-white z-50 relative pt-28"
+    >
       {/* yoga gallery for mobile  */}
       <div className="w-full lg:hidden z-50 py-10">
         <h6 className="font-inter font-extralight text-[#333333] text-center text-[14px] mb-6 tracking-[3.5px]">
@@ -85,7 +88,7 @@ const Discover: React.FC<DiscoverProps> = ({ scrollToFooter }) => {
         <YogaGallery />
       </div>
 
-      <div className="w-full h-fit flex justify-center items-center relative">
+      <div className="w-full h-fit flex justify-center items-center relative mt-10 lg:mt-0">
         {/* frame video  */}
         <div className="w-fit h-fit flex flex-col justify-center items-center relative overflow-hidden lg:mr-80">
           <h6 className="font-inter font-extralight text-[#333333] text-center text-[14px] mb-6 tracking-[3.5px]">
@@ -118,7 +121,7 @@ const Discover: React.FC<DiscoverProps> = ({ scrollToFooter }) => {
             vibrant celebrations.
           </p>
 
-          <button className="font-inter border border-[#3333334D] text-xs px-8 py-3 rounded-full cursor-pointer mt-2.5">
+          <button onClick={scrollToFooter} className="font-inter border border-[#3333334D] text-xs px-8 py-3 rounded-full cursor-pointer mt-2.5">
             EXPLORE
           </button>
         </div>
@@ -201,10 +204,10 @@ const Discover: React.FC<DiscoverProps> = ({ scrollToFooter }) => {
         </div>
       </div>
 
-      <div className="lg:hidden w-full h-auto py-10 px-10 mx-auto">
+      <div className="lg:hidden w-full h-auto pt-20 px-10 mx-auto">
         <div className="w-full flex flex-col justify-center items-center">
           <h6 className="font-inter font-extralight text-[#333333] text-center text-[14px] mb-6 tracking-[3.5px]">
-            SPRRITUALITY AND HEALING
+            SPIRITUALITY AND HEALING
           </h6>
           <h1 className="font-cormorant text-center text-[#205781] text-3xl sm:text-4xl leading-9">
             Yoga Sound <br />
@@ -228,7 +231,7 @@ const Discover: React.FC<DiscoverProps> = ({ scrollToFooter }) => {
 
       {/* Section 2: Nature Sanctuary */}
       <div className="w-full h-fit overflow-hidden ">
-        <h6 className="font-inter font-extralight text-[#333333] text-center text-[14px] tracking-[3.5px] lg:hidden">
+        <h6 className="font-inter font-extralight text-[#333333] text-center text-[14px] tracking-[3.5px] lg:hidden pt-16">
           MOMENTS AND MEMORIES
         </h6>
         <h1 className="font-cormorant text-center text-[#205781] text-3xl sm:text-4xl leading-9 lg:hidden mb-10 lg:mb-0">
@@ -270,8 +273,9 @@ const Discover: React.FC<DiscoverProps> = ({ scrollToFooter }) => {
           {/* Right: Text + image */}
           <div className="w-fit hidden lg:block h-fit space-y-48 relative lg:mt-20">
             <div className="w-fit h-fit">
-              <h1 className="font-cormorant text-[#205781] text-right text-3xl sm:text-4xl leading-9  mb-6" >
-                The Perfect Destination for <br /> Parties, Get- Togethers, and <br />
+              <h1 className="font-cormorant text-[#205781] text-right text-3xl sm:text-4xl leading-9  mb-6">
+                The Perfect Destination for <br /> Parties, Get- Togethers, and{" "}
+                <br />
                 Unforgettable Celebrations
               </h1>
               <h6 className="font-inter font-extralight text-[#333333] text-right text-[14px] tracking-[3.5px]">

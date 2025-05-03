@@ -6,7 +6,7 @@ import Naan from "../../public/Naan.png";
 
 export default function Menu() {
   return (
-    <div className="w-screen bg-white z-[60] relative px-10  text-center min-h-fit pb-10 lg:pb-[250px] pt-12 lg:pt-20">
+    <div className="w-screen bg-white z-[60] relative px-10  text-center min-h-fit pb-20 lg:pb-[250px] pt-26 lg:pt-36">
       <h6 className="font-inter font-extralight text-[#333333] text-center text-[14px] mb-6 tracking-[3.5px]">
         Discover Delicious Choices
       </h6>

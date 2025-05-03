@@ -57,7 +57,7 @@ export default function LandingPage() {
           <Explore scrollToFooter={scrollToFooter} />
           <Discover scrollToFooter={scrollToFooter} />
           <Gallery />
-          <PricingSection scrollToFooter={scrollToFooter} />
+          {/* <PricingSection scrollToFooter={scrollToFooter} /> */}
           <Menu/>
           <Footer ref={footerRef}  />
         </>
