@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { forwardRef, useEffect, useState } from "react";
 import axios from "axios";
 import Image from "next/image";
 import {
@@ -12,7 +12,7 @@ import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import Logo from "../../public/logo.png"; // You can use this if needed
 
-const Footer = () => {
+const Footer = forwardRef((props, ref) => {
   const [bookings, setBookings] = useState([]);
   const [formData, setFormData] = useState({
     fullname: "",
@@ -141,7 +141,7 @@ const Footer = () => {
   };
 
   return (
-    <section id="contact" className="z-[50] relative">
+    <section ref={ref} id="contact" className="z-[50] relative">
       <div className="w-screen h-fit min-h-screen bg-[#205781] overflow-hidden relative ">
         {/* headings  */}
         <div className="w-fit h-fit text-center space-y-3 mx-auto mt-10">
@@ -394,6 +394,6 @@ const Footer = () => {
       </div>
     </section>
   );
-};
+});
 
 export default Footer;
