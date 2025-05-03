@@ -15,7 +15,7 @@ import Logo from "../../public/logo.png";
 
 export async function submitBooking(data) {
   const response = await fetch(
-    "https://script.google.com/macros/s/AKfycbw-fgEsMbbBelKdVyK2MZhWfVpFBevF5PsFgc8jstBrT9gDHyUDvHNNTZy86Zmc0Gzf/exec",
+    "https://script.google.com/macros/s/AKfycbylIDLJrO9v4WqkU7ZuJJEwDirFMdhiyYSAZl8rMv4iJS2tAuNp_cV4UIv4T6UgJwk/exec",
     {
       method: "POST",
       headers: {
@@ -53,7 +53,7 @@ const Footer = forwardRef((props, ref) => {
 const fetchBookings = () => {
   axios
     .get(
-      "https://script.google.com/macros/s/AKfycbw-fgEsMbbBelKdVyK2MZhWfVpFBevF5PsFgc8jstBrT9gDHyUDvHNNTZy86Zmc0Gzf/exec"
+      "https://script.google.com/macros/s/AKfycbylIDLJrO9v4WqkU7ZuJJEwDirFMdhiyYSAZl8rMv4iJS2tAuNp_cV4UIv4T6UgJwk/exec"
     )
     .then((response) => {
       const bookings = response.data?.bookings;
