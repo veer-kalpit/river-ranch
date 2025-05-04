@@ -104,7 +104,7 @@ const Overlay = ({ setHomeRendering }) => {
       {/* Logo */}
       <Image
         src={logo}
-        alt="Water Splash"
+        alt="Logo"
         className="w-[130px] min-w-[130px] h-fit object-cover relative z-[50] lg:mt-10"
       />
 

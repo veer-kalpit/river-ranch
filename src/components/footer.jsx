@@ -11,6 +11,7 @@ import {
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import Logo from "../../public/logo.png"; // You can use this if needed
+import PricingSection from "./pricingSection";
 
 const Footer = forwardRef((props, ref) => {
   const [bookings, setBookings] = useState([]);
@@ -28,6 +29,11 @@ const Footer = forwardRef((props, ref) => {
   const [selectedCheckOutDate, setSelectedCheckOutDate] = useState(null);
   const [showCalendar, setShowCalendar] = useState(false); // State to show calendar for checkIn
   const [showCheckOutCalendar, setShowCheckOutCalendar] = useState(false); // State to show calendar for checkOut
+  const [showPricingModal, setShowPricingModal] = useState(false);
+
+  const togglePricingModal = () => {
+    setShowPricingModal(!showPricingModal);
+  };
 
   // Create reusable fetch function
   const fetchBookings = () => {
@@ -86,6 +92,12 @@ const Footer = forwardRef((props, ref) => {
     setShowCalendar(false); // Close calendar on date select
   };
 
+
+  
+  const closePricingModal = () => {
+    setShowPricingModal(false); // Function to close the modal
+  };
+  
   // Handle check-out date selection
   const handleCheckOutDateSelect = (date) => {
     const localDate = new Date(date);
@@ -119,16 +131,15 @@ const Footer = forwardRef((props, ref) => {
     }
 
     const newBooking = {
-  fullname,
-  email,
-  phone,
-  date: checkIn,  // Use checkIn as date (or combine checkIn and checkOut if needed)
-  checkIn,
-  checkOut,
-  guests: Number(guests),
-  slot,
-};
-
+      fullname,
+      email,
+      phone,
+      date: checkIn, // Use checkIn as date (or combine checkIn and checkOut if needed)
+      checkIn,
+      checkOut,
+      guests: Number(guests),
+      slot,
+    };
 
     axios
       .post("/api/bookings", newBooking)
@@ -246,12 +257,14 @@ const Footer = forwardRef((props, ref) => {
             </div>
           </div>
 
-          {/* Booking Form */}
+          {/* Booking form */}
+
           <div className="w-full">
-            <h1 className=" font-cormorant text-white text-2xl mb-5">
+            <h1 className="font-cormorant text-white text-2xl mb-5">
               Request a Booking
             </h1>
             <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-6">
+              {/* Name Input */}
               <div className="flex flex-col gap-4 w-full sm:max-w-[400px]">
                 <label className="text-white text-sm font-inter">Name</label>
                 <input
@@ -264,6 +277,7 @@ const Footer = forwardRef((props, ref) => {
                 />
               </div>
 
+              {/* Email Input */}
               <div className="flex flex-col gap-4 w-full sm:max-w-[400px]">
                 <label className="text-white text-sm font-inter">Email</label>
                 <input
@@ -276,6 +290,7 @@ const Footer = forwardRef((props, ref) => {
                 />
               </div>
 
+              {/* Phone Input */}
               <div className="flex flex-col gap-4 w-full sm:max-w-[400px]">
                 <label className="text-white text-sm font-inter">Phone</label>
                 <input
@@ -288,9 +303,7 @@ const Footer = forwardRef((props, ref) => {
                 />
               </div>
 
-              {/* Guest Input  */}
-
-              {/* Guests */}
+              {/* Number of Guests */}
               <div className="flex flex-col gap-4 w-full sm:max-w-[400px]">
                 <label className="text-white text-sm font-inter">
                   Number of Guests
@@ -300,63 +313,58 @@ const Footer = forwardRef((props, ref) => {
                   name="guests"
                   value={formData.guests}
                   onChange={handleChange}
+                  onClick={togglePricingModal} // Toggle modal when clicked
                   className="w-full border border-white text-white placeholder-white px-3 py-5"
                   placeholder="Enter number of guests"
                 />
               </div>
 
-              {/* Check-In Date Input */}
+              {/* Check-In Date */}
               <div className="w-full max-w-[400px]">
                 <label className="text-white text-sm font-inter">
                   Select Check-In Date
                 </label>
-
                 <input
                   type="text"
                   value={formData.checkIn || "Select a Date"}
-                  onClick={() => setShowCalendar(!showCalendar)} // Toggle calendar visibility
+                  onClick={() => setShowCalendar(!showCalendar)}
                   className="w-full border border-white text-white placeholder-white px-3 py-5 cursor-pointer mt-4"
                   readOnly
                   placeholder="Click to select a date"
                 />
                 {showCalendar && (
                   <div className="mt-4">
+                    {/* Calendar Component for Check-In */}
                     <Calendar
                       value={selectedDate}
-                      onChange={handleCheckInDateSelect} // Using handleCheckInDateSelect function to handle date selection
-                      tileClassName={tileClassName}
-                      tileDisabled={tileDisabled}
-                      minDate={new Date()} // Disable past dates
-                      view="month" // Show only one month
+                      onChange={handleCheckInDateSelect}
+                      minDate={new Date()}
                       className="rounded-lg shadow-md"
                     />
                   </div>
                 )}
               </div>
 
-              {/* Check-Out Date Input */}
+              {/* Check-Out Date */}
               <div className="w-full max-w-[400px]">
                 <label className="text-white text-sm font-inter">
                   Select Check-Out Date
                 </label>
-
                 <input
                   type="text"
                   value={formData.checkOut || "Select a Date"}
-                  onClick={() => setShowCheckOutCalendar(!showCheckOutCalendar)} // Toggle calendar visibility
+                  onClick={() => setShowCheckOutCalendar(!showCheckOutCalendar)}
                   className="w-full border border-white text-white placeholder-white px-3 py-5 cursor-pointer mt-4"
                   readOnly
                   placeholder="Click to select a date"
                 />
                 {showCheckOutCalendar && (
                   <div className="mt-4">
+                    {/* Calendar Component for Check-Out */}
                     <Calendar
                       value={selectedCheckOutDate}
-                      onChange={handleCheckOutDateSelect} // Using handleCheckOutDateSelect function to handle date selection
-                      tileClassName={tileClassName}
-                      tileDisabled={tileDisabled}
-                      minDate={selectedDate || new Date()} // Disable past dates and check-in dates
-                      view="month" // Show only one month
+                      onChange={handleCheckOutDateSelect}
+                      minDate={selectedDate || new Date()}
                       className="rounded-lg shadow-md"
                     />
                   </div>
@@ -379,7 +387,7 @@ const Footer = forwardRef((props, ref) => {
                 </select>
               </div>
 
-              {/* Special Request (Notes) */}
+              {/* Special Request */}
               <div className="flex flex-col gap-4 w-full sm:max-w-[400px]">
                 <label className="text-white text-sm font-inter">
                   Special Request
@@ -394,13 +402,18 @@ const Footer = forwardRef((props, ref) => {
               </div>
 
               {/* Submit Button */}
+              <button
+                onClick={handleSubmit}
+                className="w-full sm:max-w-[665px] h-fit font-inter bg-white text-[#205781] text-sm flex justify-center items-center py-4 rounded-full cursor-pointer hover:bg-white/40 hover:text-white transition-all duration-300 ease-in-out mt-5"
+              >
+                BOOK NOW
+              </button>
             </div>
-            <button
-              onClick={handleSubmit}
-              className="w-full sm:max-w-[400px] px-6 py-4 bg-[#205781] text-white text-lg font-inter rounded-lg"
-            >
-              Book Now
-            </button>
+
+            {/* Pricing Modal */}
+            {showPricingModal && (
+              <PricingSection closeModal={closePricingModal} />
+            )}
           </div>
         </div>
 

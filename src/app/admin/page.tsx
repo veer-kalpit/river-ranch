@@ -2,6 +2,8 @@
 
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
+import Image from "next/image";
+import logo from "../../../public/logo.png";
 import { useEffect, useState } from "react";
 
 const USERNAME = "admin";
@@ -71,12 +73,17 @@ export default function AdminDashboard() {
     },
   });
 
-  const handleSubmit = () => {
+  const handleSubmit = (e?: React.FormEvent) => {
+    e?.preventDefault?.(); // prevent refresh if inside a form in future
+
     if (editing) {
       updateBooking.mutate({ id: editing, updates: form });
       setEditing(null);
     } else {
-      createBooking.mutate(form);
+      createBooking.mutate({
+        ...form,
+        date: new Date().toISOString(), // Booking date on create
+      });
     }
 
     setForm({
@@ -95,27 +102,36 @@ export default function AdminDashboard() {
   if (!auth) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-100">
-        <div className="bg-white p-6 rounded shadow-md w-full max-w-sm">
-          <h2 className="text-xl font-semibold mb-4">Admin Login</h2>
-          <input
-            className="w-full px-3 py-2 mb-3 border rounded"
-            placeholder="Username"
-            value={login.username}
-            onChange={(e) => setLogin({ ...login, username: e.target.value })}
+        <div className="bg-[#205781] p-6 rounded shadow-md w-full max-w-sm mx-auto mt-10">
+          <h2 className="text-xl font-semibold mb-4 text-white text-center">
+            Admin Login
+          </h2>
+          <Image
+            src={logo}
+            alt="Logo"
+            className="w-[130px] min-w-[130px] h-fit object-cover relative z-[50] lg:mt-10 self-center mx-auto"
           />
-          <input
-            type="password"
-            className="w-full px-3 py-2 mb-3 border rounded"
-            placeholder="Password"
-            value={login.password}
-            onChange={(e) => setLogin({ ...login, password: e.target.value })}
-          />
-          <button
-            className="w-full py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
-            onClick={handleLogin}
-          >
-            Login
-          </button>
+          <div className="space-y-3">
+            <input
+              className="w-full px-3 py-2 mb-3 border border-white rounded text-white bg-transparent focus:outline-none"
+              placeholder="Username"
+              value={login.username}
+              onChange={(e) => setLogin({ ...login, username: e.target.value })}
+            />
+            <input
+              type="password"
+              className="w-full px-3 py-2 mb-3 border border-white rounded text-white bg-transparent focus:outline-none"
+              placeholder="Password"
+              value={login.password}
+              onChange={(e) => setLogin({ ...login, password: e.target.value })}
+            />
+            <button
+              className="w-full py-2 text-white rounded bg-blue-600 hover:bg-blue-700 focus:outline-none"
+              onClick={handleLogin}
+            >
+              Login
+            </button>
+          </div>
         </div>
       </div>
     );
@@ -156,12 +172,6 @@ export default function AdminDashboard() {
         <input
           type="date"
           className="w-full px-3 py-2 border rounded"
-          value={form.date}
-          onChange={(e) => setForm({ ...form, date: e.target.value })}
-        />
-        <input
-          type="date"
-          className="w-full px-3 py-2 border rounded"
           placeholder="Check-In"
           value={form.checkIn}
           onChange={(e) => setForm({ ...form, checkIn: e.target.value })}
@@ -173,11 +183,7 @@ export default function AdminDashboard() {
           value={form.checkOut}
           onChange={(e) => setForm({ ...form, checkOut: e.target.value })}
         />
-        <label htmlFor="slot-select" className="block text-sm font-medium text-gray-700">
-          Slot
-        </label>
         <select
-          id="slot-select"
           className="w-full px-3 py-2 border rounded"
           value={form.slot}
           onChange={(e) => setForm({ ...form, slot: e.target.value })}
@@ -193,14 +199,6 @@ export default function AdminDashboard() {
           value={form.guests}
           onChange={(e) => setForm({ ...form, guests: Number(e.target.value) })}
         />
-        <select
-          className="w-full px-3 py-2 border rounded"
-          value={form.status}
-          onChange={(e) => setForm({ ...form, status: e.target.value })}
-        >
-          <option value="booked">Booked</option>
-          <option value="cancelled">Cancelled</option>
-        </select>
         <button
           onClick={handleSubmit}
           className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
@@ -226,6 +224,7 @@ export default function AdminDashboard() {
               slot: string;
               guests: number;
               status: string;
+              bookingDate: string; // Include bookingDate here
             }) => (
               <div
                 key={b._id}
@@ -233,9 +232,10 @@ export default function AdminDashboard() {
               >
                 <div>
                   <p>
-                    <strong>Date:</strong>{" "}
-                    {new Date(b.date).toLocaleDateString("en-GB")}
+                    <strong>Booking Date:</strong>{" "}
+                    {new Date(b.bookingDate).toLocaleDateString("en-GB")}
                   </p>
+                  
                   <p>
                     <strong>Name:</strong> {b.fullname}
                   </p>
@@ -261,9 +261,7 @@ export default function AdminDashboard() {
                   <p>
                     <strong>Slot:</strong> {b.slot}
                   </p>
-                  <p>
-                    <strong>Status:</strong> {b.status}
-                  </p>
+                  
                 </div>
                 <div className="space-x-2">
                   <button
@@ -273,9 +271,11 @@ export default function AdminDashboard() {
                         fullname: b.fullname,
                         email: b.email,
                         phone: b.phone,
-                        date: b.date?.split("T")[0] || "",
-                        checkIn: b.checkIn?.split("T")[0] || "",
-                        checkOut: b.checkOut?.split("T")[0] || "",
+                        date: b.bookingDate
+                          ? new Date(b.bookingDate).toISOString().split("T")[0]
+                          : "", 
+                        checkIn: b.checkIn ? b.checkIn.split("T")[0] : "", // Ensure proper date format
+                        checkOut: b.checkOut ? b.checkOut.split("T")[0] : "", // Ensure proper date format
                         slot: b.slot || "",
                         guests: b.guests,
                         status: b.status,

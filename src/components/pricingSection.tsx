@@ -1,47 +1,11 @@
 import React, { useRef } from "react";
 
-import WaterSplash from "../../public/splash_4.png";
-import Image from "next/image";
-import { useGSAP } from "@gsap/react";
-import ScrollTrigger from "gsap/ScrollTrigger";
-import gsap from "gsap";
-
-gsap.registerPlugin(ScrollTrigger);
-
 interface PricingSectionProps {
-  scrollToFooter: () => void;
+  closeModal: () => void;
 }
 
-export default function PricingSection({
-  scrollToFooter,
-}: PricingSectionProps) {
-  const splash_2_Ref = useRef(null);
+export default function PricingSection({ closeModal }: PricingSectionProps) {
   const pageRef = useRef(null);
-
-  // GSAP Animations
-  useGSAP(() => {
-    // Splash_2 animation (slide in from right)
-    gsap
-      .timeline({
-        scrollTrigger: {
-          trigger: pageRef.current,
-          start: "top 40%",
-        },
-      })
-      .fromTo(
-        splash_2_Ref.current,
-        {
-          x: "-100%", // start off-screen to the left
-          scale: 0, // start larger
-        },
-        {
-          x: "0%", // move to original position
-          scale: 1.5, // shrink to normal
-          duration: 0.6,
-          ease: "power3.out",
-        }
-      );
-  }, []);
 
   const pricingData = [
     { guests: "0-10", price: "2000 per pax" },
@@ -50,66 +14,50 @@ export default function PricingSection({
   ];
 
   return (
-    <div
-      ref={pageRef}
-      className="bg-white z-[60] relative px-5 lg:px-0 text-center h-fit pt-10 lg:pt-20"
-    >
+    <div className="fixed inset-0 z-[100] flex justify-center items-center">
+      {/* Overlay */}
       <div
-        ref={splash_2_Ref}
-        className="w-screen h-full scale-[1.5] -rotate-12 absolute top-0 left-0 z-0"
-      >
-        <div className="w-screen min-w-[800px] mt-12 lg:ml-28 xl:-mt-56 h-fit">
-          <Image
-            src={WaterSplash}
-            alt="Water Splash"
-            className="w-full h-fit object-cover"
-          />
-        </div>
-      </div>
+        className="absolute inset-0 bg-black/50"
+        onClick={closeModal} // closes when clicking outside
+      />
 
-      <p className="uppercase text-inter font-light text-[14px] lg:text-[16px] tracking-widest text-[#333333] whitespace-nowrap relative z-10">
-        Affordable Dining
-        <span className="hidden lg:inline">, Memorable Taste</span>
-      </p>
-
-      <h2 className="text-[38px] lg:text-[48px] font-cormorant text-[#205781] lg:text-[#333333] mt-5 lg:mt-10 mb-10 relative z-10">
-        Dining
-      </h2>
-
-      <div className="lg:w-[1136px] mx-auto relative z-10">
-        <div className="flex justify-between text-[24px] lg:text-[48px]  font-cormorant font-normal text-[#333333] mb-4 px-4">
-          <p className="text-center w-full">No. of Guests</p>
-          <p className="text-center w-full">Price</p>
-        </div>
-
-        {pricingData.map(({ guests, price }, index) => (
-          <div
-            key={index}
-            className="flex  justify-between text-center items-center bg-[#EDF7FF] py-5  rounded-[8px] mb-4 text-[#333333] "
-          >
-            <p className="text-center w-full font-inter text-[16px] leading-[100%] lg:text-[24px]">
-              {guests}
-            </p>
-            <p className="text-center w-full font-inter text-[16px] leading-[100%] lg:text-[24px]">
-              {price}
-            </p>
-          </div>
-        ))}
-      </div>
-
-      <div className=" h-[123.63851928710938px] mt-[83px] flex flex-col items-center justify-center  relative z-10">
-        <p className="font-inter font-normal text-[14px] lg:text-[16px]  leading-[20px] text-center lg:w-[802px] text-[#333333]">
-          For photographers, wedding or event decorations, live music or DJ
-          booking, or any other special requests, please contact us with the
-          details
-        </p>
+      {/* Modal */}
+      <div className="relative z-[101] bg-white p-6 rounded-lg w-[90%] sm:w-[500px]">
+        {/* Close Button */}
         <button
-          type="button"
-          onClick={scrollToFooter}
-          className=" cursor-pointer mt-[36px] w-[170px] h-[49.63851547241211px] font-inter text-[16px] leading-[100%] uppercase text-center rounded-[24.82px] border-2 border-[#3333334D] py-[11px] hover:bg-white hover:text-[#205781]"
+          onClick={closeModal}
+          className="absolute top-2 right-2 text-black text-2xl font-bold z-[102]"
         >
-          Explore
+          &times;
         </button>
+
+        {/* Modal Content */}
+        <div ref={pageRef} className="text-center">
+          <h2 className="text-[32px] lg:text-[40px] font-cormorant text-[#205781] mt-4 mb-6">
+            Pricing
+          </h2>
+
+          <div className="w-full">
+            <div className="flex justify-between text-[20px] lg:text-[28px] font-cormorant text-[#333333] mb-4 px-2">
+              <p className="text-center w-full">No. of Guests</p>
+              <p className="text-center w-full">Price</p>
+            </div>
+
+            {pricingData.map(({ guests, price }, index) => (
+              <div
+                key={index}
+                className="flex justify-between items-center bg-[#EDF7FF] py-4 rounded-md mb-3 text-[#333333]"
+              >
+                <p className="text-center w-full font-inter text-[16px] lg:text-[20px]">
+                  {guests}
+                </p>
+                <p className="text-center w-full font-inter text-[16px] lg:text-[20px]">
+                  {price}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );
