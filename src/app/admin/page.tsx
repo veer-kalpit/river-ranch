@@ -5,6 +5,8 @@ import axios from "axios";
 import Image from "next/image";
 import logo from "../../../public/logo.png";
 import { useEffect, useState } from "react";
+import Calendar from "react-calendar";
+import "react-calendar/dist/Calendar.css";
 
 const USERNAME = "admin";
 const PASSWORD = "admin123";
@@ -12,6 +14,7 @@ const PASSWORD = "admin123";
 export default function AdminDashboard() {
   const [auth, setAuth] = useState(false);
   const [login, setLogin] = useState({ username: "", password: "" });
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
 
   const [form, setForm] = useState({
     fullname: "",
@@ -68,13 +71,10 @@ export default function AdminDashboard() {
   const deleteBooking = useMutation({
     mutationFn: (id: string) => axios.delete(`/api/bookings/${id}`),
     onSuccess: () => client.invalidateQueries({ queryKey: ["bookings"] }),
-    onError: (error) => {
-      console.error("Error deleting booking:", error);
-    },
   });
 
   const handleSubmit = (e?: React.FormEvent) => {
-    e?.preventDefault?.(); // prevent refresh if inside a form in future
+    e?.preventDefault?.();
 
     if (editing) {
       updateBooking.mutate({ id: editing, updates: form });
@@ -82,7 +82,7 @@ export default function AdminDashboard() {
     } else {
       createBooking.mutate({
         ...form,
-        date: new Date().toISOString(), // Booking date on create
+        date: new Date().toISOString(),
       });
     }
 
@@ -97,6 +97,54 @@ export default function AdminDashboard() {
       guests: 1,
       status: "booked",
     });
+  };
+
+  type Booking = {
+    _id: string;
+    fullname: string;
+    email: string;
+    phone: string;
+    date: string;
+    checkIn: string;
+    checkOut: string;
+    slot: string;
+    guests: number;
+    status: string;
+  };
+
+  // Removed unused 'bookedDates' variable
+
+  const selectedBookings = bookings.filter(
+    (b: Booking) =>
+      selectedDate &&
+      new Date(b.checkIn).toISOString().split("T")[0] ===
+        selectedDate.toISOString().split("T")[0]
+  );
+
+  const tileClassName = ({ date, view }: { date: Date; view: string }) => {
+    if (view === "month") {
+      const dateString = date.toISOString().split("T")[0]; // Format date as YYYY-MM-DD
+      const bookingsOnDate = bookings.filter(
+        (b: Booking) =>
+          new Date(b.checkIn).toISOString().split("T")[0] === dateString
+      );
+
+      // Check if the date has a booking and determine the status based on the slot
+      const hasMorningSlot = bookingsOnDate.some((b: Booking) => b.slot === "morning");
+      console.log(hasMorningSlot);
+      const hasEveningSlot = bookingsOnDate.some((b: Booking) => b.slot === "evening");
+
+      // Apply different background colors based on the slot status
+      if (hasMorningSlot && hasEveningSlot) {
+        return "bg-both-booked rounded-full"; // Both slots booked
+      } else if (hasMorningSlot) {
+        return "bg-morning-booked rounded-full"; // Morning slot booked
+      } else if (hasEveningSlot) {
+        return "bg-evening-booked rounded-full"; // Evening slot booked
+      } else {
+        return "bg-available rounded-full"; // Available slot
+      }
+    }
   };
 
   if (!auth) {
@@ -149,6 +197,81 @@ export default function AdminDashboard() {
         </button>
       </div>
 
+      {/* Calendar */}
+      <div className="mb-6">
+        <h2 className="text-lg font-semibold mb-2">Booking Calendar</h2>
+        <Calendar
+          onChange={(value) =>
+            setSelectedDate(value instanceof Date ? value : null)
+          }
+          value={selectedDate}
+          tileClassName={tileClassName}
+        />
+      </div>
+
+      {/* Selected Bookings */}
+      {selectedDate && (
+        <div className="mb-6 p-4 border rounded bg-gray-50">
+          <h3 className="font-bold mb-2">
+            Bookings on {selectedDate.toLocaleDateString("en-GB")}
+          </h3>
+          {selectedBookings.length === 0 ? (
+            <p>No bookings on this date.</p>
+          ) : (
+            <ul className="space-y-2">
+              {selectedBookings.map((b: Booking) => (
+                <li
+                  key={b._id}
+                  className="p-3 border rounded bg-white shadow-sm flex justify-between"
+                >
+                  <div>
+                    <p>
+                      <strong>Name:</strong> {b.fullname}
+                    </p>
+                    <p>
+                      <strong>Email:</strong> {b.email}
+                    </p>
+                    <p>
+                      <strong>Guests:</strong> {b.guests}
+                    </p>
+                    <p>
+                      <strong>Slot:</strong> {b.slot}
+                    </p>
+                  </div>
+                  <div className="space-x-2">
+                    <button
+                      className="text-sm text-blue-600 underline"
+                      onClick={() => {
+                        setForm({
+                          fullname: b.fullname,
+                          email: b.email,
+                          phone: b.phone,
+                          date: b.date,
+                          checkIn: b.checkIn?.split("T")[0] || "",
+                          checkOut: b.checkOut?.split("T")[0] || "",
+                          slot: b.slot,
+                          guests: b.guests,
+                          status: b.status,
+                        });
+                        setEditing(b._id);
+                      }}
+                    >
+                      Edit
+                    </button>
+                    <button
+                      className="text-sm text-red-600 underline"
+                      onClick={() => deleteBooking.mutate(b._id)}
+                    >
+                      Delete
+                    </button>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+      )}
+
       {/* Booking Form */}
       <div className="p-4 space-y-3 border border-gray-200 rounded mb-6 bg-gray-50">
         <input
@@ -200,10 +323,11 @@ export default function AdminDashboard() {
           onChange={(e) => setForm({ ...form, guests: Number(e.target.value) })}
         />
         <button
+          className="w-full py-2 text-white bg-blue-600 rounded"
           onClick={handleSubmit}
-          className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+         
         >
-          {editing ? "Update" : "Create"} Booking
+          {editing ? "Update Booking" : "Create Booking"}
         </button>
       </div>
 

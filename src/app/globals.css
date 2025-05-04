@@ -260,3 +260,26 @@ img[style*="fixed"] {
   pointer-events: none;
 }
 
+
+
+/* global.css */
+
+.bg-available {
+  background-color: #d4edda !important;}
+
+.bg-morning-booked {
+  background-color: #ff9800 !important;; /* Orange for morning slot booked */
+}
+
+.bg-evening-booked {
+  background-color: #2196f3 !important;; /* Blue for evening slot booked */
+}
+
+.bg-both-booked {
+  background-color: #f44336 !important;; /* Red for both slots booked */
+}
+
+.rounded-full {
+  border-radius: 50%;
+}
+
