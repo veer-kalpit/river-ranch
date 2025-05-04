@@ -247,166 +247,200 @@ const Footer = forwardRef((props, ref) => {
           </div>
 
           {/* Booking Form */}
-          <div className="w-full space-y-8">
-            <h1 className=" font-cormorant text-white text-2xl">
+          <div className="w-full">
+            <h1 className=" font-cormorant text-white text-2xl mb-5">
               Request a Booking
             </h1>
+            <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-6">
+              <div className="flex flex-col gap-4 w-full sm:max-w-[400px]">
+                <label className="text-white text-sm font-inter">Name</label>
+                <input
+                  type="text"
+                  name="fullname"
+                  value={formData.fullname}
+                  onChange={handleChange}
+                  className="w-full border border-white text-white placeholder-white px-3 py-5"
+                  placeholder="Your Name"
+                />
+              </div>
 
-            {/* Check-In Date Input */}
-            <div className="w-full max-w-[400px]">
-              <label className="text-white text-sm font-inter">
-                Select Check-In Date
-              </label>
+              <div className="flex flex-col gap-4 w-full sm:max-w-[400px]">
+                <label className="text-white text-sm font-inter">Email</label>
+                <input
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  className="w-full border border-white text-white placeholder-white px-3 py-5"
+                  placeholder="Your Email"
+                />
+              </div>
 
-              <input
-                type="text"
-                value={formData.checkIn || "Select a Date"}
-                onClick={() => setShowCalendar(!showCalendar)} // Toggle calendar visibility
-                className="w-full border border-white text-white placeholder-white px-3 py-5 cursor-pointer mt-4"
-                readOnly
-                placeholder="Click to select a date"
-              />
-              {showCalendar && (
-                <div className="mt-4">
-                  <Calendar
-                    value={selectedDate}
-                    onChange={handleCheckInDateSelect} // Using handleCheckInDateSelect function to handle date selection
-                    tileClassName={tileClassName}
-                    tileDisabled={tileDisabled}
-                    minDate={new Date()} // Disable past dates
-                    view="month" // Show only one month
-                    className="rounded-lg shadow-md"
-                  />
-                </div>
-              )}
+              <div className="flex flex-col gap-4 w-full sm:max-w-[400px]">
+                <label className="text-white text-sm font-inter">Phone</label>
+                <input
+                  type="tel"
+                  name="phone"
+                  value={formData.phone}
+                  onChange={handleChange}
+                  className="w-full border border-white text-white placeholder-white px-3 py-5"
+                  placeholder="Your Phone Number"
+                />
+              </div>
+
+              {/* Guest Input  */}
+
+              {/* Guests */}
+              <div className="flex flex-col gap-4 w-full sm:max-w-[400px]">
+                <label className="text-white text-sm font-inter">
+                  Number of Guests
+                </label>
+                <input
+                  type="number"
+                  name="guests"
+                  value={formData.guests}
+                  onChange={handleChange}
+                  className="w-full border border-white text-white placeholder-white px-3 py-5"
+                  placeholder="Enter number of guests"
+                />
+              </div>
+
+              {/* Check-In Date Input */}
+              <div className="w-full max-w-[400px]">
+                <label className="text-white text-sm font-inter">
+                  Select Check-In Date
+                </label>
+
+                <input
+                  type="text"
+                  value={formData.checkIn || "Select a Date"}
+                  onClick={() => setShowCalendar(!showCalendar)} // Toggle calendar visibility
+                  className="w-full border border-white text-white placeholder-white px-3 py-5 cursor-pointer mt-4"
+                  readOnly
+                  placeholder="Click to select a date"
+                />
+                {showCalendar && (
+                  <div className="mt-4">
+                    <Calendar
+                      value={selectedDate}
+                      onChange={handleCheckInDateSelect} // Using handleCheckInDateSelect function to handle date selection
+                      tileClassName={tileClassName}
+                      tileDisabled={tileDisabled}
+                      minDate={new Date()} // Disable past dates
+                      view="month" // Show only one month
+                      className="rounded-lg shadow-md"
+                    />
+                  </div>
+                )}
+              </div>
+
+              {/* Check-Out Date Input */}
+              <div className="w-full max-w-[400px]">
+                <label className="text-white text-sm font-inter">
+                  Select Check-Out Date
+                </label>
+
+                <input
+                  type="text"
+                  value={formData.checkOut || "Select a Date"}
+                  onClick={() => setShowCheckOutCalendar(!showCheckOutCalendar)} // Toggle calendar visibility
+                  className="w-full border border-white text-white placeholder-white px-3 py-5 cursor-pointer mt-4"
+                  readOnly
+                  placeholder="Click to select a date"
+                />
+                {showCheckOutCalendar && (
+                  <div className="mt-4">
+                    <Calendar
+                      value={selectedCheckOutDate}
+                      onChange={handleCheckOutDateSelect} // Using handleCheckOutDateSelect function to handle date selection
+                      tileClassName={tileClassName}
+                      tileDisabled={tileDisabled}
+                      minDate={selectedDate || new Date()} // Disable past dates and check-in dates
+                      view="month" // Show only one month
+                      className="rounded-lg shadow-md"
+                    />
+                  </div>
+                )}
+              </div>
+
+              {/* Slot Selection */}
+              <div className="flex flex-col gap-4 w-full sm:max-w-[400px]">
+                <label className="text-white text-sm font-inter">
+                  Preferred Slot
+                </label>
+                <select
+                  name="slot"
+                  value={formData.slot}
+                  onChange={handleChange}
+                  className="w-full border border-white bg-[#205781] text-white px-3 py-5"
+                >
+                  <option value="morning">Morning</option>
+                  <option value="evening">Evening</option>
+                </select>
+              </div>
+
+              {/* Special Request (Notes) */}
+              <div className="flex flex-col gap-4 w-full sm:max-w-[400px]">
+                <label className="text-white text-sm font-inter">
+                  Special Request
+                </label>
+                <textarea
+                  name="request"
+                  value={formData.request}
+                  onChange={handleChange}
+                  className="w-full border border-white text-white placeholder-white px-3 py-5"
+                  placeholder="Any special requests?"
+                />
+              </div>
+
+              {/* Submit Button */}
             </div>
-
-            {/* Check-Out Date Input */}
-            <div className="w-full max-w-[400px]">
-              <label className="text-white text-sm font-inter">
-                Select Check-Out Date
-              </label>
-
-              <input
-                type="text"
-                value={formData.checkOut || "Select a Date"}
-                onClick={() => setShowCheckOutCalendar(!showCheckOutCalendar)} // Toggle calendar visibility
-                className="w-full border border-white text-white placeholder-white px-3 py-5 cursor-pointer mt-4"
-                readOnly
-                placeholder="Click to select a date"
-              />
-              {showCheckOutCalendar && (
-                <div className="mt-4">
-                  <Calendar
-                    value={selectedCheckOutDate}
-                    onChange={handleCheckOutDateSelect} // Using handleCheckOutDateSelect function to handle date selection
-                    tileClassName={tileClassName}
-                    tileDisabled={tileDisabled}
-                    minDate={selectedDate || new Date()} // Disable past dates and check-in dates
-                    view="month" // Show only one month
-                    className="rounded-lg shadow-md"
-                  />
-                </div>
-              )}
-            </div>
-
-            {/* Slot Selection */}
-            <div className="flex flex-col gap-4 w-full sm:max-w-[400px]">
-              <label className="text-white text-sm font-inter">
-                Preferred Slot
-              </label>
-              <select
-                name="slot"
-                value={formData.slot}
-                onChange={handleChange}
-                className="w-full border border-white text-white placeholder-white px-3 py-5"
-              >
-                <option value="" disabled>
-                  Select Slot
-                </option>
-                <option value="morning">Morning</option>
-                <option value="evening">Evening</option>
-              </select>
-            </div>
-            {/* Guests */}
-            <div className="flex flex-col gap-4 w-full sm:max-w-[400px]">
-              <label className="text-white text-sm font-inter">
-                Number of Guests
-              </label>
-              <select
-                name="guests"
-                value={formData.guests}
-                onChange={handleChange}
-                className="w-full border border-white text-white px-3 py-5"
-              >
-                <option value="1">1 Guest</option>
-                <option value="2">2 Guests</option>
-                <option value="3">3 Guests</option>
-                <option value="4">4 Guests</option>
-                <option value="5">5 Guests</option>
-                <option value="6">6 Guests</option>
-                <option value="7">7 Guests</option>
-                <option value="8">8 Guests</option>
-              </select>
-            </div>
-
-            {/* Other Inputs */}
-            <div className="flex flex-col gap-4 w-full sm:max-w-[400px]">
-              <label className="text-white text-sm font-inter">Name</label>
-              <input
-                type="text"
-                name="fullname"
-                value={formData.fullname}
-                onChange={handleChange}
-                className="w-full border border-white text-white placeholder-white px-3 py-5"
-                placeholder="Your Name"
-              />
-            </div>
-
-            <div className="flex flex-col gap-4 w-full sm:max-w-[400px]">
-              <label className="text-white text-sm font-inter">Email</label>
-              <input
-                type="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                className="w-full border border-white text-white placeholder-white px-3 py-5"
-                placeholder="Your Email"
-              />
-            </div>
-
-            <div className="flex flex-col gap-4 w-full sm:max-w-[400px]">
-              <label className="text-white text-sm font-inter">Phone</label>
-              <input
-                type="tel"
-                name="phone"
-                value={formData.phone}
-                onChange={handleChange}
-                className="w-full border border-white text-white placeholder-white px-3 py-5"
-                placeholder="Your Phone Number"
-              />
-            </div>
-            {/* Special Request (Notes) */}
-            <div className="flex flex-col gap-4 w-full sm:max-w-[400px]">
-              <label className="text-white text-sm font-inter">
-                Special Request
-              </label>
-              <textarea
-                name="request"
-                value={formData.request}
-                onChange={handleChange}
-                className="w-full border border-white text-white placeholder-white px-3 py-5"
-                placeholder="Any special requests?"
-              />
-            </div>
-
-            {/* Submit Button */}
             <button
               onClick={handleSubmit}
               className="w-full sm:max-w-[400px] px-6 py-4 bg-[#205781] text-white text-lg font-inter rounded-lg"
             >
               Book Now
             </button>
+          </div>
+        </div>
+
+        {/* Footer */}
+        <div className="w-full h-[500px] md:h-[350px] mt-10 md:mt-20">
+          <hr className="hidden md:block w-full border-[1px] border-white" />
+
+          <div className="w-full h-full flex flex-col-reverse md:flex-row justify-center items-center gap-3 ">
+            {/* Logo  */}
+            <div className="w-full h-fit flex flex-col justify-center items-center gap-3 mt-10 md:mt-0">
+              <Image
+                className="w-[150px] h-fit object-cover"
+                src={Logo}
+                alt="explore_background"
+              />
+
+              <h6 className="font-inter font-extralight text-[#FFFFFF] text-[10px]">
+                Copyright © River Ranch.
+              </h6>
+            </div>
+
+            {/* line  */}
+            <div className="hidden md:block border border-white h-full"></div>
+
+            {/* contacts  */}
+            <div className="w-full h-fit flex flex-col justify-center items-center gap-3">
+              <h6 className="font-inter text-center text-[#FFFFFF] text-[12px]">
+                CMG8+M5J <br />
+                Shrirangapattana <br />
+                Karnataka 571427
+              </h6>
+
+              <h6 className="font-inter text-center text-[#FFFFFF] text-[12px]">
+                Riverranch.com
+              </h6>
+
+              <h6 className="font-inter text-center text-[#FFFFFF] text-[12px]">
+                +91 9686985795
+              </h6>
+            </div>
           </div>
         </div>
       </div>
