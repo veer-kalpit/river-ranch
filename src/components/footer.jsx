@@ -314,7 +314,7 @@ const tileDisabled = ({ date, view }) => {
                 />
               </div>
               <div>
-                <label className="text-white text-sm font-inter">
+                <label className="text-white text-sm font-inter flex flex-col">
                   Select Check-In Date
                 </label>
                 <input
@@ -337,7 +337,7 @@ const tileDisabled = ({ date, view }) => {
                   </div>
                 )}
               </div>
-             
+
               <div className="flex flex-col gap-4">
                 <label className="text-white text-sm font-inter">
                   Preferred Slot
@@ -353,27 +353,27 @@ const tileDisabled = ({ date, view }) => {
                   <option value="evening">Evening</option>
                 </select>
               </div>
-              <div className="flex flex-col gap-4">
-                <label className="text-white text-sm font-inter">
-                  Special Request
-                </label>
-                <textarea
-                  name="request"
-                  value={formData.request}
-                  onChange={handleChange}
-                  className="border border-white text-white placeholder-white px-3 py-5"
-                  placeholder="Any special requests?"
-                />
-              </div>
 
               {/* Submit Button */}
-              <button
-                onClick={handleSubmit}
-                className="w-full sm:max-w-[665px] h-fit font-inter bg-white text-[#205781] text-sm flex justify-center items-center py-4 rounded-full cursor-pointer hover:bg-white/40 hover:text-white transition-all duration-300 ease-in-out mt-5"
-              >
-                BOOK NOW
-              </button>
             </div>
+            <div className="flex flex-col gap-4 w-full mt-4">
+              <label className="text-white text-sm font-inter ">
+                Special Request
+              </label>
+              <textarea
+                name="request"
+                value={formData.request}
+                onChange={handleChange}
+                className="border w-full border-white text-white placeholder-white px-3 py-5"
+                placeholder="Any special requests?"
+              />
+            </div>
+            <button
+              onClick={handleSubmit}
+              className="w-full sm:max-w-[665px] h-fit font-inter bg-white text-[#205781] text-sm flex justify-center items-center py-4 rounded-full cursor-pointer hover:bg-white/40 hover:text-white transition-all duration-300 ease-in-out mt-5"
+            >
+              BOOK NOW
+            </button>
 
             {/* Pricing Modal */}
             {showPricingModal && (
@@ -398,7 +398,7 @@ const tileDisabled = ({ date, view }) => {
               <h6 className="font-inter font-extralight text-[#FFFFFF] text-[10px]">
                 Copyright © River Ranch.
               </h6>
-      </div>
+            </div>
 
             {/* line  */}
             <div className="hidden md:block border border-white h-full"></div>
