@@ -7,7 +7,6 @@ interface BookingData {
   email: string;
   phone: string;
   checkIn: string;
-  checkOut: string;
   guests: number;
   slot: "morning" | "evening";
 }
@@ -18,12 +17,11 @@ const validateBooking = (body: BookingData) => {
     !body.email ||
     !body.phone ||
     !body.checkIn ||
-    !body.checkOut ||
     !body.guests ||
     !body.slot
   ) {
     throw new Error(
-      "Missing required fields: fullname, email, phone, checkIn, checkOut, guests, slot."
+      "Missing required fields: fullname, email, phone, checkIn, guests, slot."
     );
   }
 
@@ -32,15 +30,12 @@ const validateBooking = (body: BookingData) => {
   }
 
   const checkInDate = new Date(body.checkIn);
-  const checkOutDate = new Date(body.checkOut);
 
-  if (isNaN(checkInDate.getTime()) || isNaN(checkOutDate.getTime())) {
-    throw new Error("Invalid check-in or check-out date format.");
+  if (isNaN(checkInDate.getTime())) {
+    throw new Error("Invalid check-in date format.");
   }
 
-  if (checkInDate >= checkOutDate) {
-    throw new Error("Check-out date must be after check-in date.");
-  }
+ 
 };
 
 export async function GET() {
@@ -65,9 +60,37 @@ export async function POST(req: NextRequest) {
 
     validateBooking(body);
 
+    const checkInDate = new Date(body.checkIn);
+    const startOfDay = new Date(checkInDate.setHours(0, 0, 0, 0));
+    const endOfDay = new Date(checkInDate.setHours(23, 59, 59, 999));
+
+    // Get bookings on the same day
+    const existingBookings = await Booking.find({
+      checkIn: { $gte: startOfDay, $lte: endOfDay },
+    });
+
+    const slotsBooked = existingBookings.map((b: { slot: string }) => b.slot);
+
+    if (slotsBooked.includes("morning") && slotsBooked.includes("evening")) {
+      return NextResponse.json(
+        {
+          error:
+            "Both morning and evening slots are already booked for this date.",
+        },
+        { status: 400 }
+      );
+    }
+
+    if (slotsBooked.includes(body.slot.toLowerCase())) {
+      return NextResponse.json(
+        { error: `The ${body.slot} slot is already booked for this date.` },
+        { status: 400 }
+      );
+    }
+
     const booking = await Booking.create({
       ...body,
-      slot: body.slot.toLowerCase(), // normalize
+      slot: body.slot.toLowerCase(),
     });
 
     return NextResponse.json(booking, { status: 201 });
@@ -77,3 +100,4 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: errorMessage }, { status: 400 });
   }
 }
+

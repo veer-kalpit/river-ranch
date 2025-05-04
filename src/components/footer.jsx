@@ -20,15 +20,12 @@ const Footer = forwardRef((props, ref) => {
     email: "",
     phone: "",
     checkIn: "",
-    checkOut: "",
     guests: "",
     request: "",
     slot: "",
   });
   const [selectedDate, setSelectedDate] = useState(null);
-  const [selectedCheckOutDate, setSelectedCheckOutDate] = useState(null);
   const [showCalendar, setShowCalendar] = useState(false);
-  const [showCheckOutCalendar, setShowCheckOutCalendar] = useState(false);
   const [showPricingModal, setShowPricingModal] = useState(false);
 
   const togglePricingModal = () => {
@@ -61,44 +58,54 @@ const fetchBookings = () => {
   };
 
 const tileClassName = ({ date, view }) => {
-  if (view !== "month") return "";
+  if (view === "month") {
+    const today = new Date(new Date().toDateString());
+    if (date < today) return "bg-gray-300 text-gray-500 rounded-full"; // Disabled style
 
-  const dateISO = date.toISOString().split("T")[0]; // Getting the date in YYYY-MM-DD format
-  console.log("Checking date:", dateISO); // Log the date being checked
+    const dateString = date.toLocaleDateString("en-CA");
+    const bookingsOnDate = bookings.filter(
+      (b) =>
+        new Date(b.checkIn).toLocaleDateString("en-CA") === dateString
+    );
 
-  // Get all bookings for this date
-  const dayBookings = bookings.filter((booking) => booking.date === dateISO);
-  console.log("Bookings for this date:", dayBookings); // Log the bookings for this date
+    const hasMorningSlot = bookingsOnDate.some(
+      (b) => b.slot === "morning"
+    );
+    const hasEveningSlot = bookingsOnDate.some(
+      (b) => b.slot === "evening"
+    );
 
-  const hasMorning = dayBookings.some((booking) => booking.slot === "morning");
-  const hasEvening = dayBookings.some((booking) => booking.slot === "evening");
-
-  // Check if both morning and evening slots are booked
-  if (hasMorning && hasEvening) return "fully-booked-date";
-  if (hasMorning) return "morning-booked-date";
-  if (hasEvening) return "evening-booked-date";
-
-  // If no slots are booked, mark the date as available
-  return "available-date";
+    if (hasMorningSlot && hasEveningSlot) {
+      return "bg-both-booked rounded-full";
+    } else if (hasMorningSlot) {
+      return "bg-morning-booked rounded-full";
+    } else if (hasEveningSlot) {
+      return "bg-evening-booked rounded-full";
+    } else {
+      return "bg-available rounded-full"; // Only if date is today or in future
+    }
+  }
 };
 
 
 
- const tileDisabled = ({ date, view }) => {
+const tileDisabled = ({ date, view }) => {
   if (view !== "month") return false;
 
-  const dateISO = date.toISOString().split("T")[0];
-  console.log('Checking if date is fully booked:', dateISO); // Log the date being checked
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  if (date < today) return true; // Disable past dates
 
+  const dateISO = date.toISOString().split("T")[0];
   const slots = bookings
     .filter((booking) => booking.date === dateISO)
     .map((booking) => booking.slot);
 
   const isFullyBooked = slots.includes("morning") && slots.includes("evening");
-  console.log('Fully booked:', isFullyBooked); // Log if it's fully booked
 
   return isFullyBooked;
 };
+
 
 
 
@@ -118,21 +125,11 @@ const tileClassName = ({ date, view }) => {
     setShowCalendar(false);
   };
 
-  const handleCheckOutDateSelect = (date) => {
-    const localDate = new Date(date);
-    localDate.setHours(12, 0, 0, 0);
-    setSelectedCheckOutDate(localDate);
-    setFormData({
-      ...formData,
-      checkOut: localDate.toISOString().split("T")[0],
-    });
-    setShowCheckOutCalendar(false);
-  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const { fullname, email, phone, checkIn, checkOut, guests, slot } =
+    const { fullname, email, phone, checkIn, guests, slot } =
       formData;
 
     if (
@@ -140,7 +137,6 @@ const tileClassName = ({ date, view }) => {
       !email ||
       !phone ||
       !checkIn ||
-      !checkOut ||
       !guests ||
       !slot
     ) {
@@ -154,7 +150,6 @@ const tileClassName = ({ date, view }) => {
       phone,
       date: checkIn,
       checkIn,
-      checkOut,
       guests: Number(guests),
       slot,
     };
@@ -168,13 +163,11 @@ const tileClassName = ({ date, view }) => {
           email: "",
           phone: "",
           checkIn: "",
-          checkOut: "",
           guests: "",
           request: "",
           slot: "",
         });
         setSelectedDate(null);
-        setSelectedCheckOutDate(null);
         fetchBookings();
       })
       .catch((error) => {
@@ -344,28 +337,7 @@ const tileClassName = ({ date, view }) => {
                   </div>
                 )}
               </div>
-              <div>
-                <label className="text-white text-sm font-inter">
-                  Select Check-Out Date
-                </label>
-                <input
-                  type="text"
-                  value={formData.checkOut || "Select a Date"}
-                  onClick={() => setShowCheckOutCalendar(!showCheckOutCalendar)}
-                  className="border border-white text-white placeholder-white px-3 py-5 cursor-pointer mt-4"
-                  readOnly
-                />
-                {showCheckOutCalendar && (
-                  <div className="mt-4">
-                    <Calendar
-                      value={selectedCheckOutDate}
-                      onChange={handleCheckOutDateSelect}
-                      minDate={selectedDate || new Date()}
-                      className="rounded-lg shadow-md"
-                    />
-                  </div>
-                )}
-              </div>
+             
               <div className="flex flex-col gap-4">
                 <label className="text-white text-sm font-inter">
                   Preferred Slot

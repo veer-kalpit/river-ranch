@@ -6,7 +6,6 @@ const BookingSchema = new Schema(
     email: { type: String, required: true },
     phone: { type: String, required: true },
     checkIn: { type: Date, required: true },
-    checkOut: { type: Date, required: true },
     guests: { type: Number, required: true },
     slot: {
       type: String,

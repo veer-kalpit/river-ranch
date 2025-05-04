@@ -7,6 +7,7 @@ import logo from "../../../public/logo.png";
 import { useEffect, useState } from "react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
+import Modal from "./Model"; // Import the Modal component
 
 const USERNAME = "admin";
 const PASSWORD = "admin123";
@@ -15,6 +16,7 @@ export default function AdminDashboard() {
   const [auth, setAuth] = useState(false);
   const [login, setLogin] = useState({ username: "", password: "" });
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+  const [showBookingForm, setShowBookingForm] = useState(false); // Track visibility of the booking form
 
   const [form, setForm] = useState({
     fullname: "",
@@ -22,7 +24,6 @@ export default function AdminDashboard() {
     phone: "",
     date: "",
     checkIn: "",
-    checkOut: "",
     slot: "",
     guests: 1,
     status: "booked",
@@ -92,7 +93,6 @@ export default function AdminDashboard() {
       phone: "",
       date: "",
       checkIn: "",
-      checkOut: "",
       slot: "",
       guests: 1,
       status: "booked",
@@ -106,43 +106,44 @@ export default function AdminDashboard() {
     phone: string;
     date: string;
     checkIn: string;
-    checkOut: string;
     slot: string;
     guests: number;
     status: string;
   };
 
-  // Removed unused 'bookedDates' variable
-
   const selectedBookings = bookings.filter(
     (b: Booking) =>
       selectedDate &&
-      new Date(b.checkIn).toISOString().split("T")[0] ===
-        selectedDate.toISOString().split("T")[0]
+      new Date(b.checkIn).toLocaleDateString("en-CA") ===
+        selectedDate.toLocaleDateString("en-CA")
   );
 
   const tileClassName = ({ date, view }: { date: Date; view: string }) => {
     if (view === "month") {
-      const dateString = date.toISOString().split("T")[0]; // Format date as YYYY-MM-DD
+      const today = new Date(new Date().toDateString());
+      if (date < today) return "bg-gray-300 text-gray-500 rounded-full"; // Disabled style
+
+      const dateString = date.toLocaleDateString("en-CA");
       const bookingsOnDate = bookings.filter(
         (b: Booking) =>
-          new Date(b.checkIn).toISOString().split("T")[0] === dateString
+          new Date(b.checkIn).toLocaleDateString("en-CA") === dateString
       );
 
-      // Check if the date has a booking and determine the status based on the slot
-      const hasMorningSlot = bookingsOnDate.some((b: Booking) => b.slot === "morning");
-      console.log(hasMorningSlot);
-      const hasEveningSlot = bookingsOnDate.some((b: Booking) => b.slot === "evening");
+      const hasMorningSlot = bookingsOnDate.some(
+        (b: Booking) => b.slot === "morning"
+      );
+      const hasEveningSlot = bookingsOnDate.some(
+        (b: Booking) => b.slot === "evening"
+      );
 
-      // Apply different background colors based on the slot status
       if (hasMorningSlot && hasEveningSlot) {
-        return "bg-both-booked rounded-full"; // Both slots booked
+        return "bg-both-booked rounded-full";
       } else if (hasMorningSlot) {
-        return "bg-morning-booked rounded-full"; // Morning slot booked
+        return "bg-morning-booked rounded-full";
       } else if (hasEveningSlot) {
-        return "bg-evening-booked rounded-full"; // Evening slot booked
+        return "bg-evening-booked rounded-full";
       } else {
-        return "bg-available rounded-full"; // Available slot
+        return "bg-available rounded-full"; // Only if date is today or in future
       }
     }
   };
@@ -189,17 +190,24 @@ export default function AdminDashboard() {
     <div className="p-6 max-w-4xl mx-auto">
       <div className="flex justify-between items-center mb-4">
         <h1 className="text-2xl font-bold">Restaurant Admin Dashboard</h1>
-        <button
-          onClick={logout}
-          className="text-sm text-red-600 underline hover:text-red-800"
-        >
-          Logout
-        </button>
+        <div className="space-x-10">
+          <button
+            onClick={() => setShowBookingForm((prev) => !prev)} // Toggle form visibility
+            className="text-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 px-4 py-2 rounded-md shadow-md transition duration-300 ease-in-out transform hover:scale-105"
+          >
+            Create Booking
+          </button>
+          <button
+            onClick={logout}
+            className="text-sm text-red-600 underline hover:text-red-800"
+          >
+            Logout
+          </button>
+        </div>
       </div>
 
       {/* Calendar */}
-      <div className="mb-6">
-        <h2 className="text-lg font-semibold mb-2">Booking Calendar</h2>
+      <div className="mb-6 flex flex-row items-center gap-4">
         <Calendar
           onChange={(value) =>
             setSelectedDate(value instanceof Date ? value : null)
@@ -207,14 +215,30 @@ export default function AdminDashboard() {
           value={selectedDate}
           tileClassName={tileClassName}
         />
+
+        <div className="flex flex-col gap-2 mt-10">
+          <p className="bg-morning-booked p-2 rounded text-white">
+            Orange - Morning Booking
+          </p>
+          <p className="bg-evening-booked p-2 rounded text-white">
+            Blue - Evening Booking
+          </p>
+          <p className="bg-both-booked p-2 rounded text-white">
+            Red - Both Slots Booked
+          </p>
+          <p className="bg-available p-2 rounded text-black">
+            Green - Available Slot
+          </p>
+        </div>
       </div>
 
       {/* Selected Bookings */}
       {selectedDate && (
         <div className="mb-6 p-4 border rounded bg-gray-50">
           <h3 className="font-bold mb-2">
-            Bookings on {selectedDate.toLocaleDateString("en-GB")}
+            Bookings on {selectedDate.toLocaleDateString("en-CA")}
           </h3>
+
           {selectedBookings.length === 0 ? (
             <p>No bookings on this date.</p>
           ) : (
@@ -248,12 +272,12 @@ export default function AdminDashboard() {
                           phone: b.phone,
                           date: b.date,
                           checkIn: b.checkIn?.split("T")[0] || "",
-                          checkOut: b.checkOut?.split("T")[0] || "",
                           slot: b.slot,
                           guests: b.guests,
                           status: b.status,
                         });
                         setEditing(b._id);
+                        setShowBookingForm((prev) => !prev);
                       }}
                     >
                       Edit
@@ -272,64 +296,62 @@ export default function AdminDashboard() {
         </div>
       )}
 
-      {/* Booking Form */}
-      <div className="p-4 space-y-3 border border-gray-200 rounded mb-6 bg-gray-50">
-        <input
-          className="w-full px-3 py-2 border rounded"
-          placeholder="Full Name"
-          value={form.fullname}
-          onChange={(e) => setForm({ ...form, fullname: e.target.value })}
-        />
-        <input
-          className="w-full px-3 py-2 border rounded"
-          placeholder="Email"
-          value={form.email}
-          onChange={(e) => setForm({ ...form, email: e.target.value })}
-        />
-        <input
-          className="w-full px-3 py-2 border rounded"
-          placeholder="Phone"
-          value={form.phone}
-          onChange={(e) => setForm({ ...form, phone: e.target.value })}
-        />
-        <input
-          type="date"
-          className="w-full px-3 py-2 border rounded"
-          placeholder="Check-In"
-          value={form.checkIn}
-          onChange={(e) => setForm({ ...form, checkIn: e.target.value })}
-        />
-        <input
-          type="date"
-          className="w-full px-3 py-2 border rounded"
-          placeholder="Check-Out"
-          value={form.checkOut}
-          onChange={(e) => setForm({ ...form, checkOut: e.target.value })}
-        />
-        <select
-          className="w-full px-3 py-2 border rounded"
-          value={form.slot}
-          onChange={(e) => setForm({ ...form, slot: e.target.value })}
-        >
-          <option value="">Select Slot</option>
-          <option value="morning">Morning</option>
-          <option value="evening">Evening</option>
-        </select>
-        <input
-          type="number"
-          min={1}
-          className="w-full px-3 py-2 border rounded"
-          value={form.guests}
-          onChange={(e) => setForm({ ...form, guests: Number(e.target.value) })}
-        />
-        <button
-          className="w-full py-2 text-white bg-blue-600 rounded"
-          onClick={handleSubmit}
-         
-        >
-          {editing ? "Update Booking" : "Create Booking"}
-        </button>
-      </div>
+      {/* Modal for Booking Form */}
+      <Modal isOpen={showBookingForm} onClose={() => setShowBookingForm(false)}>
+        <div className="p-4 space-y-3">
+          <h3 className="text-lg font-bold">Booking Form</h3>
+          <input
+            className="w-full px-3 py-2 border rounded"
+            placeholder="Full Name"
+            value={form.fullname}
+            onChange={(e) => setForm({ ...form, fullname: e.target.value })}
+          />
+          <input
+            className="w-full px-3 py-2 border rounded"
+            placeholder="Email"
+            value={form.email}
+            onChange={(e) => setForm({ ...form, email: e.target.value })}
+          />
+          <input
+            className="w-full px-3 py-2 border rounded"
+            placeholder="Phone"
+            value={form.phone}
+            onChange={(e) => setForm({ ...form, phone: e.target.value })}
+          />
+          <input
+            type="date"
+            className="w-full px-3 py-2 border rounded"
+            placeholder="Check-In"
+            value={form.checkIn}
+            onChange={(e) => setForm({ ...form, checkIn: e.target.value })}
+          />
+
+          <select
+            className="w-full px-3 py-2 border rounded"
+            value={form.slot}
+            onChange={(e) => setForm({ ...form, slot: e.target.value })}
+          >
+            <option value="">Select Slot</option>
+            <option value="morning">Morning</option>
+            <option value="evening">Evening</option>
+          </select>
+          <input
+            type="number"
+            min={1}
+            className="w-full px-3 py-2 border rounded"
+            value={form.guests}
+            onChange={(e) =>
+              setForm({ ...form, guests: Number(e.target.value) })
+            }
+          />
+          <button
+            className="w-full py-2 text-white bg-blue-600 rounded"
+            onClick={handleSubmit}
+          >
+            {editing ? "Update Booking" : "Create Booking"}
+          </button>
+        </div>
+      </Modal>
 
       {/* Booking List */}
       <div className="space-y-4">
@@ -342,24 +364,14 @@ export default function AdminDashboard() {
               fullname: string;
               email: string;
               phone: string;
-              date: string;
               checkIn: string;
-              checkOut: string;
-              slot: string;
               guests: number;
-              status: string;
-              bookingDate: string; // Include bookingDate here
             }) => (
               <div
                 key={b._id}
-                className="p-4 flex justify-between items-center border rounded bg-white shadow-sm"
+                className="flex justify-between p-4 border rounded bg-gray-100"
               >
                 <div>
-                  <p>
-                    <strong>Booking Date:</strong>{" "}
-                    {new Date(b.bookingDate).toLocaleDateString("en-GB")}
-                  </p>
-                  
                   <p>
                     <strong>Name:</strong> {b.fullname}
                   </p>
@@ -374,48 +386,15 @@ export default function AdminDashboard() {
                   </p>
                   <p>
                     <strong>Check-In:</strong>{" "}
-                    {b.checkIn &&
-                      new Date(b.checkIn).toLocaleDateString("en-GB")}
+                    {new Date(b.checkIn).toLocaleDateString()}
                   </p>
-                  <p>
-                    <strong>Check-Out:</strong>{" "}
-                    {b.checkOut &&
-                      new Date(b.checkOut).toLocaleDateString("en-GB")}
-                  </p>
-                  <p>
-                    <strong>Slot:</strong> {b.slot}
-                  </p>
-                  
                 </div>
-                <div className="space-x-2">
-                  <button
-                    className="px-3 py-1 border rounded hover:bg-gray-100"
-                    onClick={() => {
-                      setForm({
-                        fullname: b.fullname,
-                        email: b.email,
-                        phone: b.phone,
-                        date: b.bookingDate
-                          ? new Date(b.bookingDate).toISOString().split("T")[0]
-                          : "", 
-                        checkIn: b.checkIn ? b.checkIn.split("T")[0] : "", // Ensure proper date format
-                        checkOut: b.checkOut ? b.checkOut.split("T")[0] : "", // Ensure proper date format
-                        slot: b.slot || "",
-                        guests: b.guests,
-                        status: b.status,
-                      });
-                      setEditing(b._id);
-                    }}
-                  >
-                    Edit
-                  </button>
-                  <button
-                    className="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600"
-                    onClick={() => deleteBooking.mutate(b._id)}
-                  >
-                    Delete
-                  </button>
-                </div>
+                <button
+                  className="text-sm text-red-600 underline"
+                  onClick={() => deleteBooking.mutate(b._id)}
+                >
+                  Delete
+                </button>
               </div>
             )
           )
