@@ -23,94 +23,112 @@ const Footer = forwardRef((props, ref) => {
     checkOut: "",
     guests: "",
     request: "",
-    slot: "", // Added slot field
+    slot: "",
   });
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedCheckOutDate, setSelectedCheckOutDate] = useState(null);
-  const [showCalendar, setShowCalendar] = useState(false); // State to show calendar for checkIn
-  const [showCheckOutCalendar, setShowCheckOutCalendar] = useState(false); // State to show calendar for checkOut
+  const [showCalendar, setShowCalendar] = useState(false);
+  const [showCheckOutCalendar, setShowCheckOutCalendar] = useState(false);
   const [showPricingModal, setShowPricingModal] = useState(false);
 
   const togglePricingModal = () => {
     setShowPricingModal(!showPricingModal);
   };
 
-  // Create reusable fetch function
-  const fetchBookings = () => {
-    axios
-      .get("/api/bookings")
-      .then((response) => {
-        setBookings(response.data);
-      })
-      .catch((error) => console.error("Error fetching bookings:", error));
+  const closePricingModal = () => {
+    setShowPricingModal(false);
   };
 
-  // useEffect on mount
+const fetchBookings = () => {
+  axios
+    .get("/api/bookings")
+    .then((response) => {
+      console.log("Bookings data:", response.data); // Log the response data
+      setBookings(response.data);
+    })
+    .catch((error) => console.error("Error fetching bookings:", error));
+};
+
+
   useEffect(() => {
     fetchBookings();
   }, []);
 
-  // Check if the selected date is available
   const isDateAvailable = (date) => {
     return !bookings.some(
       (booking) => new Date(booking.date).toDateString() === date.toDateString()
     );
   };
 
-  // Assign class for tile based on availability
-  const tileClassName = ({ date, view }) => {
-    if (view === "month") {
-      // Cross out past dates
-      if (date < new Date()) {
-        return "past-date"; // Apply a CSS class to cross out past dates
-      }
-      return isDateAvailable(date) ? "available-date" : "booked-date";
-    }
-    return "";
-  };
+const tileClassName = ({ date, view }) => {
+  if (view !== "month") return "";
 
-  // Disable selection of booked dates
-  const tileDisabled = ({ date, view }) => {
-    return view === "month" && !isDateAvailable(date);
-  };
+  const dateISO = date.toISOString().split("T")[0]; // Getting the date in YYYY-MM-DD format
+  console.log("Checking date:", dateISO); // Log the date being checked
 
-  // Handle input changes
+  // Get all bookings for this date
+  const dayBookings = bookings.filter((booking) => booking.date === dateISO);
+  console.log("Bookings for this date:", dayBookings); // Log the bookings for this date
+
+  const hasMorning = dayBookings.some((booking) => booking.slot === "morning");
+  const hasEvening = dayBookings.some((booking) => booking.slot === "evening");
+
+  // Check if both morning and evening slots are booked
+  if (hasMorning && hasEvening) return "fully-booked-date";
+  if (hasMorning) return "morning-booked-date";
+  if (hasEvening) return "evening-booked-date";
+
+  // If no slots are booked, mark the date as available
+  return "available-date";
+};
+
+
+
+ const tileDisabled = ({ date, view }) => {
+  if (view !== "month") return false;
+
+  const dateISO = date.toISOString().split("T")[0];
+  console.log('Checking if date is fully booked:', dateISO); // Log the date being checked
+
+  const slots = bookings
+    .filter((booking) => booking.date === dateISO)
+    .map((booking) => booking.slot);
+
+  const isFullyBooked = slots.includes("morning") && slots.includes("evening");
+  console.log('Fully booked:', isFullyBooked); // Log if it's fully booked
+
+  return isFullyBooked;
+};
+
+
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // Handle check-in date selection
   const handleCheckInDateSelect = (date) => {
     const localDate = new Date(date);
-    localDate.setHours(12, 0, 0, 0); // Set the time to noon to avoid timezone issues
+    localDate.setHours(12, 0, 0, 0);
     setSelectedDate(localDate);
 
     setFormData({
       ...formData,
-      checkIn: localDate.toISOString().split("T")[0], // Save only the date part (YYYY-MM-DD)
+      checkIn: localDate.toISOString().split("T")[0],
     });
-    setShowCalendar(false); // Close calendar on date select
+    setShowCalendar(false);
   };
 
-
-  
-  const closePricingModal = () => {
-    setShowPricingModal(false); // Function to close the modal
-  };
-  
-  // Handle check-out date selection
   const handleCheckOutDateSelect = (date) => {
     const localDate = new Date(date);
     localDate.setHours(12, 0, 0, 0);
     setSelectedCheckOutDate(localDate);
     setFormData({
       ...formData,
-      checkOut: localDate.toISOString().split("T")[0], // Save only the date part (YYYY-MM-DD)
+      checkOut: localDate.toISOString().split("T")[0],
     });
-    setShowCheckOutCalendar(false); // Close calendar for checkOut on date select
+    setShowCheckOutCalendar(false);
   };
 
-  // Submit booking
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -134,7 +152,7 @@ const Footer = forwardRef((props, ref) => {
       fullname,
       email,
       phone,
-      date: checkIn, // Use checkIn as date (or combine checkIn and checkOut if needed)
+      date: checkIn,
       checkIn,
       checkOut,
       guests: Number(guests),
@@ -153,11 +171,11 @@ const Footer = forwardRef((props, ref) => {
           checkOut: "",
           guests: "",
           request: "",
-          slot: "", // Reset slot after submission
+          slot: "",
         });
         setSelectedDate(null);
         setSelectedCheckOutDate(null);
-        fetchBookings(); // Refetch bookings to update the list
+        fetchBookings();
       })
       .catch((error) => {
         console.error("Error creating booking:", error);
@@ -167,8 +185,7 @@ const Footer = forwardRef((props, ref) => {
 
   return (
     <section ref={ref} id="contact" className="z-[50] relative">
-      <div className="w-screen h-fit min-h-screen bg-[#205781] overflow-hidden relative ">
-        {/* headings  */}
+      <div className="w-screen h-fit min-h-screen bg-[#205781] overflow-hidden relative">
         <div className="w-fit h-fit text-center space-y-3 mx-auto mt-10">
           <h6 className="font-inter font-extralight text-[#FFFFFF] text-[12px] tracking-[3.5px]">
             GET IN TOUCH WITH US
@@ -178,19 +195,16 @@ const Footer = forwardRef((props, ref) => {
           </h1>
         </div>
 
-        {/* socialization  */}
         <div className="w-full h-fit flex flex-col-reverse lg:flex-row gap-20 mt-10 md:mt-20 mx-auto px-5 lg:px-30">
-          {/* social links  */}
+          {/* Contact Info */}
           <div className="w-full h-fit space-y-8">
             <h1 className="font-cormorant text-white text-2xl">
               Contact Information
             </h1>
-
-            <div className="w-fit h-fit space-y-8">
-              <div className="w-fit h-fit flex justify-center items-start gap-3">
+            <div className="space-y-8">
+              <div className="flex gap-3 items-start">
                 <MapPin size={16} color="white" className="mt-1.5" />
-
-                <div className="w-fit h-fit ">
+                <div>
                   <h1 className="font-cormorant text-white text-xl">
                     Location
                   </h1>
@@ -199,21 +213,18 @@ const Footer = forwardRef((props, ref) => {
                   </h1>
                 </div>
               </div>
-
-              <div className="w-fit h-fit flex justify-center items-start gap-3">
+              <div className="flex gap-3 items-start">
                 <Phone size={16} color="white" className="mt-1.5" />
-
-                <div className="w-fit h-fit ">
+                <div>
                   <h1 className="font-cormorant text-white text-xl">Phone</h1>
                   <h1 className="font-inter text-white text-sm">
                     +91 9686985795
                   </h1>
                 </div>
               </div>
-              <div className="w-fit h-fit flex justify-center items-start gap-3">
+              <div className="flex gap-3 items-start">
                 <Clock5 size={16} color="white" className="mt-1.5" />
-
-                <div className="w-fit h-fit ">
+                <div>
                   <h1 className="font-cormorant text-white text-xl">
                     Booking hours
                   </h1>
@@ -222,15 +233,13 @@ const Footer = forwardRef((props, ref) => {
                   </h1>
                 </div>
               </div>
-
-              <div className="w-fit h-fit">
+              <div>
                 <h1 className="font-cormorant text-white text-xl">
                   Contact Us
                 </h1>
-
-                <div className="w-fit h-fit flex items-center gap-3 mt-3">
+                <div className="flex gap-3 mt-3">
                   <a href="tel:+919686985795">
-                    <div className="w-10 aspect-square rounded-full bg-[#FFFFFF4D] flex justify-center items-center cursor-pointer">
+                    <div className="w-10 aspect-square rounded-full bg-[#FFFFFF4D] flex justify-center items-center">
                       <Phone size={16} color="white" />
                     </div>
                   </a>
@@ -239,7 +248,7 @@ const Footer = forwardRef((props, ref) => {
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    <div className="w-10 aspect-square rounded-full bg-[#FFFFFF4D] flex justify-center items-center cursor-pointer">
+                    <div className="w-10 aspect-square rounded-full bg-[#FFFFFF4D] flex justify-center items-center">
                       <MessageCircleMore size={16} color="white" />
                     </div>
                   </a>
@@ -248,7 +257,7 @@ const Footer = forwardRef((props, ref) => {
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    <div className="w-10 aspect-square rounded-full bg-[#FFFFFF4D] flex justify-center items-center cursor-pointer">
+                    <div className="w-10 aspect-square rounded-full bg-[#FFFFFF4D] flex justify-center items-center">
                       <Instagram size={16} color="white" />
                     </div>
                   </a>
@@ -257,54 +266,47 @@ const Footer = forwardRef((props, ref) => {
             </div>
           </div>
 
-          {/* Booking form */}
-
+          {/* Booking Form */}
           <div className="w-full">
             <h1 className="font-cormorant text-white text-2xl mb-5">
               Request a Booking
             </h1>
-            <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-6">
-              {/* Name Input */}
-              <div className="flex flex-col gap-4 w-full sm:max-w-[400px]">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              {/* Input Fields */}
+              <div className="flex flex-col gap-4">
                 <label className="text-white text-sm font-inter">Name</label>
                 <input
                   type="text"
                   name="fullname"
                   value={formData.fullname}
                   onChange={handleChange}
-                  className="w-full border border-white text-white placeholder-white px-3 py-5"
+                  className="border border-white text-white placeholder-white px-3 py-5"
                   placeholder="Your Name"
                 />
               </div>
-
-              {/* Email Input */}
-              <div className="flex flex-col gap-4 w-full sm:max-w-[400px]">
+              <div className="flex flex-col gap-4">
                 <label className="text-white text-sm font-inter">Email</label>
                 <input
                   type="email"
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
-                  className="w-full border border-white text-white placeholder-white px-3 py-5"
+                  className="border border-white text-white placeholder-white px-3 py-5"
                   placeholder="Your Email"
                 />
               </div>
-
-              {/* Phone Input */}
-              <div className="flex flex-col gap-4 w-full sm:max-w-[400px]">
+              <div className="flex flex-col gap-4">
                 <label className="text-white text-sm font-inter">Phone</label>
                 <input
                   type="tel"
                   name="phone"
                   value={formData.phone}
                   onChange={handleChange}
-                  className="w-full border border-white text-white placeholder-white px-3 py-5"
+                  className="border border-white text-white placeholder-white px-3 py-5"
                   placeholder="Your Phone Number"
                 />
               </div>
-
-              {/* Number of Guests */}
-              <div className="flex flex-col gap-4 w-full sm:max-w-[400px]">
+              <div className="flex flex-col gap-4">
                 <label className="text-white text-sm font-inter">
                   Number of Guests
                 </label>
@@ -313,14 +315,12 @@ const Footer = forwardRef((props, ref) => {
                   name="guests"
                   value={formData.guests}
                   onChange={handleChange}
-                  onClick={togglePricingModal} // Toggle modal when clicked
-                  className="w-full border border-white text-white placeholder-white px-3 py-5"
+                  onClick={togglePricingModal}
+                  className="border border-white text-white placeholder-white px-3 py-5"
                   placeholder="Enter number of guests"
                 />
               </div>
-
-              {/* Check-In Date */}
-              <div className="w-full max-w-[400px]">
+              <div>
                 <label className="text-white text-sm font-inter">
                   Select Check-In Date
                 </label>
@@ -328,25 +328,23 @@ const Footer = forwardRef((props, ref) => {
                   type="text"
                   value={formData.checkIn || "Select a Date"}
                   onClick={() => setShowCalendar(!showCalendar)}
-                  className="w-full border border-white text-white placeholder-white px-3 py-5 cursor-pointer mt-4"
+                  className="border border-white text-white placeholder-white px-3 py-5 cursor-pointer mt-4"
                   readOnly
-                  placeholder="Click to select a date"
                 />
                 {showCalendar && (
                   <div className="mt-4">
-                    {/* Calendar Component for Check-In */}
                     <Calendar
                       value={selectedDate}
                       onChange={handleCheckInDateSelect}
                       minDate={new Date()}
                       className="rounded-lg shadow-md"
+                      tileClassName={tileClassName}
+                      tileDisabled={tileDisabled}
                     />
                   </div>
                 )}
               </div>
-
-              {/* Check-Out Date */}
-              <div className="w-full max-w-[400px]">
+              <div>
                 <label className="text-white text-sm font-inter">
                   Select Check-Out Date
                 </label>
@@ -354,13 +352,11 @@ const Footer = forwardRef((props, ref) => {
                   type="text"
                   value={formData.checkOut || "Select a Date"}
                   onClick={() => setShowCheckOutCalendar(!showCheckOutCalendar)}
-                  className="w-full border border-white text-white placeholder-white px-3 py-5 cursor-pointer mt-4"
+                  className="border border-white text-white placeholder-white px-3 py-5 cursor-pointer mt-4"
                   readOnly
-                  placeholder="Click to select a date"
                 />
                 {showCheckOutCalendar && (
                   <div className="mt-4">
-                    {/* Calendar Component for Check-Out */}
                     <Calendar
                       value={selectedCheckOutDate}
                       onChange={handleCheckOutDateSelect}
@@ -370,9 +366,7 @@ const Footer = forwardRef((props, ref) => {
                   </div>
                 )}
               </div>
-
-              {/* Slot Selection */}
-              <div className="flex flex-col gap-4 w-full sm:max-w-[400px]">
+              <div className="flex flex-col gap-4">
                 <label className="text-white text-sm font-inter">
                   Preferred Slot
                 </label>
@@ -380,15 +374,14 @@ const Footer = forwardRef((props, ref) => {
                   name="slot"
                   value={formData.slot}
                   onChange={handleChange}
-                  className="w-full border border-white bg-[#205781] text-white px-3 py-5"
+                  className="border border-white bg-[#205781] text-white px-3 py-5"
                 >
+                  <option value="">Select a Slot</option>
                   <option value="morning">Morning</option>
                   <option value="evening">Evening</option>
                 </select>
               </div>
-
-              {/* Special Request */}
-              <div className="flex flex-col gap-4 w-full sm:max-w-[400px]">
+              <div className="flex flex-col gap-4">
                 <label className="text-white text-sm font-inter">
                   Special Request
                 </label>
@@ -396,7 +389,7 @@ const Footer = forwardRef((props, ref) => {
                   name="request"
                   value={formData.request}
                   onChange={handleChange}
-                  className="w-full border border-white text-white placeholder-white px-3 py-5"
+                  className="border border-white text-white placeholder-white px-3 py-5"
                   placeholder="Any special requests?"
                 />
               </div>
@@ -433,7 +426,7 @@ const Footer = forwardRef((props, ref) => {
               <h6 className="font-inter font-extralight text-[#FFFFFF] text-[10px]">
                 Copyright © River Ranch.
               </h6>
-            </div>
+      </div>
 
             {/* line  */}
             <div className="hidden md:block border border-white h-full"></div>
@@ -462,5 +455,4 @@ const Footer = forwardRef((props, ref) => {
 });
 
 Footer.displayName = "Footer";
-
 export default Footer;
