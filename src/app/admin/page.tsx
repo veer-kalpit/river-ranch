@@ -4,7 +4,7 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import Image from "next/image";
 import logo from "../../../public/logo.png";
-import { useEffect, useState } from "react";
+import { useEffect, useState, ReactNode } from "react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import Modal from "./Model"; // Import the Modal component
@@ -12,21 +12,28 @@ import Modal from "./Model"; // Import the Modal component
 const USERNAME = "admin";
 const PASSWORD = "admin123";
 
+const allSlots = [
+  "09:00 am - 12:00 pm",
+  "12:00 pm - 03:00 pm",
+  "03:00 pm - 06:00 pm",
+  "06:00 pm - 09:00 pm",
+];
+
 export default function AdminDashboard() {
   const [auth, setAuth] = useState(false);
   const [login, setLogin] = useState({ username: "", password: "" });
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
-  const [showBookingForm, setShowBookingForm] = useState(false); // Track visibility of the booking form
+  const [showBookingForm, setShowBookingForm] = useState(false);
 
   const [form, setForm] = useState({
     fullname: "",
     email: "",
     phone: "",
-    date: "",
     checkIn: "",
     slot: "",
     guests: 1,
     status: "booked",
+    date: "", // Added date property
   });
 
   const [editing, setEditing] = useState<string | null>(null);
@@ -60,13 +67,19 @@ export default function AdminDashboard() {
   const createBooking = useMutation({
     mutationFn: (newBooking: typeof form) =>
       axios.post("/api/bookings", newBooking),
-    onSuccess: () => client.invalidateQueries({ queryKey: ["bookings"] }),
+    onSuccess: () => {
+      client.invalidateQueries({ queryKey: ["bookings"] });
+      setShowBookingForm(false);
+    },
   });
 
   const updateBooking = useMutation({
     mutationFn: ({ id, updates }: { id: string; updates: typeof form }) =>
       axios.put(`/api/bookings/${id}`, updates),
-    onSuccess: () => client.invalidateQueries({ queryKey: ["bookings"] }),
+    onSuccess: () => {
+      client.invalidateQueries({ queryKey: ["bookings"] });
+      setShowBookingForm(false);
+    },
   });
 
   const deleteBooking = useMutation({
@@ -77,75 +90,113 @@ export default function AdminDashboard() {
   const handleSubmit = (e?: React.FormEvent) => {
     e?.preventDefault?.();
 
+    const normalizedDate =
+      form.checkIn || new Date().toISOString().split("T")[0];
+
     if (editing) {
-      updateBooking.mutate({ id: editing, updates: form });
+      updateBooking.mutate({
+        id: editing,
+        updates: { ...form, date: normalizedDate },
+      });
       setEditing(null);
     } else {
-      createBooking.mutate({
-        ...form,
-        date: new Date().toISOString(),
-      });
+      createBooking.mutate(
+        {
+          ...form,
+          date: normalizedDate,
+        },
+        {
+          onSuccess: () => {
+            const message = `Your booking has been confirmed! 
+Name: ${form.fullname}
+Email: ${form.email}
+Phone: ${form.phone}
+Date: ${form.checkIn}
+Guests: ${form.guests}
+Slot: ${form.slot}`;
+
+            const whatsappURL = `https://wa.me/91${
+              form.phone
+            }?text=${encodeURIComponent(message)}`;
+
+            window.open(whatsappURL, "_blank");
+          },
+        }
+      );
     }
 
     setForm({
       fullname: "",
       email: "",
       phone: "",
-      date: "",
       checkIn: "",
       slot: "",
       guests: 1,
       status: "booked",
+      date: "",
     });
   };
 
-  type Booking = {
+  interface Booking {
     _id: string;
     fullname: string;
     email: string;
     phone: string;
-    date: string;
     checkIn: string;
     slot: string;
     guests: number;
     status: string;
-  };
+    date: string;
+  }
 
-  const selectedBookings = bookings.filter(
+  const selectedBookings: Booking[] = bookings.filter(
     (b: Booking) =>
       selectedDate &&
       new Date(b.checkIn).toLocaleDateString("en-CA") ===
         selectedDate.toLocaleDateString("en-CA")
   );
 
+  const getAvailableSlots = (date: string) => {
+    const booked: string[] = bookings
+      .filter((b: Booking) => b.checkIn?.split("T")[0] === date)
+      .map((b: Booking) => b.slot);
+    return allSlots.filter((slot) => !booked.includes(slot));
+  };
+
   const tileClassName = ({ date, view }: { date: Date; view: string }) => {
     if (view === "month") {
       const today = new Date(new Date().toDateString());
-      if (date < today) return "bg-gray-300 text-gray-500 rounded-full"; // Disabled style
+      if (date < today) return "bg-gray-300 text-gray-500 rounded-full";
 
       const dateString = date.toLocaleDateString("en-CA");
       const bookingsOnDate = bookings.filter(
         (b: Booking) =>
           new Date(b.checkIn).toLocaleDateString("en-CA") === dateString
       );
+      const bookedSlots: string[] = bookingsOnDate.map((b: Booking) => b.slot);
+      const fullyBooked = allSlots.every((slot) => bookedSlots.includes(slot));
 
-      const hasMorningSlot = bookingsOnDate.some(
-        (b: Booking) => b.slot === "morning"
-      );
-      const hasEveningSlot = bookingsOnDate.some(
-        (b: Booking) => b.slot === "evening"
-      );
-
-      if (hasMorningSlot && hasEveningSlot) {
-        return "bg-both-booked rounded-full";
-      } else if (hasMorningSlot) {
-        return "bg-morning-booked rounded-full";
-      } else if (hasEveningSlot) {
-        return "bg-evening-booked rounded-full";
-      } else {
-        return "bg-available rounded-full"; // Only if date is today or in future
+      if (fullyBooked) {
+        return "bg-fully-booked rounded-full";
       }
+
+      return "bg-available rounded-full";
     }
+  };
+
+  const tileDisabled = ({ date, view }: { date: Date; view: string }) => {
+    if (view !== "month") return false;
+
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    if (date < today) return true; // Disable past dates
+
+    const dateISO = date.toISOString().split("T")[0];
+    const slots = bookings
+      .filter((booking: Booking) => booking.date === dateISO)
+      .map((booking: Booking) => booking.slot);
+
+    return slots.length === allSlots.length; // Disable if fully booked
   };
 
   if (!auth) {
@@ -214,19 +265,14 @@ export default function AdminDashboard() {
           }
           value={selectedDate}
           tileClassName={tileClassName}
+          tileDisabled={tileDisabled}
         />
 
         <div className="flex flex-col gap-2 mt-10">
-          <p className="bg-morning-booked p-2 rounded text-white">
-            Orange - Morning Booking
+          <p className="bg-red-500 p-2 rounded text-white">
+            Red - Fully Booked
           </p>
-          <p className="bg-evening-booked p-2 rounded text-white">
-            Blue - Evening Booking
-          </p>
-          <p className="bg-both-booked p-2 rounded text-white">
-            Red - Both Slots Booked
-          </p>
-          <p className="bg-available p-2 rounded text-black">
+          <p className="bg-green-500 p-2 rounded text-white">
             Green - Available Slot
           </p>
         </div>
@@ -243,7 +289,7 @@ export default function AdminDashboard() {
             <p>No bookings on this date.</p>
           ) : (
             <ul className="space-y-2">
-              {selectedBookings.map((b: Booking) => (
+              {selectedBookings.map((b) => (
                 <li
                   key={b._id}
                   className="p-3 border rounded bg-white shadow-sm flex justify-between"
@@ -270,11 +316,11 @@ export default function AdminDashboard() {
                           fullname: b.fullname,
                           email: b.email,
                           phone: b.phone,
-                          date: b.date,
                           checkIn: b.checkIn?.split("T")[0] || "",
                           slot: b.slot,
                           guests: b.guests,
                           status: b.status,
+                          date: b.date || "", // Ensure the date property is included
                         });
                         setEditing(b._id);
                         setShowBookingForm((prev) => !prev);
@@ -321,34 +367,35 @@ export default function AdminDashboard() {
           <input
             type="date"
             className="w-full px-3 py-2 border rounded"
-            placeholder="Check-In"
             value={form.checkIn}
             onChange={(e) => setForm({ ...form, checkIn: e.target.value })}
           />
-
           <select
             className="w-full px-3 py-2 border rounded"
             value={form.slot}
             onChange={(e) => setForm({ ...form, slot: e.target.value })}
           >
             <option value="">Select Slot</option>
-            <option value="morning">Morning</option>
-            <option value="evening">Evening</option>
+            {getAvailableSlots(form.checkIn).map((slot) => (
+              <option key={slot} value={slot}>
+                {slot}
+              </option>
+            ))}
           </select>
           <input
             type="number"
-            min={1}
             className="w-full px-3 py-2 border rounded"
+            placeholder="Number of Guests"
             value={form.guests}
             onChange={(e) =>
               setForm({ ...form, guests: Number(e.target.value) })
             }
           />
           <button
-            className="w-full py-2 text-white bg-blue-600 rounded"
             onClick={handleSubmit}
+            className="w-full py-2 bg-blue-600 text-white rounded"
           >
-            {editing ? "Update Booking" : "Create Booking"}
+            Submit Booking
           </button>
         </div>
       </Modal>
@@ -360,6 +407,7 @@ export default function AdminDashboard() {
         ) : (
           bookings.map(
             (b: {
+              slot: ReactNode;
               _id: string;
               fullname: string;
               email: string;
@@ -383,6 +431,9 @@ export default function AdminDashboard() {
                   </p>
                   <p>
                     <strong>Guests:</strong> {b.guests}
+                  </p>
+                  <p>
+                    <strong>Slot:</strong> {b.slot}
                   </p>
                   <p>
                     <strong>Check-In:</strong>{" "}
