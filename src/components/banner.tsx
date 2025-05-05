@@ -139,7 +139,7 @@ const Banner = () => {
     >
       <div
         ref={waterSlashRef}
-        className="w-[500px] h-fit absolute top-[-450px] left-[-200px] z-0 lg:hidden"
+        className="w-[500px] h-fit absolute top-[-450px] right-[100px]  z-0 lg:hidden"
       >
         <Image
           src={WaterSplash_2}
@@ -147,7 +147,7 @@ const Banner = () => {
           className=" w-full h-fit object-cover rotate-90 scale-y-[1.5]"
         />
       </div>
-      <div className="w-full h-fit flex flex-col lg:flex-row justify-center items-center lg:items-start gap-10 lg:gap-32 px-5 lg:px-10 py-32 lg:py-20 ">
+      <div className="w-full h-fit flex flex-col lg:flex-row justify-center items-center lg:items-start gap-10 lg:gap-32 px-5 lg:px-10 pt-32 pb-16 lg:py-20 ">
         {/* TEXT */}
         <div ref={textRef} className="w-fit lg:w-fit h-fit text-left">
           <h1 className="font-cormorant font-semibold text-3xl md:text-4xl lg:text-5xl leading-tight text-[#205781] capitalize">
@@ -190,7 +190,7 @@ const Banner = () => {
         ref={splashRef_2}
         src={WaterSplash}
         alt="Water splash"
-        className="w-[600px] h-fit absolute rotate-[200deg] bottom-[50px] right-0 md:hidden object-cover z-20"
+        className="w-[600px] h-fit absolute rotate-[200deg] bottom-[50px] right-0 md:hidden object-cover z-0"
       />
     </div>
   );

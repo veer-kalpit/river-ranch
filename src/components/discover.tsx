@@ -78,13 +78,7 @@ const Discover: React.FC<DiscoverProps> = ({ scrollToFooter }) => {
       className="block w-screen h-fit bg-white z-50 relative pt-28"
     >
       {/* yoga gallery for mobile  */}
-      <div className="w-full lg:hidden z-50 py-10">
-        <h6 className="font-inter font-extralight text-[#333333] text-center text-[14px] mb-6 tracking-[3.5px]">
-          EVENT DESTINATION
-        </h6>
-        <h1 className="font-cormorant text-center text-[#205781] text-3xl sm:text-4xl leading-9 mb-8">
-          Events
-        </h1>
+      <div className="w-full lg:hidden z-50 pb-5">
         <YogaGallery />
       </div>
 
@@ -92,7 +86,7 @@ const Discover: React.FC<DiscoverProps> = ({ scrollToFooter }) => {
         {/* frame video  */}
         <div className="w-fit h-fit flex flex-col justify-center items-center relative overflow-hidden lg:mr-80">
           <h6 className="font-inter font-extralight text-[#333333] text-center text-[14px] mb-6 tracking-[3.5px]">
-            WEDDING BY THE RIVER
+            EVENT DESTINATION
           </h6>
           <h1 className="font-cormorant text-center text-[#205781] text-3xl sm:text-4xl leading-9 -mb-5">
             Celebrations <br />
@@ -115,14 +109,17 @@ const Discover: React.FC<DiscoverProps> = ({ scrollToFooter }) => {
             ></video>
           </div>
 
-          <p className="font-inter w-fit max-w-[500px] text-center text-[#333333] text-xs leading-[18px] px-10 -mt-5">
+          <p className="font-inter w-fit max-w-[500px] text-center text-[#333333] text-[16px] leading-[25px] px-10 -mt-5">
             Embrace the golden glow of tradition at River Ranch. Let the
             tranquil riverside ambiance set the stage for laughter, rituals, and
             vibrant celebrations.
           </p>
 
-          <button onClick={scrollToFooter} className="font-inter border border-[#3333334D] text-xs px-8 py-3 rounded-full cursor-pointer mt-2.5">
-            EXPLORE
+          <button
+            // onClick={scrollToFooter}
+            className="font-inter border border-[#3333334D] text-xs px-8 py-3 rounded-full cursor-pointer mt-8"
+          >
+            BOOK NOW
           </button>
         </div>
 
@@ -135,7 +132,7 @@ const Discover: React.FC<DiscoverProps> = ({ scrollToFooter }) => {
       </div>
 
       {/* Section 1: Yoga and Healing */}
-      <div className="relative w-full h-auto px-10  space-y-28">
+      <div className="relative w-full h-auto px-10 space-y-28">
         <div className="w-full h-fit hidden lg:flex justify-center items-end gap-40 ">
           <div className="w-fit h-fit ">
             <h6 className="font-inter font-extralight text-[#333333] text-start text-[14px] mb-6 tracking-[3.5px]">
@@ -210,9 +207,7 @@ const Discover: React.FC<DiscoverProps> = ({ scrollToFooter }) => {
             SPIRITUALITY AND HEALING
           </h6>
           <h1 className="font-cormorant text-center text-[#205781] text-3xl sm:text-4xl leading-9">
-            Yoga Sound <br />
-            Healing And <br />
-            Meditation
+            Yoga, Sound Healing <br /> And Meditation
           </h1>
           <div className="w-full max-w-[300px] aspect-square flex justify-center items-center gap-10 relative rounded-4xl overflow-hidden mt-8">
             <Image
@@ -222,7 +217,7 @@ const Discover: React.FC<DiscoverProps> = ({ scrollToFooter }) => {
             />
           </div>
 
-          <p className="font-inter w-fit max-w-[400px] text-center text-[#333333] text-xs leading-[18px] px-10 my-8">
+          <p className="font-inter w-fit max-w-[400px] text-center text-[#333333] text-[16px] leading-[25px] px-10 my-8">
             Awaken your spirit at River Ranch. Let the tranquil riverside
             setting guide your breath, movement, and inner harmony.
           </p>
@@ -231,7 +226,7 @@ const Discover: React.FC<DiscoverProps> = ({ scrollToFooter }) => {
 
       {/* Section 2: Nature Sanctuary */}
       <div className="w-full h-fit overflow-hidden ">
-        <h6 className="font-inter font-extralight text-[#333333] text-center text-[14px] tracking-[3.5px] lg:hidden pt-16">
+        <h6 className="font-inter font-extralight text-[#333333] text-center text-[14px] tracking-[3.5px] lg:hidden pt-16 mb-8">
           MOMENTS AND MEMORIES
         </h6>
         <h1 className="font-cormorant text-center text-[#205781] text-3xl sm:text-4xl leading-9 lg:hidden mb-10 lg:mb-0">
@@ -279,7 +274,7 @@ const Discover: React.FC<DiscoverProps> = ({ scrollToFooter }) => {
                 Unforgettable Celebrations
               </h1>
               <h6 className="font-inter font-extralight text-[#333333] text-right text-[14px] tracking-[3.5px]">
-                Parties and get together
+                PARTIES AND GET TOGETHERS
               </h6>
             </div>
             <Image

@@ -56,10 +56,10 @@ function UnsplashGrid() {
   return (
     <div id="gallery" className="bg-white relative pt-24 lg:pt-36">
       <div className="container mx-auto px-4">
-        <h6 className="font-inter font-extralight text-[#333333] text-center text-[14px] mb-6 tracking-[3.5px]">
-          Explore River Ranch
+        <h6 className="font-inter font-extralight text-[#333333] text-center text-[14px] tracking-[3.5px] mb-8">
+          EXPLORE RIVER RANCH
         </h6>
-        <h1 className="font-cormorant text-center text-[#205781] text-3xl sm:text-4xl leading-9">
+        <h1 className="font-cormorant text-center text-[#205781] text-3xl sm:text-4xl leading-9 mb-10 lg:mb-0">
           Gallery
         </h1>
 

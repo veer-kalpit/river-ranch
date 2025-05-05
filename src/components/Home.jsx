@@ -1,11 +1,13 @@
 "use client";
-import { Calendar, LockOpen, User } from "lucide-react";
+import { Calendar, Link, LockOpen, User } from "lucide-react";
 import React, { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import { gsap } from "gsap";
 import Image from "next/image";
 import Navbar from "./Navbar";
 import Footer from "./footer";
+import { ArrowDown } from "lucide-react";
+import NextLink from "next/link";
 
 const Home = ({ isRendered, onRenderComplete, scrollToFooter }) => {
   const pegionRef = useRef(null);
@@ -89,6 +91,7 @@ const Home = ({ isRendered, onRenderComplete, scrollToFooter }) => {
 
       <video
         className="absolute w-full h-full object-cover sm:hidden"
+        loop
         autoPlay
         muted
         playsInline
@@ -117,12 +120,12 @@ const Home = ({ isRendered, onRenderComplete, scrollToFooter }) => {
             <span className=" xl:ml-72 pt-2">Into Nature</span>
           </h1>
         </div>
-        <button
-          onClick={scrollToFooter}
-          className="w-[162px] h-[41px] border rounded-[50px] self-center ml-11 mt-20 lg:hidden block font-inter text-[14px] uppercase"
+        <NextLink
+          href="#about"
+          className="lg:hidden cursor-pointer w-fit border-2 border-white rounded-full flex justify-center items-center p-3 aspect-square mt-12 mx-auto"
         >
-          Book Now{" "}
-        </button>
+          <ArrowDown color="white" />
+        </NextLink>
       </div>
     </div>
   );
