@@ -233,43 +233,8 @@ img[style*="fixed"] {
   background-color: #d4edda !important;
 }
 
-.bg-morning-booked {
-  background-color: #ff9800 !important; /* Orange for morning slot booked */
-}
 
-.bg-evening-booked {
-  background-color: #2196f3 !important; /* Blue for evening slot booked */
-}
-
-.bg-both-booked {
+.bg-fully-booked {
   background-color: #f44336 !important; /* Red for both slots booked */
 }
 
-/* Calendar date slot colors */
-
-
-
-/* globals.css */
-.available-date {
-  background-color: #16a34a !important; /* green */
-  color: white;
-}
-.morning-booked-date {
-  background-color: #f97316 !important; /* orange */
-  color: white;
-}
-
-.evening-booked-date {
-  background-color: #3b82f6 !important; /* blue */
-  color: white;
-}
-
-.fully-booked-date {
-  background-color: #dc2626 !important; /* red */
-  color: white;
-}
-
-.past-date {
-  background-color: #9ca3af !important; /* gray */
-  color: white;
-}

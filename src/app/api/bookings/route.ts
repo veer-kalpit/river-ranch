@@ -8,8 +8,15 @@ interface BookingData {
   phone: string;
   checkIn: string;
   guests: number;
-  slot: "morning" | "evening";
+  slot: string; 
 }
+
+const allSlots = [
+  "09:00 am - 12:00 pm",
+  "12:00 pm - 03:00 pm",
+  "03:00 pm - 06:00 pm",
+  "06:00 pm - 09:00 pm",
+];
 
 const validateBooking = (body: BookingData) => {
   if (
@@ -25,8 +32,8 @@ const validateBooking = (body: BookingData) => {
     );
   }
 
-  if (!["morning", "evening"].includes(body.slot.toLowerCase())) {
-    throw new Error("Invalid slot. Must be 'morning' or 'evening'.");
+  if (!allSlots.includes(body.slot)) {
+    throw new Error("Invalid slot. Please select a valid time slot.");
   }
 
   const checkInDate = new Date(body.checkIn);
@@ -34,8 +41,6 @@ const validateBooking = (body: BookingData) => {
   if (isNaN(checkInDate.getTime())) {
     throw new Error("Invalid check-in date format.");
   }
-
- 
 };
 
 export async function GET() {
@@ -71,17 +76,16 @@ export async function POST(req: NextRequest) {
 
     const slotsBooked = existingBookings.map((b: { slot: string }) => b.slot);
 
-    if (slotsBooked.includes("morning") && slotsBooked.includes("evening")) {
+    if (slotsBooked.length === allSlots.length) {
       return NextResponse.json(
         {
-          error:
-            "Both morning and evening slots are already booked for this date.",
+          error: "All slots are already booked for this date.",
         },
         { status: 400 }
       );
     }
 
-    if (slotsBooked.includes(body.slot.toLowerCase())) {
+    if (slotsBooked.includes(body.slot)) {
       return NextResponse.json(
         { error: `The ${body.slot} slot is already booked for this date.` },
         { status: 400 }
@@ -90,7 +94,7 @@ export async function POST(req: NextRequest) {
 
     const booking = await Booking.create({
       ...body,
-      slot: body.slot.toLowerCase(),
+      slot: body.slot,
     });
 
     return NextResponse.json(booking, { status: 201 });
@@ -100,4 +104,3 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: errorMessage }, { status: 400 });
   }
 }
-
