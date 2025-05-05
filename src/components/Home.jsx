@@ -9,7 +9,12 @@ import Footer from "./footer";
 import { ArrowDown } from "lucide-react";
 import NextLink from "next/link";
 
-const Home = ({ isRendered, onRenderComplete, scrollToFooter }) => {
+const Home = ({
+  isRendered,
+  onRenderComplete,
+  scrollToFooter,
+  scrollToAbout,
+}) => {
   const pegionRef = useRef(null);
   const pageRef = useRef(null);
   const videoRef_1 = useRef(null);
@@ -120,12 +125,12 @@ const Home = ({ isRendered, onRenderComplete, scrollToFooter }) => {
             <span className=" xl:ml-72 pt-2">Into Nature</span>
           </h1>
         </div>
-        <NextLink
-          href="#about"
+        <button
+          onClick={scrollToAbout}
           className="lg:hidden cursor-pointer w-fit border-2 border-white rounded-full flex justify-center items-center p-3 aspect-square mt-12 mx-auto"
         >
           <ArrowDown color="white" />
-        </NextLink>
+        </button>
       </div>
     </div>
   );

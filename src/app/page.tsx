@@ -10,7 +10,7 @@ import Footer from "@/components/footer";
 import Home from "@/components/Home";
 import Overlay from "@/components/Overlay";
 // import PricingSection from "@/components/pricingSection";
-import Menu from "@/components/menu"
+import Menu from "@/components/menu";
 import SoundPlayer from "@/components/soundPlayer";
 
 import { useRef, useState } from "react";
@@ -19,9 +19,14 @@ export default function LandingPage() {
   const [isRenderHome, setIsRenderHome] = useState(false);
   const [hideOverlay, setHideOverlay] = useState(false);
   const footerRef = useRef<HTMLDivElement | null>(null);
+  const aboutRef = useRef<HTMLDivElement | null>(null);
 
   const scrollToFooter = () => {
     footerRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  const scrollToAbout = () => {
+    aboutRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
   const handleHomeRendering = () => {
@@ -46,20 +51,21 @@ export default function LandingPage() {
       <Home
         isRendered={isRenderHome}
         onRenderComplete={handleRenderComplete}
+        scrollToAbout={scrollToAbout}
         scrollToFooter={scrollToFooter}
       />
 
       {isRenderHome && (
         <>
-          <AboutUs scrollToFooter={scrollToFooter} />
+          <AboutUs ref={aboutRef} scrollToFooter={scrollToFooter} />
           <Banner />
           <Spa />
           <Explore scrollToFooter={scrollToFooter} />
           <Discover scrollToFooter={scrollToFooter} />
           <Gallery />
           {/* <PricingSection scrollToFooter={scrollToFooter} /> */}
-          <Menu/>
-          <Footer ref={footerRef}  />
+          <Menu />
+          <Footer ref={footerRef} />
         </>
       )}
     </div>
