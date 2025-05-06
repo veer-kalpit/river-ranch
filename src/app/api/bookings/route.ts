@@ -4,7 +4,6 @@ import { NextRequest, NextResponse } from "next/server";
 
 interface BookingData {
   fullname: string;
-  email: string;
   phone: string;
   checkIn: string;
   guests: number;
@@ -21,14 +20,13 @@ const allSlots = [
 const validateBooking = (body: BookingData) => {
   if (
     !body.fullname ||
-    !body.email ||
     !body.phone ||
     !body.checkIn ||
     !body.guests ||
     !body.slot
   ) {
     throw new Error(
-      "Missing required fields: fullname, email, phone, checkIn, guests, slot."
+      "Missing required fields: fullname, phone, checkIn, guests, slot."
     );
   }
 

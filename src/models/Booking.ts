@@ -3,7 +3,6 @@ import mongoose, { Schema, models } from "mongoose";
 const BookingSchema = new Schema(
   {
     fullname: { type: String, required: true },
-    email: { type: String, required: true },
     phone: { type: String, required: true },
     checkIn: { type: Date, required: true },
     guests: { type: String, required: true },

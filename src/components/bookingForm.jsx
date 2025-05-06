@@ -13,16 +13,27 @@ const allSlots = [
 ];
 
 const pricingData = [
-  { guests: "0-10", price: "2000 per pax" },
-  { guests: "10-20", price: "1500 per pax" },
-  { guests: "20+", price: "1300 per pax" },
+  { min: 1, max: 10, pricePerGuest: 2000 },
+  { min: 11, max: 20, pricePerGuest: 1500 },
+  { min: 21, max: Infinity, pricePerGuest: 1300 },
 ];
+
+const calculateTotalPrice = (guestCount) => {
+  const guests = parseInt(guestCount, 10);
+  if (isNaN(guests) || guests <= 0) return 0;
+
+  const tier = pricingData.find(
+    (range) => guests >= range.min && guests <= range.max
+  );
+
+  return tier ? guests * tier.pricePerGuest : 0;
+};
+
 
 const bookingForm = () => {
   const [bookings, setBookings] = useState([]);
   const [formData, setFormData] = useState({
     fullname: "",
-    email: "",
     phone: "",
     checkIn: "",
     guests: "",
@@ -117,15 +128,14 @@ const bookingForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const { fullname, email, phone, checkIn, guests, slot } = formData;
-    if (!fullname || !email || !phone || !checkIn || !guests || !slot) {
+    const { fullname,  phone, checkIn, guests, slot } = formData;
+    if (!fullname  || !phone || !checkIn || !guests || !slot) {
       alert("Please fill in all required fields.");
       return;
     }
 
     const newBooking = {
       fullname,
-      email,
       phone,
       date: checkIn,
       checkIn,
@@ -140,7 +150,6 @@ const bookingForm = () => {
 
         const message = `New Booking 
 Name: ${fullname}
-Email: ${email}
 Phone: ${phone}
 Date: ${checkIn}
 Guests: ${guests}
@@ -154,7 +163,6 @@ Request: ${formData.request || "None"}`;
 
         setFormData({
           fullname: "",
-          email: "",
           phone: "",
           checkIn: "",
           guests: "",
@@ -240,17 +248,7 @@ Request: ${formData.request || "None"}`;
                 placeholder="Your Name"
               />
             </div>
-            <div className="flex flex-col gap-4">
-              <label className="text-white text-sm font-inter">Email</label>
-              <input
-                type="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                className="border border-white text-white placeholder-white px-3 py-5"
-                placeholder="Your Email"
-              />
-            </div>
+
             <div className="flex flex-col gap-4">
               <label className="text-white text-sm font-inter">Phone</label>
               <input
@@ -262,23 +260,24 @@ Request: ${formData.request || "None"}`;
                 placeholder="Your Phone Number"
               />
             </div>
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-4 sm:col-span-2">
               <label className="text-white text-sm font-inter">
                 Number of Guests
               </label>
-              <select
-                name="guests"
-                value={formData.guests}
-                onChange={handleChange}
-                className="border border-white text-white bg-[#205781] px-3 py-5"
-              >
-                <option value="">Select number of guests</option>
-                {pricingData.map((option, index) => (
-                  <option key={index} value={option.guests}>
-                    Guest: ({option.guests}) – ₹{option.price}
-                  </option>
-                ))}
-              </select>
+              <div className="flex items-center gap-4">
+                <input
+                  type="number"
+                  name="guests"
+                  value={formData.guests}
+                  onChange={handleChange}
+                  min={1}
+                  className="border border-white text-white bg-[#205781] px-3 py-5 w-1/2"
+                  placeholder="Enter number of guests"
+                />
+                <span className="text-white font-inter text-sm">
+                  Total Price: ₹{calculateTotalPrice(formData.guests)}
+                </span>
+              </div>
             </div>
           </div>
         )}
@@ -342,10 +341,7 @@ Request: ${formData.request || "None"}`;
               disabled={
                 (currentStep === 1 && (!formData.checkIn || !formData.slot)) ||
                 (currentStep === 2 &&
-                  (!formData.fullname ||
-                    !formData.email ||
-                    !formData.phone ||
-                    !formData.guests))
+                  (!formData.fullname || !formData.phone || !formData.guests))
               }
             >
               Next

@@ -27,7 +27,6 @@ export default function AdminDashboard() {
 
   const [form, setForm] = useState({
     fullname: "",
-    email: "",
     phone: "",
     checkIn: "",
     slot: "",
@@ -109,7 +108,6 @@ export default function AdminDashboard() {
           onSuccess: () => {
             const message = `Your booking has been confirmed! 
 Name: ${form.fullname}
-Email: ${form.email}
 Phone: ${form.phone}
 Date: ${form.checkIn}
 Guests: ${form.guests}
@@ -127,7 +125,6 @@ Slot: ${form.slot}`;
 
     setForm({
       fullname: "",
-      email: "",
       phone: "",
       checkIn: "",
       slot: "",
@@ -140,7 +137,6 @@ Slot: ${form.slot}`;
   interface Booking {
     _id: string;
     fullname: string;
-    email: string;
     phone: string;
     checkIn: string;
     slot: string;
@@ -298,9 +294,7 @@ Slot: ${form.slot}`;
                     <p>
                       <strong>Name:</strong> {b.fullname}
                     </p>
-                    <p>
-                      <strong>Email:</strong> {b.email}
-                    </p>
+                    
                     <p>
                       <strong>Guests:</strong> {b.guests}
                     </p>
@@ -314,7 +308,6 @@ Slot: ${form.slot}`;
                       onClick={() => {
                         setForm({
                           fullname: b.fullname,
-                          email: b.email,
                           phone: b.phone,
                           checkIn: b.checkIn?.split("T")[0] || "",
                           slot: b.slot,
@@ -352,12 +345,7 @@ Slot: ${form.slot}`;
             value={form.fullname}
             onChange={(e) => setForm({ ...form, fullname: e.target.value })}
           />
-          <input
-            className="w-full px-3 py-2 border rounded"
-            placeholder="Email"
-            value={form.email}
-            onChange={(e) => setForm({ ...form, email: e.target.value })}
-          />
+         
           <input
             className="w-full px-3 py-2 border rounded"
             placeholder="Phone"
@@ -410,7 +398,6 @@ Slot: ${form.slot}`;
               slot: ReactNode;
               _id: string;
               fullname: string;
-              email: string;
               phone: string;
               checkIn: string;
               guests: number;
@@ -423,9 +410,7 @@ Slot: ${form.slot}`;
                   <p>
                     <strong>Name:</strong> {b.fullname}
                   </p>
-                  <p>
-                    <strong>Email:</strong> {b.email}
-                  </p>
+                  
                   <p>
                     <strong>Phone:</strong> {b.phone}
                   </p>
