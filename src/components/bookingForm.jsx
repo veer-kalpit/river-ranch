@@ -146,7 +146,7 @@ const bookingForm = () => {
     axios
       .post("/api/bookings", newBooking)
       .then(() => {
-        alert("Booking successful!");
+        // alert("Booking successful!");
 
         const message = `New Booking 
 Name: ${fullname}
