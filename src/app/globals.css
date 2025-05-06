@@ -235,6 +235,9 @@ img[style*="fixed"] {
 
 
 .bg-fully-booked {
-  background-color: #f44336 !important; /* Red for both slots booked */
+  background-color: #f44336 !important; 
 }
 
+.bg-partially-booked {
+  background-color: #378CCD !important; 
+}

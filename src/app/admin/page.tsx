@@ -159,26 +159,32 @@ Slot: ${form.slot}`;
     return allSlots.filter((slot) => !booked.includes(slot));
   };
 
-  const tileClassName = ({ date, view }: { date: Date; view: string }) => {
-    if (view === "month") {
-      const today = new Date(new Date().toDateString());
-      if (date < today) return "bg-gray-300 text-gray-500 rounded-full";
+const tileClassName = ({ date, view }: { date: Date; view: string }) => {
+  if (view === "month") {
+    const today = new Date(new Date().toDateString());
+    if (date < today) return "bg-gray-300 text-gray-500 rounded-full";
 
-      const dateString = date.toLocaleDateString("en-CA");
-      const bookingsOnDate = bookings.filter(
-        (b: Booking) =>
-          new Date(b.checkIn).toLocaleDateString("en-CA") === dateString
-      );
-      const bookedSlots: string[] = bookingsOnDate.map((b: Booking) => b.slot);
-      const fullyBooked = allSlots.every((slot) => bookedSlots.includes(slot));
+    const dateString = date.toLocaleDateString("en-CA");
+    const bookingsOnDate = bookings.filter(
+      (b: Booking) =>
+        new Date(b.checkIn).toLocaleDateString("en-CA") === dateString
+    );
 
-      if (fullyBooked) {
-        return "bg-fully-booked rounded-full";
-      }
+    const bookedSlots: string[] = bookingsOnDate.map((b: Booking) => b.slot);
+    const totalSlots = allSlots.length;
+    const bookedCount = bookedSlots.length;
 
-      return "bg-available rounded-full";
+    if (bookedCount === 0) {
+      return "bg-available rounded-full"; // green
+    } else if (bookedCount === totalSlots) {
+      return "bg-fully-booked rounded-full"; // red
+    } else {
+      return "bg-partially-booked rounded-full"; // orange or blue
     }
-  };
+  }
+  return "";
+};
+
 
   const tileDisabled = ({ date, view }: { date: Date; view: string }) => {
     if (view !== "month") return false;
@@ -271,6 +277,9 @@ Slot: ${form.slot}`;
           <p className="bg-green-500 p-2 rounded text-white">
             Green - Available Slot
           </p>
+          <p className="bg-[#378CCD] p-2 rounded text-white">
+            Blue - Partially Booked Slot
+          </p>
         </div>
       </div>
 
@@ -294,7 +303,7 @@ Slot: ${form.slot}`;
                     <p>
                       <strong>Name:</strong> {b.fullname}
                     </p>
-                    
+
                     <p>
                       <strong>Guests:</strong> {b.guests}
                     </p>
@@ -345,7 +354,7 @@ Slot: ${form.slot}`;
             value={form.fullname}
             onChange={(e) => setForm({ ...form, fullname: e.target.value })}
           />
-         
+
           <input
             className="w-full px-3 py-2 border rounded"
             placeholder="Phone"
@@ -410,7 +419,7 @@ Slot: ${form.slot}`;
                   <p>
                     <strong>Name:</strong> {b.fullname}
                   </p>
-                  
+
                   <p>
                     <strong>Phone:</strong> {b.phone}
                   </p>
