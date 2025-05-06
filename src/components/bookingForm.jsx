@@ -12,6 +12,12 @@ const allSlots = [
   "06:00 pm - 09:00 pm",
 ];
 
+const price = [
+  { guests: "0-10", price: "2000 per pax" },
+  { guests: "10-20", price: "1500 per pax" },
+  { guests: "20+", price: "1300 per pax" },
+];
+
 const pricingData = [
   { min: 1, max: 10, pricePerGuest: 2000 },
   { min: 11, max: 20, pricePerGuest: 1500 },
@@ -28,7 +34,6 @@ const calculateTotalPrice = (guestCount) => {
 
   return tier ? guests * tier.pricePerGuest : 0;
 };
-
 
 const bookingForm = () => {
   const [bookings, setBookings] = useState([]);
@@ -128,8 +133,8 @@ const bookingForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const { fullname,  phone, checkIn, guests, slot } = formData;
-    if (!fullname  || !phone || !checkIn || !guests || !slot) {
+    const { fullname, phone, checkIn, guests, slot } = formData;
+    if (!fullname || !phone || !checkIn || !guests || !slot) {
       alert("Please fill in all required fields.");
       return;
     }
@@ -237,55 +242,89 @@ Request: ${formData.request || "None"}`;
         {/* Step 2: Personal Info */}
         {currentStep === 2 && (
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            <div className="flex flex-col gap-4">
+            {/* Name */}
+            <div className="flex flex-col gap-2 h-full">
               <label className="text-white text-sm font-inter">Name</label>
               <input
                 type="text"
                 name="fullname"
                 value={formData.fullname}
                 onChange={handleChange}
-                className="border border-white text-white placeholder-white px-3 py-5"
+                className="border border-white text-white placeholder-white px-3 py-5 bg-transparent w-full"
                 placeholder="Your Name"
               />
             </div>
 
-            <div className="flex flex-col gap-4">
+            {/* Phone */}
+            <div className="flex flex-col gap-2 h-full">
               <label className="text-white text-sm font-inter">Phone</label>
               <input
                 type="tel"
                 name="phone"
                 value={formData.phone}
                 onChange={handleChange}
-                className="border border-white text-white placeholder-white px-3 py-5"
+                className="border border-white text-white placeholder-white px-3 py-5 bg-transparent w-full"
                 placeholder="Your Phone Number"
               />
             </div>
-            <div className="flex flex-col gap-4 sm:col-span-2">
-              <label className="text-white text-sm font-inter">
-                Number of Guests
-              </label>
-              <div className="flex items-center gap-4">
+
+            {/* Guests & Price (spans both columns) */}
+            <div className="flex flex-col sm:flex-row gap-4 sm:col-span-2 w-full">
+              {/* Guests */}
+              <div className="flex flex-col gap-2 w-full">
+                <label className="text-white text-sm font-inter">
+                  Number of Guests
+                </label>
                 <input
                   type="number"
                   name="guests"
                   value={formData.guests}
                   onChange={handleChange}
                   min={1}
-                  className="border border-white text-white bg-[#205781] px-3 py-5 w-1/2"
+                  className="border border-white text-white bg-[#205781] px-4 py-5 w-full"
                   placeholder="Enter number of guests"
                 />
-                <span className="text-white font-inter text-sm">
-                  Total Price: ₹{calculateTotalPrice(formData.guests)}
-                </span>
+              </div>
+
+              {/* Total Price */}
+              <div className="flex flex-col gap-2 w-full">
+                <label className="text-white text-sm font-inter">
+                  Total Price:
+                </label>
+                <div className="border border-white bg-[#205781] text-white px-4 py-5 w-full flex items-center">
+                  ₹{calculateTotalPrice(formData.guests)}
+                </div>
               </div>
             </div>
-          </div>
-        )}
 
-        {/* Step 3: Special Request & Submit */}
-        {currentStep === 3 && (
-          <>
-            <div className="flex flex-col gap-4 w-full mt-4">
+            {/* Price Details */}
+            <div className="sm:col-span-2 w-full">
+              <div className="flex justify-between text-[16px] lg:text-[20px] font-cormorant text-white mb-3 px-2">
+                <p className="text-center w-full">No. of Guests</p>
+                <p className="text-center w-full">Price</p>
+              </div>
+
+              {price.map(({ guests, price }, index) => (
+                <div
+                  key={index}
+                  className="flex justify-between items-center bg-[#EDF7FF] py-3 rounded-md mb-2 text-[#333333]"
+                >
+                  <p className="text-center w-full font-inter text-[14px] lg:text-[18px]">
+                    {guests}
+                  </p>
+                  <p className="text-center w-full font-inter text-[14px] lg:text-[18px]">
+                    {price}
+                  </p>
+                </div>
+              ))}
+              <p className="font-inter font-normal text-[12px] lg:text-[14px]  leading-[20px] text-center text-white mt-8">
+                For photographers, wedding or event decorations, live music or
+                DJ booking, or any other special requests, please contact us
+                with the details
+              </p>
+            </div>
+
+            <div className="flex flex-col gap-4 w-full sm:col-span-2 mt-1">
               <label className="text-white text-sm font-inter">
                 Special Request (Optional)
               </label>
@@ -297,6 +336,57 @@ Request: ${formData.request || "None"}`;
                 placeholder="Any special requests?"
               />
             </div>
+          </div>
+        )}
+
+        {/* Step 3: Special Request & Submit */}
+        {currentStep === 3 && (
+          <>
+            <div className="bg-white text-[#333] rounded-md p-4 sm:col-span-2 w-full shadow-md">
+              <p className="text-lg font-semibold mb-3">Booking Summary</p>
+              <div className="space-y-2 text-sm sm:text-base font-inter">
+                <div className="flex justify-between">
+                  <span>Booking in the name of:</span>
+                  <span>{formData.fullname}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span>Booking Slot:</span>
+                  <span>{formData.slot}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span>Total Guests:</span>
+                  <span>{formData.guests} Person</span>
+                </div>
+                <div className="flex justify-between border-t border-gray-300 pt-2 mt-2 font-semibold">
+                  <span>Total Booking Amount:</span>
+                  <span>₹{calculateTotalPrice(formData.guests)}</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="sm:col-span-2 w-full text-white mt-6">
+              <p className="text-lg font-semibold mb-2">Terms and Conditions</p>
+              <ul className="list-disc list-inside space-y-2 text-sm leading-relaxed">
+                <li>
+                  Booking amount is only redeemable at the venue.
+                </li>
+                <li>
+                  We hold your reserved booking for 15 minutes past the booking
+                  time. Please arrive punctually, as we may need to offer it to
+                  the next guests on our waitlist otherwise.
+                </li>
+                <li>
+                  Booking fees are non-refundable under all circumstances once
+                  booked. Tickets are transferable to a third party.
+                </li>
+                <li>
+                  No-shows or cancellations will not be refunded, but you can
+                  reschedule your booking within the week if done 48 hours
+                  before your slot is due.
+                </li>
+              </ul>
+            </div>
+
             <button
               onClick={handleSubmit}
               className="w-full sm:max-w-[665px] h-fit font-inter bg-white text-[#205781] text-sm flex justify-center items-center py-4 rounded-full cursor-pointer hover:bg-white/40 hover:text-white transition-all duration-300 ease-in-out mt-5"
