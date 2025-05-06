@@ -1,13 +1,12 @@
 "use client";
-import { Calendar, Link, LockOpen, User } from "lucide-react";
+
 import React, { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import { gsap } from "gsap";
 import Image from "next/image";
 import Navbar from "./Navbar";
-import Footer from "./footer";
 import { ArrowDown } from "lucide-react";
-import NextLink from "next/link";
+import Pegion from "../../public/pegion.gif";
 
 const Home = ({
   isRendered,
@@ -19,6 +18,20 @@ const Home = ({
   const pageRef = useRef(null);
   const videoRef_1 = useRef(null);
   const videoRef_2 = useRef(null);
+
+  useGSAP(() => {
+    if (!pegionRef.current || !isRendered) return;
+
+    gsap.to(pegionRef.current, {
+      keyframes: [
+        { x: "-220px", y: 230, duration: 0 }, // Start off-screen at top
+        { x: "35vw", y: 190, duration: 3 }, // Start gliding down slightly
+        { x: "55vw", y: 210, duration: 1 }, // Higher point
+        { x: "75vw", y: 200, duration: 0.7 }, // Smooth descent
+        { x: "100vw", y: 210, duration: 1 }, // Exit at a balanced height
+      ],
+    });
+  }, [isRendered]);
 
   // Page entrance zoom
   useGSAP(() => {
@@ -104,6 +117,13 @@ const Home = ({
       >
         <source src="/mobile_video.mp4" type="video/mp4" />
       </video>
+
+      <Image
+        ref={pegionRef}
+        src={Pegion}
+        alt="pegionImage"
+        className="w-[200px] h-fit object-cover absolute top-0 left-0 z-50 sm:hidden"
+      />
 
       {/* Navbar */}
       <div className="absolute top-0 left-0 w-full z-40">
