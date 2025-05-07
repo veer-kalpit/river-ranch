@@ -6,7 +6,7 @@ import { gsap } from "gsap";
 import Image from "next/image";
 import Navbar from "./Navbar";
 import { ArrowDown } from "lucide-react";
-import Pegion from "../../public/pegion.gif";
+import Butterfly from "../../public/Butterfly_Video_240709_Mobile_Orange-loop-1.gif";
 
 const Home = ({
   isRendered,
@@ -14,24 +14,9 @@ const Home = ({
   scrollToFooter,
   scrollToAbout,
 }) => {
-  const pegionRef = useRef(null);
   const pageRef = useRef(null);
   const videoRef_1 = useRef(null);
   const videoRef_2 = useRef(null);
-
-  useGSAP(() => {
-    if (!pegionRef.current || !isRendered) return;
-
-    gsap.to(pegionRef.current, {
-      keyframes: [
-        { x: "-220px", y: 230, duration: 0 }, // Start off-screen at top
-        { x: "35vw", y: 190, duration: 3 }, // Start gliding down slightly
-        { x: "55vw", y: 210, duration: 1 }, // Higher point
-        { x: "75vw", y: 200, duration: 0.7 }, // Smooth descent
-        { x: "100vw", y: 210, duration: 1 }, // Exit at a balanced height
-      ],
-    });
-  }, [isRendered]);
 
   // Page entrance zoom
   useGSAP(() => {
@@ -118,12 +103,13 @@ const Home = ({
         <source src="/mobile_video.mp4" type="video/mp4" />
       </video>
 
-      <Image
-        ref={pegionRef}
-        src={Pegion}
-        alt="pegionImage"
-        className="w-[200px] h-fit object-cover absolute top-0 left-0 z-50 sm:hidden"
-      />
+      {isRendered && (
+        <Image
+          src={Butterfly}
+          alt="butterfly"
+          className="w-screen h-screen absolute top-0 left-0 z-50 pointer-events-none sm:hidden"
+        />
+      )}
 
       {/* Navbar */}
       <div className="absolute top-0 left-0 w-full z-40">
