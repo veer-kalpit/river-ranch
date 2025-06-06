@@ -8,7 +8,7 @@ export default function Menu() {
   return (
     <div className="w-screen bg-white z-[60] relative px-10  text-center min-h-fit pb-20 lg:pb-[250px] pt-26 lg:pt-36">
       <h6 className="font-inter font-extralight text-[#333333] text-center text-[14px] mb-8 tracking-[3.5px]">
-        DESCOVER DELICIOUS CHOICES
+        DISCOVER DELICIOUS CHOICES
       </h6>
       <h1 className="font-cormorant text-center text-[#205781] text-3xl sm:text-4xl leading-9">
         Menu
